@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — тренувальний тест (для Анни)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:20px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:36px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:18px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:18px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:20px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:19px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select{font-size:18px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
+  .passage{background:#fbf8ee;border-left:5px solid var(--accent);padding:18px 22px;border-radius:6px;font-size:19px;line-height:1.75}
+  .passage p{margin:0 0 12px}
+  .matchgrid{display:grid;grid-template-columns:1fr 180px;gap:14px;align-items:center;margin:10px 0}
+  .matchgrid .item{padding:10px 14px;background:#fbf8ee;border-left:4px solid var(--accent-2);border-radius:4px;font-size:18px}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:19px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media (max-width:760px){.compare{grid-template-columns:1fr}}
+  .compare .col{background:#f7f3e6;border-radius:8px;padding:12px 16px;border:1px solid var(--line)}
+  .compare .col h4{margin:0 0 6px;color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська <span class="badge">реальний рівень</span></h1>
+    <div class="sub">Тренувальний тест для Анни · 24 завдання · реальний рівень НМТ · ~50 хв</div>
+    <div class="pep">
+      <b>Анно, привіт 👋</b><br>
+      Це тренувальний тест на <b>реальному</b> рівні НМТ — не вище і не нижче того, що ти побачиш на справжньому тесті. Тут зібрані теми, на яких школярі найчастіше «летять»:
+      <b>collocations</b> (cast doubt on, pay attention to), <b>modal perfects</b> (must have been doing),
+      <b>such/so + that</b>, <b>phrasal verbs</b> (put up with, come around to, account for),
+      <b>set phrases у cloze</b>, а ще базові часи й умовні.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) Не вгадуй. Якщо застрягла — натисни 💡 і прочитай міні-лекцію.
+      <br>2) Завдання помічене <span class="topic-tag weak-tag">часта помилка</span> — будь там особливо уважна.
+      <br>3) Після завершення біля кожного питання з'явиться кнопка «📖 детальне рішення» — читай навіть там, де відповіла правильно.
+      <br>4) Час орієнтовний — головне не швидкість, а розуміння.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 24</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================ PART 1: Multiple choice ================ -->
+  <section class="task">
+    <h2>Частина 1. Use of English — Multiple Choice</h2>
+    <p class="instr">Оберіть варіант, який найкраще завершує речення. (Q1–Q8)</p>
+    <ol class="qs">
+
+      <li data-correct="B" data-topic="modal-perfect" data-sol="sol1">
+        <span class="topic-tag weak-tag">modal perfect</span>
+        <span class="qtext">You look exhausted. You _____ at the office until very late again.</span>
+        <button class="hintbtn" data-hint="modal-perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) must stay</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) must have been staying</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) should stay</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) could stay</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="phrasal" data-sol="sol2">
+        <span class="topic-tag weak-tag">phrasal verb</span>
+        <span class="qtext">I really can't _____ his constant complaining any longer.</span>
+        <button class="hintbtn" data-hint="put-up-with">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) put up</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) put up with</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) put on</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) put off</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="preposition" data-sol="sol3">
+        <span class="topic-tag weak-tag">preposition</span>
+        <span class="qtext">The success of the project depends _____ everyone's hard work.</span>
+        <button class="hintbtn" data-hint="prepositions-verbs">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) from</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) of</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) on</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) for</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="collocation" data-sol="sol4">
+        <span class="topic-tag weak-tag">collocation</span>
+        <span class="qtext">The new evidence has _____ serious doubt on the official version of events.</span>
+        <button class="hintbtn" data-hint="cast-doubt">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) cast</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) put</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) made</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) thrown</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="collocation" data-sol="sol5">
+        <span class="topic-tag">collocation</span>
+        <span class="qtext">Students should _____ attention to grammar when proofreading their essays.</span>
+        <button class="hintbtn" data-hint="pay-attention">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) make</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) give</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) pay</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) do</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="cleft" data-sol="sol6">
+        <span class="topic-tag weak-tag">such/so + that</span>
+        <span class="qtext">It was _____ a difficult question that nobody in the class could answer it.</span>
+        <button class="hintbtn" data-hint="such-so">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) such</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) so</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) too</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) very</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="tense" data-sol="sol7">
+        <span class="topic-tag">past perfect</span>
+        <span class="qtext">By the time we arrived at the station, the train _____ already.</span>
+        <button class="hintbtn" data-hint="past-perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) left</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) had left</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) has left</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) was leaving</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="conditional" data-sol="sol8">
+        <span class="topic-tag">conditional 2</span>
+        <span class="qtext">If I _____ in your position, I wouldn't sign that contract.</span>
+        <button class="hintbtn" data-hint="conditional-2">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) am</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) was</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) were</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) would be</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: Open cloze ================ -->
+  <section class="task">
+    <h2>Частина 2. Open Cloze — оберіть слово зі списку</h2>
+    <p class="instr">Прочитайте короткий текст і оберіть пропущене слово/фразу. (Q9–Q14) <span class="topic-tag weak-tag">найскладніша частина — концентрація!</span></p>
+    <div class="passage">
+      <p>When the official report was
+        <select data-q="9"><option value="">— оберіть —</option><option>brought up</option><option>drawn up</option><option>put down</option><option>made out</option></select>
+        last spring, few people paid much attention to it. But over the past months, the issue has
+        <select data-q="10"><option value="">—</option><option>come up</option><option>set out</option><option>brought about</option><option>put off</option></select>
+        again and again in public discussions.</p>
+      <p>Experts now
+        <select data-q="11"><option value="">—</option><option>cast</option><option>put</option><option>make</option><option>give</option></select>
+        serious doubt on the original conclusions. The findings, they say, may
+        <select data-q="12"><option value="">—</option><option>account for</option><option>look after</option><option>take after</option><option>get along with</option></select>
+        only half the story. Public opinion is
+        <select data-q="13"><option value="">—</option><option>divided over</option><option>divided from</option><option>divided to</option><option>divided by</option></select>
+        whether the inquiry should be reopened.</p>
+      <p>Whether the government will
+        <select data-q="14"><option value="">—</option><option>come around to</option><option>look up to</option><option>take after</option><option>put up with</option></select>
+        this view remains to be seen.</p>
+    </div>
+  </section>
+
+  <!-- ================ PART 3: Matching headings ================ -->
+  <section class="task">
+    <h2>Частина 3. Reading — Matching Headings</h2>
+    <p class="instr">Підберіть заголовок (A–F) до кожного абзацу. Один заголовок зайвий. (Q15–Q19)</p>
+    <div class="passage">
+      <p><b>Headings:</b><br>
+      A) Start with what you already love<br>
+      B) Every day, even briefly<br>
+      C) Speak from day one<br>
+      D) Why grammar isn't the whole story<br>
+      E) The myth of the perfect age<br>
+      F) Learning alone is never enough</p>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="matchgrid" data-correct="E" data-topic="reading-match" data-sol="sol15">
+        <div class="item"><b>Paragraph 15.</b> Many adults believe they are simply "too old" to pick up a new language. Yet research repeatedly shows that motivation, time invested, and quality of practice matter far more than age. A 50-year-old who studies consistently can easily outperform a teenager who studies once a month.</div>
+        <select name="q15"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="C" data-topic="reading-match" data-sol="sol16">
+        <div class="item"><b>Paragraph 16.</b> The biggest mistake most beginners make is waiting until they "know enough" before opening their mouth. The truth is the opposite: speaking is what makes the language stick. Even a clumsy conversation teaches you more than another hour of silent reading.</div>
+        <select name="q16"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="B" data-topic="reading-match" data-sol="sol17">
+        <div class="item"><b>Paragraph 17.</b> Twenty minutes a day will take you further than three hours once a week. Languages reward consistency, not heroic bursts of effort. Build study into your morning coffee or your evening commute — somewhere it will not vanish on a busy day.</div>
+        <select name="q17"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="D" data-topic="reading-match" data-sol="sol18">
+        <div class="item"><b>Paragraph 18.</b> Rules of grammar matter, but they are not the heart of a language. You can know every conjugation and still freeze when a waiter asks what you want. Real confidence comes from use, not from charts in a textbook.</div>
+        <select name="q18"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="A" data-topic="reading-match" data-sol="sol19">
+        <div class="item"><b>Paragraph 19.</b> Choose materials that connect to your existing interests. If you love football, watch matches with commentary in your target language. If you enjoy cooking, follow recipes in the original. Engagement, not difficulty, is what drives real progress.</div>
+        <select name="q19"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ PART 4: Word formation ================ -->
+  <section class="task">
+    <h2>Частина 4. Word Formation</h2>
+    <p class="instr">Оберіть правильну форму слова в дужках. (Q20–Q23)</p>
+    <ol class="qs" start="20">
+      <li data-correct="B" data-topic="wordform" data-sol="sol20">
+        <span class="qtext">The team's _____ to win was clear from the very first minute. (DETERMINE)</span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q20" value="A"> A) determined</label>
+          <label class="opt"><input type="radio" name="q20" value="B"> B) determination</label>
+          <label class="opt"><input type="radio" name="q20" value="C"> C) determining</label>
+          <label class="opt"><input type="radio" name="q20" value="D"> D) determinedly</label>
+        </div>
+        <button class="solbtn" data-sol="sol20">📖 детальне рішення</button>
+      </li>
+      <li data-correct="C" data-topic="wordform" data-sol="sol21">
+        <span class="qtext">His _____ to the cause inspired everyone around him. (COMMIT)</span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q21" value="A"> A) committed</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> B) committee</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> C) commitment</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> D) committing</label>
+        </div>
+        <button class="solbtn" data-sol="sol21">📖 детальне рішення</button>
+      </li>
+      <li data-correct="B" data-topic="wordform" data-sol="sol22">
+        <span class="qtext">Winning the prize was a remarkable _____ for the young artist. (ACHIEVE)</span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q22" value="A"> A) achieve</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> B) achievement</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> C) achieving</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> D) achieved</label>
+        </div>
+        <button class="solbtn" data-sol="sol22">📖 детальне рішення</button>
+      </li>
+      <li data-correct="D" data-topic="wordform" data-sol="sol23">
+        <span class="qtext">The new manager brought a sense of _____ to the entire office. (PROFESSION)</span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q23" value="A"> A) profession</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> B) professional</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> C) professionally</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> D) professionalism</label>
+        </div>
+        <button class="solbtn" data-sol="sol23">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 5: Inversion ================ -->
+  <section class="task">
+    <h2>Частина 5. Inversion</h2>
+    <p class="instr">Оберіть граматично правильне речення. (Q24)</p>
+    <ol class="qs" start="24">
+      <li data-correct="C" data-topic="inversion" data-sol="sol24">
+        <span class="topic-tag">inversion</span>
+        <span class="qtext">Which sentence is grammatically correct?</span>
+        <button class="hintbtn" data-hint="inversion">💡 підказка</button>
+        <div class="opts" style="grid-template-columns:1fr">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) Hardly the door had closed when the phone rang.</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) No sooner I had closed the door than the phone rang.</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) Hardly had I closed the door when the phone rang.</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) No sooner did I close the door when the phone rang.</label>
+        </div>
+        <button class="solbtn" data-sol="sol24">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест на реальному рівні НМТ. Удачі, Анно!</footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== Cloze key ============== */
+const clozeKey = {
+  9:"drawn up", 10:"come up", 11:"cast", 12:"account for",
+  13:"divided over", 14:"come around to"
+};
+
+/* ============== HINTS ============== */
+const hints = {
+  "modal-perfect":{
+    title:"Modal perfect: must have done / must have been doing",
+    body:`<p>Коли впевнено робимо висновок про минуле:</p>
+    <p><code>must have + V<sub>3</sub></code> — про <b>факт, дію</b>, що завершилася.</p>
+    <p><code>must have been + V-ing</code> — про <b>тривалу</b> дію, яка пояснює теперішній стан.</p>
+    <div class="ex">She's all wet. She <b>must have been walking</b> in the rain.<br>
+    The lights are on. He <b>must have come</b> home.</div>
+    <p>Сигнали для V-ing: "all night", "all day", "for hours", "until very late". У завданні бачиш "until very late again" — це тривалість.</p>
+    <p><b>Уважно:</b> "must stay" — це теперішнє/майбутнє, не підходить. "should stay" — порада. "could stay" — можливість, не висновок.</p>`
+  },
+  "put-up-with":{
+    title:"Put up vs Put up with vs Put on / off",
+    body:`<p>Один корінь — різні значення:</p>
+    <p><code>put up</code> = поставити, вивісити (a sign, a notice).</p>
+    <p><code>put up with</code> = терпіти (= tolerate).</p>
+    <p><code>put on</code> = одягти; увімкнути музику; додати вагу.</p>
+    <p><code>put off</code> = відкласти; відштовхувати.</p>
+    <div class="ex">I can't <b>put up with</b> his behaviour. (= терпіти)<br>
+    Let's <b>put off</b> the meeting until Monday. (= відкласти)</div>
+    <p><b>Сигнал:</b> якщо терпиш щось неприємне — <b>put up with</b>. Завжди з "with"!</p>`
+  },
+  "prepositions-verbs":{
+    title:"Прийменники після поширених дієслів",
+    body:`<p>Вивчити як таблицю множення:</p>
+    <p><code>depend on</code> · <code>rely on</code> · <code>insist on</code> · <code>focus on</code> · <code>concentrate on</code> · <code>congratulate on</code></p>
+    <p><code>think of/about</code> · <code>dream of/about</code> · <code>complain about</code> · <code>worry about</code></p>
+    <p><code>belong to</code> · <code>listen to</code> · <code>look forward to</code></p>
+    <p><code>look at</code> · <code>arrive at</code> (a small place) / <code>arrive in</code> (a country/city)</p>
+    <p><code>laugh at</code> · <code>shout at</code> · <code>good at</code></p>
+    <p><code>famous for</code> · <code>known for</code> · <code>responsible for</code> · <code>apologize for</code></p>
+    <div class="ex">Success <b>depends on</b> hard work. (НЕ "depend from"!)</div>`
+  },
+  "cast-doubt":{
+    title:"Cast doubt on — це сталий вираз",
+    body:`<p><b>To cast doubt(s) on something</b> = поставити під сумнів.</p>
+    <p>Не "put doubt", не "make doubt", не "throw doubt". <b>Тільки cast.</b></p>
+    <div class="ex">New evidence has <b>cast doubt on</b> his alibi.<br>
+    The report <b>casts serious doubts on</b> the official theory.</div>
+    <h4>Інші колокації з cast (запам'ятай):</h4>
+    <p><code>cast a vote</code> = проголосувати<br>
+    <code>cast light on</code> = пролити світло на<br>
+    <code>cast a spell on</code> = накласти заклинання<br>
+    <code>cast a glance at</code> = кинути погляд</p>`
+  },
+  "pay-attention":{
+    title:"Колокації з pay, make, do, take",
+    body:`<p>Ці 4 дієслова дають більшість «складних» помилок:</p>
+    <h4>pay</h4>
+    <p><code>pay attention to · pay a visit · pay a compliment · pay respect</code></p>
+    <h4>make</h4>
+    <p><code>make a decision · make progress · make sense · make a mistake · make money · make friends</code></p>
+    <h4>do</h4>
+    <p><code>do homework · do business · do harm · do a favour · do your best</code></p>
+    <h4>take</h4>
+    <p><code>take a photo · take a break · take care of · take part in · take advantage of · take notes</code></p>
+    <div class="ex">"Make a decision" — НЕ "do a decision". "Take a photo" — НЕ "make a photo".</div>`
+  },
+  "such-so":{
+    title:"Such + (a) + N + that  ≠  So + Adj + that",
+    body:`<p>Дивись на наступне слово після пропуску:</p>
+    <p><b>Якщо там іменник</b> (з прикметником або без) — <code>such</code>.</p>
+    <p><b>Якщо там прикметник або прислівник окремо</b> — <code>so</code>.</p>
+    <div class="ex">It was <b>such a difficult question</b> that... (question — іменник)<br>
+    The question was <b>so difficult</b> that... (difficult — прикметник)</div>
+    <p>Формули:</p>
+    <p>• <code>such a + adj + N(одн.) + that</code></p>
+    <p>• <code>such + adj + N(мн./неліч.) + that</code></p>
+    <p>• <code>so + adj/adv + that</code></p>
+    <div class="ex">She is <b>so kind</b> that everyone loves her. (kind — adj)<br>
+    She is <b>such a kind person</b> that everyone loves her. (person — N)</div>`
+  },
+  "past-perfect":{
+    title:"Past Perfect: дія в минулому ДО іншої дії в минулому",
+    body:`<p>Дві дії в минулому. Та, що сталася <b>раніше</b>, — у Past Perfect (<code>had + V<sub>3</sub></code>).</p>
+    <p>Та, що <b>пізніше</b>, — у Past Simple.</p>
+    <div class="ex">When I <b>arrived</b>, the train <b>had left</b>.<br>
+    (1: train left → 2: I arrived)</div>
+    <p><b>Маркери:</b> by the time, before, after, already, just, never (when referring to a moment in the past).</p>
+    <div class="ex">By the time we <b>got</b> there, the film <b>had already started</b>.</div>`
+  },
+  "conditional-2":{
+    title:"Conditional 2: уявна ситуація в теперішньому",
+    body:`<p>Гіпотетична ситуація: «якби я була на твоєму місці…»</p>
+    <p class="step"><code>If + Past Simple , would + base form</code></p>
+    <p><b>Особливість:</b> з дієсловом <b>be</b> у всіх особах формально вживають <b>were</b> (a not was). Це називається subjunctive.</p>
+    <div class="ex">If I <b>were</b> you, I <b>would</b> apologise.<br>
+    If she <b>were</b> here, she <b>would know</b> what to do.</div>
+    <p>У розмовній мові часто кажуть "If I was" — але на НМТ правильно <b>were</b>.</p>`
+  },
+  "wordform":{
+    title:"Word Formation — як розпізнати, яку форму вибрати",
+    body:`<p>Запитай себе: <b>яка це частина мови</b> має стояти у пропуску?</p>
+    <h4>Іменник (noun)</h4>
+    <p>Стоїть після артикля (a/an/the), присвійних (his/her/my), прикметників (deliberate, great), прийменників (of, in, with).</p>
+    <p>Типові суфікси: <code>-tion, -ment, -ity, -ness, -ence, -ance, -ism</code></p>
+    <div class="ex">a deliberate <b>undermining</b> · his <b>commitment</b> · a great <b>achievement</b></div>
+    <h4>Прикметник (adj)</h4>
+    <p>Стоїть перед іменником або після be/seem/become.</p>
+    <p>Типові суфікси: <code>-ful, -less, -ive, -ous, -al, -able, -ible</code></p>
+    <div class="ex">a <b>persuasive</b> argument · she is <b>professional</b></div>
+    <h4>Дієслово (verb)</h4>
+    <p>Стоїть у позиції присудка. Часто має -s/-ed/-ing.</p>
+    <h4>Прислівник (adv)</h4>
+    <p>Описує дієслово. Зазвичай суфікс <code>-ly</code>.</p>
+    <div class="ex">He spoke <b>professionally</b>.</div>`
+  },
+  "inversion":{
+    title:"Inversion з Hardly / No sooner",
+    body:`<p>Це <b>дзеркало</b>: ставимо заперечне/обмежувальне слово на початок — підмет і допоміжне дієслово міняються місцями.</p>
+    <p class="step"><code>Hardly + had + S + V<sub>3</sub> + when + S + V<sub>2</sub></code></p>
+    <p class="step"><code>No sooner + had + S + V<sub>3</sub> + than + S + V<sub>2</sub></code></p>
+    <div class="ex"><b>Hardly had I closed</b> the door <b>when</b> the phone rang.<br>
+    <b>No sooner had I closed</b> the door <b>than</b> the phone rang.</div>
+    <p><b>Часті помилки:</b></p>
+    <p>❌ Hardly the door had closed (підмет НЕ йде після Hardly без інверсії)<br>
+    ❌ No sooner I had closed (те саме)<br>
+    ❌ No sooner ... when (треба <b>than</b>!)<br>
+    ❌ Hardly ... than (треба <b>when</b>!)</p>
+    <p><b>Запам'ятай:</b> Hardly → when. No sooner → than.</p>`
+  }
+};
+
+/* ============== SOLUTIONS ============== */
+const sols = {
+  "sol1":{title:"Q1. Modal perfect continuous",body:`<p><b>You look exhausted. You _____ at the office until very late again.</b></p>
+    <div class="step">"look exhausted" — це <b>теперішній</b> стан. Питання: чому?</div>
+    <div class="step">"until very late <i>again</i>" — це <b>тривала дія</b>, яка повторюється.</div>
+    <div class="step">Висновок про тривалу минулу дію → <code>must have been + V-ing</code>.</div>
+    <p><b>Відповідь: B) must have been staying.</b></p>
+    <div class="ex">Запам'ятай: коли треба пояснити теперішній видимий стан (втома, мокрі речі, біль) через тривалу минулу дію — обирай <b>must have been V-ing</b>.</div>`},
+  "sol2":{title:"Q2. Put up with = терпіти",body:`<p><b>I really can't _____ his constant complaining.</b></p>
+    <div class="step">Контекст: щось неприємне, що людина хотіла б припинити терпіти.</div>
+    <div class="step">"Put up" — поставити (a poster). "Put on" — увімкнути. "Put off" — відкласти.</div>
+    <div class="step">"Put up <b>with</b>" = tolerate = терпіти. <b>Завжди з "with"!</b></div>
+    <p><b>Відповідь: B) put up with.</b></p>`},
+  "sol3":{title:"Q3. Depend on",body:`<p><b>The success depends _____ everyone's effort.</b></p>
+    <div class="step">Дієслово <b>depend</b> завжди йде з прийменником <code>on</code>.</div>
+    <div class="step">❌ depend from (типова помилка, скалькована з української). ❌ depend of.</div>
+    <p><b>Відповідь: C) on.</b></p>
+    <div class="ex">Інші такі ж: rely <b>on</b>, count <b>on</b>, focus <b>on</b>, insist <b>on</b>.</div>`},
+  "sol4":{title:"Q4. Cast doubt on",body:`<p><b>The new evidence has _____ serious doubt on the official version.</b></p>
+    <div class="step">Це <b>сталий вираз</b>: <code>to cast doubt on something</code>.</div>
+    <div class="step">"Put doubt", "made doubt", "thrown doubt" — НЕ кажуть. Тільки <b>cast</b>.</div>
+    <p><b>Відповідь: A) cast.</b></p>
+    <div class="ex">Інтуїція тягне руку до "put" — це найчастіша помилка. Запам'ятай назавжди: <b>CAST</b> doubt.</div>`},
+  "sol5":{title:"Q5. Pay attention to",body:`<p><b>Students should _____ attention to grammar.</b></p>
+    <div class="step">Стала колокація: <b>pay attention</b>.</div>
+    <div class="step">"Make attention" / "give attention" / "do attention" — не кажуть.</div>
+    <p><b>Відповідь: C) pay.</b></p>
+    <div class="ex">Запам'ятай інші pay-колокації: pay a visit, pay a compliment, pay respect, pay tribute.</div>`},
+  "sol6":{title:"Q6. Such a + N + that",body:`<p><b>It was _____ a difficult question that nobody could answer.</b></p>
+    <div class="step">Після пропуску: "a difficult question" — це <b>прикметник + іменник</b>.</div>
+    <div class="step">Перед іменником ставимо <b>such</b>. Перед прикметником окремо — <b>so</b>.</div>
+    <p><b>Відповідь: A) such.</b></p>
+    <div class="compare">
+      <div class="col"><h4>SUCH (іменник)</h4>
+      • such a hot day<br>
+      • such a difficult question<br>
+      • such interesting people</div>
+      <div class="col"><h4>SO (прикметник)</h4>
+      • so hot<br>
+      • so difficult<br>
+      • so interesting</div>
+    </div>
+    <div class="ex">Перевір себе: It was <b>so</b> difficult <b>that</b>... vs It was <b>such a difficult question that</b>...</div>`},
+  "sol7":{title:"Q7. Past Perfect",body:`<p><b>By the time we arrived, the train _____ already.</b></p>
+    <div class="step">Дві дії в минулому: (1) поїзд поїхав, (2) ми прийшли. Поїзд поїхав <b>раніше</b>.</div>
+    <div class="step">Раніша дія → Past Perfect: <code>had left</code>.</div>
+    <div class="step">Маркер: <b>"by the time"</b> + <b>"already"</b> — класичний сигнал Past Perfect.</div>
+    <p><b>Відповідь: B) had left.</b></p>`},
+  "sol8":{title:"Q8. Conditional 2 — were для всіх осіб",body:`<p><b>If I _____ in your position, I wouldn't sign that contract.</b></p>
+    <div class="step">Це уявна ситуація → Conditional 2.</div>
+    <div class="step">Формула: <code>If + Past Simple , would + V</code>.</div>
+    <div class="step">З дієсловом <b>be</b> у всіх особах формально — <b>were</b>. Класичний приклад: "If I <b>were</b> you...".</div>
+    <p><b>Відповідь: C) were.</b></p>
+    <div class="ex">У розмові часто кажуть "If I was" — це теж припустимо в неформальному стилі, але на НМТ обирай <b>were</b>.</div>`},
+  "sol15":{title:"Q15. Paragraph 15 → E",body:`<p>Абзац про те, що вік не вирішальний. Ключові маркери: "too old", "research shows", "age".</p>
+    <p><b>Heading E)</b> "The myth of the perfect age" — прямо про це.</p>`},
+  "sol16":{title:"Q16. Paragraph 16 → C",body:`<p>Маркери: "speaking is what makes the language stick", "even a clumsy conversation".</p>
+    <p><b>Heading C)</b> "Speak from day one" — прямо про це.</p>`},
+  "sol17":{title:"Q17. Paragraph 17 → B",body:`<p>Маркери: "twenty minutes a day", "languages reward consistency", "morning coffee", "evening commute".</p>
+    <p><b>Heading B)</b> "Every day, even briefly".</p>`},
+  "sol18":{title:"Q18. Paragraph 18 → D",body:`<p>Маркери: "rules of grammar matter, but...", "still freeze when a waiter asks", "use, not from charts".</p>
+    <p><b>Heading D)</b> "Why grammar isn't the whole story".</p>`},
+  "sol19":{title:"Q19. Paragraph 19 → A",body:`<p>Маркери: "connect to your existing interests", "if you love football", "if you enjoy cooking", "engagement".</p>
+    <p><b>Heading A)</b> "Start with what you already love".</p>
+    <p>Heading <b>F)</b> "Learning alone is never enough" — зайвий.</p>`},
+  "sol20":{title:"Q20. determination (noun)",body:`<p>Після присвійного "The team's _____" має стояти <b>іменник</b>.</p>
+    <p>Determine (verb) → <b>determination</b> (noun, with -tion).</p>
+    <p><b>Відповідь: B) determination.</b></p>`},
+  "sol21":{title:"Q21. commitment (noun)",body:`<p>Після "His _____" — <b>іменник</b>.</p>
+    <p>Commit (verb) → <b>commitment</b> (noun, з -ment).</p>
+    <p>"Committee" — теж іменник, але це <i>«комітет»</i>, не пасує семантично.</p>
+    <p><b>Відповідь: C) commitment.</b></p>`},
+  "sol22":{title:"Q22. achievement (noun)",body:`<p>Після "a remarkable _____" — потрібен <b>іменник</b>.</p>
+    <p>Achieve (verb) → <b>achievement</b> (noun, з -ment).</p>
+    <p><b>Відповідь: B) achievement.</b></p>`},
+  "sol23":{title:"Q23. professionalism (noun, абстрактна якість)",body:`<p>Після "a sense of _____" — <b>іменник</b>, причому абстрактна якість/ідея.</p>
+    <p>• "profession" — рід занять (конкретне).<br>
+    • "professional" — прикметник (a professional approach) АБО іменник «фахівець».<br>
+    • "professionally" — прислівник (НЕ підходить).<br>
+    • "professionalism" — <b>якість бути професійним</b>, абстрактний іменник з -ism. Це те, що треба.</p>
+    <p><b>Відповідь: D) professionalism.</b></p>
+    <div class="ex">Запам'ятай суфікс <code>-ism</code> для абстрактних якостей: realism, idealism, criticism.</div>`},
+  "sol24":{title:"Q24. Inversion — правильний варіант",body:`<p>Перевіряємо кожен:</p>
+    <p>A) <i>Hardly the door had closed when</i> — НЕМАЄ інверсії. ❌</p>
+    <p>B) <i>No sooner I had closed the door than</i> — НЕМАЄ інверсії. ❌</p>
+    <p>C) <i>Hardly had I closed the door when</i> — інверсія є, "Hardly...when" — пара правильна. ✅</p>
+    <p>D) <i>No sooner did I close the door when</i> — інверсія є, але пара <b>неправильна</b>: треба "No sooner...<b>than</b>", не "when". ❌</p>
+    <p><b>Відповідь: C.</b></p>
+    <div class="ex">Запам'ятай пари: <b>Hardly → when</b>, <b>No sooner → than</b>.</div>`}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.hintbtn').forEach(b=>b.addEventListener('click',()=>{const h=hints[b.dataset.hint]; if(h) openModal(h.title,h.body);}));
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 24;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0;
+  for(let i=1;i<=8;i++) if(document.querySelector(`input[name="q${i}"]:checked`)) c++;
+  document.querySelectorAll('select[data-q]').forEach(s=>{ if(s.value) c++; });
+  for(let i=15;i<=19;i++){ const s=document.querySelector(`select[name="q${i}"]`); if(s && s.value) c++; }
+  for(let i=20;i<=24;i++) if(document.querySelector(`input[name="q${i}"]:checked`)) c++;
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('select').forEach(s=>{ s.value=''; s.style.background=''; s.style.borderColor=''; });
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.matchgrid').forEach(o=>o.classList.remove('bad'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  // Q1-Q8 multiple choice
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(!lab) return;
+    const n = parseInt(lab.name.replace('q',''),10);
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+    li.querySelector('.solbtn')?.classList.add('on');
+  });
+
+  // Q9-Q14 cloze
+  document.querySelectorAll('select[data-q]').forEach(sel=>{
+    const n = parseInt(sel.dataset.q,10);
+    const correct = clozeKey[n];
+    const given = sel.value;
+    const ok = given.toLowerCase() === correct.toLowerCase();
+    record(n, 'cloze', correct, given, ok);
+    sel.style.borderColor = ok ? '#9ec3a7' : '#d49a9a';
+    sel.style.background = ok ? '#e9f3ec' : '#fbe3e3';
+  });
+
+  // Q15-Q19 matching
+  document.querySelectorAll('.matchgrid').forEach(row=>{
+    const sel = row.querySelector('select');
+    if(!sel) return;
+    const n = parseInt(sel.name.replace('q',''),10);
+    const correct = row.dataset.correct;
+    const given = sel.value;
+    const ok = given === correct;
+    record(n, 'reading-match', correct, given, ok);
+    if(!ok) row.classList.add('bad');
+    sel.style.borderColor = ok ? '#9ec3a7' : '#d49a9a';
+    sel.style.background = ok ? '#e9f3ec' : '#fbe3e3';
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict (без сравнения с Day 1)
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText='Анно, чудовий результат! Це вище за рівень реального НМТ. Ти готова — далі тільки шліфувати швидкість і впевненість.'; }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильний результат. На реальному НМТ — впевнено 170+. Точечно повтори помилки, і все буде ідеально.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Стабільний B2. На НМТ — орієнтовно 160–180. Підтягни колокації та modal perfects — це швидкий приріст.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Реальний НМТ — 140–160. Працюй щодня з set phrases і phrasal verbs — це твоя точка зростання.'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий B1. До НМТ ще потрібно багато попрацювати: граматика B1-B2, активна лексика, читання довгих текстів.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Спочатку — базова граматика B1, потім повертайся до цього тесту.'; }
+
+  // Block stats
+  const blocks = {
+    'Modal perfects': ['modal-perfect'],
+    'Phrasal verbs & collocations': ['phrasal','collocation','preposition'],
+    'Such/So, Inversion': ['cleft','inversion'],
+    'Tenses & conditionals': ['tense','conditional'],
+    'Cloze (set phrases)': ['cloze'],
+    'Reading (matching)': ['reading-match'],
+    'Word formation': ['wordform']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  // Text report (Анна може поділитися своїм результатом з учителем)
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська — тренувальний тест ═══
+Учениця: Анна · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — обрала: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище — там покроковий розбір.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> переглянь усі детальні рішення (особливо там, де помилилася). Випиши set phrases у зошит.</li>
+      <li><b>Цього тижня:</b> повтори фразові дієслова й колокації з підказок (cast doubt, pay attention, depend on…). Зроби 5–10 речень з кожною фразою.</li>
+      <li><b>Через 5–7 днів:</b> пройди цей тест ще раз. Ціль — 20/24 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни кнопку «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>
