@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Математика — реальний рівень (для нуля)</title>
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --paper:#ffffff;
+    --ink:#1c1c1e;
+    --muted:#5a5a5e;
+    --accent:#0a4d8c;
+    --accent-2:#c8102e;
+    --ok:#1f7a3a;
+    --warn:#b3651a;
+    --bad:#a51a1a;
+    --line:#d9d4c7;
+    --hl:#fff4c2;
+    --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:20px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:38px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:18px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#fff8e1;border:1px solid #e6cf73;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:18px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Завдання " counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:21px}
+  .mathline{background:var(--math-bg);padding:8px 14px;border-radius:6px;display:inline-block;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:22px;margin:6px 0}
+  .opts{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:6px;cursor:pointer;font-size:20px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.3)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  .numinput{margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .numinput input{font-size:22px;padding:8px 12px;border:2px solid var(--line);border-radius:8px;width:200px;font-family:inherit}
+  .numinput input:focus{outline:none;border-color:var(--accent)}
+  .numinput input.correct{border-color:#5fa073;background:#e3f3e6}
+  .numinput input.wrong{border-color:#c47373;background:#fbe3e3}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:16px;padding:4px 12px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:16px;padding:6px 14px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+
+  /* Modal */
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:28px 30px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:20px;line-height:1.65}
+  .modal h3{margin:0 0 12px;color:var(--accent);font-size:26px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:20px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:32px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code, .modal .mathline{background:var(--math-bg);padding:2px 8px;border-radius:4px;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:20px}
+  .modal .ex{background:var(--hl);padding:12px 16px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:10px 14px;margin:8px 0;border-radius:4px}
+  .modal .formula{display:block;background:var(--math-bg);padding:10px 16px;border-radius:6px;margin:8px 0;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:22px;text-align:center}
+
+  /* Result */
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:64px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:17px;color:var(--muted)}
+  .scale .v{font-size:26px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:21px;line-height:1.6}
+  .plan{margin-top:18px}
+  .plan h3{font-family:"Trebuchet MS",Verdana,sans-serif;color:var(--accent);font-size:24px;margin:18px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+  .plan ul{padding-left:22px}
+  .plan li{margin:8px 0}
+  .week{background:#fbf8ee;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:6px;padding:14px 18px;margin:12px 0}
+  .week b{color:var(--accent)}
+  .review{margin-top:24px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  sup{font-size:0.75em}
+  sub{font-size:0.75em}
+  .frac{display:inline-block;text-align:center;vertical-align:middle;font-size:0.95em}
+  .frac > span{display:block;padding:0 4px}
+  .frac .num{border-bottom:1.5px solid currentColor;padding-bottom:1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ • Математика <span class="badge">для рівня 0</span></h1>
+    <div class="sub">20 завдань реального рівня НМТ • орієнтовно 90 хв. У кожному — підказка-міні-лекція та детальний розбір після здачі.</div>
+    <div class="pep">
+      <b>Григорію, читай.</b> Місяць з нуля до НМТ — це не «майже нереально», це «треба бути дисципліною». Цей тест — твоя точка А. Він покаже, де саме нуль, а де ти вже щось пам'ятаєш зі школи. Помилки — це не катастрофа, це <i>карта</i>. Пиши на чернетці, не вгадуй. Якщо завдання ставить у глухий кут — клацни 💡, прочитай метод, спробуй ще раз. У кінці — план на 30 днів, день за днем.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 20</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================= PART 1: MULTIPLE CHOICE (Q1–Q12) ================= -->
+  <section class="task">
+    <h2>Частина 1. Тести з вибором відповіді (Q1–Q12)</h2>
+    <p class="instr">Оберіть один правильний варіант.</p>
+
+    <ol class="qs">
+
+      <li data-correct="C" data-topic="percent" data-sol="sol1">
+        <span class="topic-tag">Відсотки</span>
+        <span class="qtext">Спочатку ціну товару підвищили на 25%, а потім нову ціну знизили на 20%. Як змінилась початкова ціна?</span>
+        <button class="hintbtn" data-hint="percent">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) зросла на 5%</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) знизилась на 5%</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) не змінилась</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) знизилась на 4%</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="linear-eq" data-sol="sol2">
+        <span class="topic-tag">Лінійне рівняння</span>
+        <span class="qtext">Розв'яжіть рівняння: <span class="mathline">4(x + 3) − 2x = 18</span></span>
+        <button class="hintbtn" data-hint="linear-eq">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) x = 2</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) x = 3</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) x = 6</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) x = 15</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="quadratic" data-sol="sol3">
+        <span class="topic-tag">Квадратне рівняння</span>
+        <span class="qtext">Знайдіть суму коренів рівняння: <span class="mathline">x<sup>2</sup> − 5x + 6 = 0</span></span>
+        <button class="hintbtn" data-hint="quadratic">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) 5</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) 6</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) −5</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) 1</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="powers" data-sol="sol4">
+        <span class="topic-tag">Степені</span>
+        <span class="qtext">Обчисліть: <span class="mathline">2<sup>5</sup> · 2<sup>3</sup> : 2<sup>6</sup></span></span>
+        <button class="hintbtn" data-hint="powers">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) 2</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) 8</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) 4</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) 16</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="logarithm" data-sol="sol5">
+        <span class="topic-tag">Логарифм</span>
+        <span class="qtext">Обчисліть: <span class="mathline">log<sub>2</sub> 32</span></span>
+        <button class="hintbtn" data-hint="logarithm">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) 2</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) 16</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) 4</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) 5</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="exp-eq" data-sol="sol6">
+        <span class="topic-tag">Показникове рівняння</span>
+        <span class="qtext">Розв'яжіть: <span class="mathline">3<sup>x+1</sup> = 81</span></span>
+        <button class="hintbtn" data-hint="exp-eq">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) x = 4</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) x = 3</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) x = 2</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) x = 27</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="log-eq" data-sol="sol7">
+        <span class="topic-tag">Логарифмічне рівняння</span>
+        <span class="qtext">Розв'яжіть: <span class="mathline">log<sub>3</sub>(x − 1) = 2</span></span>
+        <button class="hintbtn" data-hint="log-eq">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) x = 10</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) x = 9</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) x = 7</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) x = 5</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="trig-value" data-sol="sol8">
+        <span class="topic-tag">Тригонометрія</span>
+        <span class="qtext">Обчисліть: <span class="mathline">sin 30° + cos 60°</span></span>
+        <button class="hintbtn" data-hint="trig-value">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) 0</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) 0,5</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) 1</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) √3 / 2</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="pythagoras" data-sol="sol9">
+        <span class="topic-tag">Планіметрія</span>
+        <span class="qtext">У прямокутному трикутнику катети дорівнюють 6 і 8. Чому дорівнює гіпотенуза?</span>
+        <button class="hintbtn" data-hint="pythagoras">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) 14</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) 10</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) 12</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) 7</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="inscribed-angle" data-sol="sol10">
+        <span class="topic-tag">Коло</span>
+        <span class="qtext">Вписаний кут спирається на дугу 80°. Чому дорівнює цей кут?</span>
+        <button class="hintbtn" data-hint="inscribed-angle">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) 40°</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) 80°</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) 160°</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) 20°</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="cube" data-sol="sol11">
+        <span class="topic-tag">Стереометрія</span>
+        <span class="qtext">Знайдіть об'єм куба з ребром 4 см.</span>
+        <button class="hintbtn" data-hint="cube">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) 16 см<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) 12 см<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) 96 см<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) 64 см<sup>3</sup></label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="probability" data-sol="sol12">
+        <span class="topic-tag">Ймовірність</span>
+        <span class="qtext">В урні 5 білих і 3 чорних кулі. Навмання витягують одну. Яка ймовірність, що куля буде білою?</span>
+        <button class="hintbtn" data-hint="probability">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) 3/8</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) 5/8</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) 1/2</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) 5/3</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 показати детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================= PART 2: SHORT NUMERIC ANSWER (Q13–Q20) ================= -->
+  <section class="task">
+    <h2>Частина 2. Завдання з короткою відповіддю (Q13–Q20)</h2>
+    <p class="instr">Введіть число у відповідне поле. Десятковий роздільник — крапка (наприклад, <b>0.5</b>).</p>
+    <ol class="qs" start="13">
+
+      <li data-correct="12" data-topic="system" data-sol="sol13">
+        <span class="topic-tag">Система рівнянь</span>
+        <span class="qtext">Розв'яжіть систему та обчисліть добуток <b>x · y</b>:</span>
+        <div class="mathline">{ x + y = 7 ; x − y = 1 }</div>
+        <button class="hintbtn" data-hint="system">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q13" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol13">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="7" data-topic="function" data-sol="sol14">
+        <span class="topic-tag">Лінійна функція</span>
+        <span class="qtext">Задано функцію <span class="mathline">f(x) = 2x − 3</span>. Знайдіть <b>f(5)</b>.</span>
+        <button class="hintbtn" data-hint="function">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q14" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol14">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="-3" data-topic="parabola" data-sol="sol15">
+        <span class="topic-tag">Парабола</span>
+        <span class="qtext">Знайдіть <b>ординату</b> (y-координату) вершини параболи <span class="mathline">y = x<sup>2</sup> − 4x + 1</span>.</span>
+        <button class="hintbtn" data-hint="parabola">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q15" inputmode="decimal" placeholder="число (можна з мінусом)"></div>
+        <button class="solbtn" data-sol="sol15">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="12" data-topic="triangle-area" data-sol="sol16">
+        <span class="topic-tag">Площа трикутника</span>
+        <span class="qtext">Сторони трикутника дорівнюють <b>6</b> і <b>8</b>, а кут між ними — <b>30°</b>. Знайдіть площу трикутника.</span>
+        <button class="hintbtn" data-hint="triangle-area">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q16" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol16">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="29" data-topic="ap" data-sol="sol17">
+        <span class="topic-tag">Арифметична прогресія</span>
+        <span class="qtext">У арифметичній прогресії <b>a<sub>1</sub> = 2</b>, різниця <b>d = 3</b>. Знайдіть <b>a<sub>10</sub></b>.</span>
+        <button class="hintbtn" data-hint="ap">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q17" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol17">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="48" data-topic="gp" data-sol="sol18">
+        <span class="topic-tag">Геометрична прогресія</span>
+        <span class="qtext">У геометричній прогресії <b>b<sub>1</sub> = 3</b>, знаменник <b>q = 2</b>. Знайдіть <b>b<sub>5</sub></b>.</span>
+        <button class="hintbtn" data-hint="gp">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q18" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol18">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="400" data-topic="motion" data-sol="sol19">
+        <span class="topic-tag">Текстова задача</span>
+        <span class="qtext">Літак пролетів 600 км за 1,5 години. Знайдіть його швидкість (у км/год).</span>
+        <button class="hintbtn" data-hint="motion">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q19" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol19">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="7" data-topic="inequality" data-sol="sol20">
+        <span class="topic-tag">Нерівність</span>
+        <span class="qtext">Знайдіть найменше ціле значення <b>x</b>, що задовольняє нерівність <span class="mathline">2x − 5 > 7</span>.</span>
+        <button class="hintbtn" data-hint="inequality">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q20" inputmode="decimal" placeholder="ціле число"></div>
+        <button class="solbtn" data-sol="sol20">📖 показати детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тест підготовлено для самопідготовки. Реальний рівень НМТ. Удачі, Григорію!</footer>
+</div>
+
+<!-- ====== Modal ====== -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose" aria-label="Закрити">×</button>
+    <h3 id="modalTitle">Підказка</h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ===================== HINTS (mini-lectures BEFORE solving) ===================== */
+const hints = {
+  "percent":{
+    title:"Як рахувати відсотки в задачах",
+    body:`<p>Найкращий трюк — взяти зручне число для початкової ціни. Якщо мова про відсотки, бери <b>100</b>.</p>
+    <h4>Правила:</h4>
+    <p>• Збільшити на <b>p%</b> = помножити на <b>(1 + p/100)</b>.</p>
+    <p>• Зменшити на <b>p%</b> = помножити на <b>(1 − p/100)</b>.</p>
+    <div class="ex"><b>Приклад:</b> зросла на 20% → ×1,20; знизилася на 15% → ×0,85.</div>
+    <p>У цій задачі: <span class="mathline">100 · 1,25 · 0,80 = ?</span> Порахуй на чернетці й порівняй зі 100.</p>`
+  },
+  "linear-eq":{
+    title:"Як розв'язувати лінійні рівняння",
+    body:`<p><b>План у 3 кроки:</b></p>
+    <div class="step"><b>1. Розкрий дужки.</b> Не забудь множити на кожен доданок усередині.</div>
+    <div class="step"><b>2. Зведи подібні</b> (всі x — ліворуч, числа — праворуч).</div>
+    <div class="step"><b>3. Поділи</b> обидві частини на коефіцієнт біля x.</div>
+    <div class="ex"><b>Приклад:</b> 3(x+2)=15 → 3x+6=15 → 3x=9 → x=3.</div>
+    <p>Перевірка: підстав знайдене x у вихідне рівняння — повинна вийти тотожність.</p>`
+  },
+  "quadratic":{
+    title:"Квадратне рівняння та теорема Вієта",
+    body:`<p>Загальний вигляд: <span class="formula">ax<sup>2</sup> + bx + c = 0</span></p>
+    <h4>Спосіб 1: через дискримінант</h4>
+    <p class="formula">D = b<sup>2</sup> − 4ac</p>
+    <p class="formula">x<sub>1,2</sub> = (−b ± √D) / (2a)</p>
+    <h4>Спосіб 2: теорема Вієта (швидко, для зведених рівнянь x² + px + q = 0)</h4>
+    <p class="formula">x<sub>1</sub> + x<sub>2</sub> = −p &nbsp;&nbsp; x<sub>1</sub> · x<sub>2</sub> = q</p>
+    <div class="ex"><b>Лайфхак:</b> якщо запитують <i>суму</i> або <i>добуток</i> коренів — не шукай самі корені. Просто візьми коефіцієнти.</div>
+    <p>Для x² − 5x + 6 = 0: p = −5, q = 6. Сума = −(−5) = 5. Добуток = 6.</p>`
+  },
+  "powers":{
+    title:"Властивості степенів",
+    body:`<p>Запам'ятай 3 правила як таблицю множення:</p>
+    <p class="formula">a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup></p>
+    <p class="formula">a<sup>m</sup> : a<sup>n</sup> = a<sup>m−n</sup></p>
+    <p class="formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup></p>
+    <div class="ex"><b>Тобто:</b> при множенні — показники <i>додаємо</i>, при діленні — <i>віднімаємо</i>, при піднесенні степеня до степеня — <i>множимо</i>.</div>
+    <p>Тут просто рахуй показники: 5 + 3 − 6 = ?</p>`
+  },
+  "logarithm":{
+    title:"Що таке логарифм",
+    body:`<p><b>log<sub>a</sub> b = c</b> читається так: <i>«у який степінь треба піднести a, щоб отримати b»</i>.</p>
+    <div class="ex">log<sub>2</sub> 8 = 3, бо 2<sup>3</sup> = 8.</div>
+    <div class="ex">log<sub>10</sub> 100 = 2, бо 10<sup>2</sup> = 100.</div>
+    <p>Для цього завдання: запитай себе — у який степінь треба піднести <b>2</b>, щоб отримати <b>32</b>?</p>
+    <p>Розклади: 2, 4, 8, 16, 32 → це 2<sup>1</sup>, 2<sup>2</sup>, 2<sup>3</sup>, 2<sup>4</sup>, 2<sup>5</sup>.</p>`
+  },
+  "exp-eq":{
+    title:"Показникові рівняння — метод однакових основ",
+    body:`<p><b>Головна ідея:</b> якщо в обох частинах рівняння можна записати <i>однакову основу</i>, то показники рівні.</p>
+    <p class="formula">a<sup>f(x)</sup> = a<sup>g(x)</sup> ⇒ f(x) = g(x)</p>
+    <p>Тут потрібно: 81 записати як степінь трійки. Чи знаєш ти, що 81 = 3<sup>?</sup></p>
+    <p>3, 9, 27, 81 → це 3<sup>1</sup>, 3<sup>2</sup>, 3<sup>3</sup>, 3<sup>4</sup>.</p>
+    <div class="ex">Отже, 3<sup>x+1</sup> = 3<sup>4</sup> ⇒ x + 1 = 4.</div>`
+  },
+  "log-eq":{
+    title:"Логарифмічні рівняння — від логарифма до степеня",
+    body:`<p><b>Правило:</b> <span class="mathline">log<sub>a</sub> b = c &nbsp;⇔&nbsp; b = a<sup>c</sup></span></p>
+    <p>Тобто логарифмічне рівняння перетворюється на показниковий вираз.</p>
+    <div class="ex"><b>Приклад:</b> log<sub>5</sub>(x) = 3 ⇔ x = 5<sup>3</sup> = 125.</div>
+    <p>Тут: log<sub>3</sub>(x − 1) = 2 ⇒ x − 1 = 3<sup>2</sup> = 9.</p>
+    <p><b>Важливо:</b> після знаходження x перевір, що <i>аргумент логарифма</i> додатний (x − 1 > 0).</p>`
+  },
+  "trig-value":{
+    title:"Таблиця значень тригонометричних функцій",
+    body:`<p>Це треба <b>вивчити напам'ять</b> — без цього на НМТ нічого.</p>
+    <table style="border-collapse:collapse;width:100%;margin-top:8px;font-size:18px">
+      <tr style="background:#eaf1f8"><th style="padding:6px;border:1px solid #aac">Кут</th><th style="padding:6px;border:1px solid #aac">0°</th><th style="padding:6px;border:1px solid #aac">30°</th><th style="padding:6px;border:1px solid #aac">45°</th><th style="padding:6px;border:1px solid #aac">60°</th><th style="padding:6px;border:1px solid #aac">90°</th></tr>
+      <tr><td style="padding:6px;border:1px solid #ccc"><b>sin</b></td><td style="padding:6px;border:1px solid #ccc">0</td><td style="padding:6px;border:1px solid #ccc">1/2</td><td style="padding:6px;border:1px solid #ccc">√2/2</td><td style="padding:6px;border:1px solid #ccc">√3/2</td><td style="padding:6px;border:1px solid #ccc">1</td></tr>
+      <tr><td style="padding:6px;border:1px solid #ccc"><b>cos</b></td><td style="padding:6px;border:1px solid #ccc">1</td><td style="padding:6px;border:1px solid #ccc">√3/2</td><td style="padding:6px;border:1px solid #ccc">√2/2</td><td style="padding:6px;border:1px solid #ccc">1/2</td><td style="padding:6px;border:1px solid #ccc">0</td></tr>
+      <tr><td style="padding:6px;border:1px solid #ccc"><b>tg</b></td><td style="padding:6px;border:1px solid #ccc">0</td><td style="padding:6px;border:1px solid #ccc">√3/3</td><td style="padding:6px;border:1px solid #ccc">1</td><td style="padding:6px;border:1px solid #ccc">√3</td><td style="padding:6px;border:1px solid #ccc">—</td></tr>
+    </table>
+    <p style="margin-top:10px"><b>Лайфхак запам'ятовування:</b> sin іде від 0 до 1 (0, ½, √2/2, √3/2, 1), а cos — навпаки, від 1 до 0.</p>`
+  },
+  "pythagoras":{
+    title:"Теорема Піфагора",
+    body:`<p>Для прямокутного трикутника:</p>
+    <p class="formula">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></p>
+    <p>де <b>a</b> і <b>b</b> — катети (сторони прямого кута), <b>c</b> — гіпотенуза (найдовша сторона напроти прямого кута).</p>
+    <div class="ex"><b>Запам'ятай «єгипетський трикутник»:</b> 3, 4, 5. А також 5, 12, 13 і 6, 8, 10.</div>
+    <p>Тут катети 6 і 8 — це той самий 3-4-5, помножений на 2.</p>`
+  },
+  "inscribed-angle":{
+    title:"Вписаний кут",
+    body:`<p><b>Вписаний кут</b> — це кут із вершиною на колі, сторони якого — хорди.</p>
+    <p><b>Центральний кут</b> — кут з вершиною в центрі.</p>
+    <p class="formula">Вписаний кут = ½ · дуга, на яку він спирається</p>
+    <p>Або: вписаний кут = ½ · центрального кута, що спирається на ту ж дугу.</p>
+    <div class="ex">Якщо дуга 100° — вписаний кут 50°. Якщо дуга 80° — кут 40°.</div>`
+  },
+  "cube":{
+    title:"Об'єм куба",
+    body:`<p>Куб — усі ребра однакові.</p>
+    <p class="formula">V = a · a · a = a<sup>3</sup></p>
+    <p>де <b>a</b> — довжина ребра.</p>
+    <div class="ex">Для a = 4: V = 4<sup>3</sup> = 4 · 4 · 4 = 64.</div>
+    <p><b>Інші важливі формули стереометрії:</b></p>
+    <p>• Прямокутний паралелепіпед: <code>V = a · b · c</code></p>
+    <p>• Циліндр: <code>V = π r<sup>2</sup> h</code></p>
+    <p>• Конус: <code>V = ⅓ π r<sup>2</sup> h</code></p>
+    <p>• Куля: <code>V = ⁴⁄₃ π r<sup>3</sup></code></p>`
+  },
+  "probability":{
+    title:"Класичне означення ймовірності",
+    body:`<p class="formula">P(A) = (кількість сприятливих) / (загальна кількість)</p>
+    <p>Сприятливі — це ті випадки, які <i>підходять</i> під подію A.</p>
+    <p>Загальна кількість — <i>усі</i> можливі результати.</p>
+    <div class="ex">Кубик: P(випало 6) = 1/6. P(парне) = 3/6 = 1/2.</div>
+    <p>Тут: загалом куль 5+3 = 8. Сприятливих (білих) = 5. Тому P = 5/8.</p>`
+  },
+  "system":{
+    title:"Системи лінійних рівнянь",
+    body:`<p>Два надійні методи:</p>
+    <h4>1. Метод додавання</h4>
+    <p>Складаєш або віднімаєш рівняння так, щоб одна змінна зникла.</p>
+    <div class="ex">{ x+y=7 ; x−y=1 } → додаємо: 2x = 8 → x = 4. Тоді y = 7−4 = 3.</div>
+    <h4>2. Метод підстановки</h4>
+    <p>З одного рівняння виражаєш одну змінну через іншу й підставляєш у друге.</p>
+    <div class="ex">x = 7−y → (7−y) − y = 1 → 7 − 2y = 1 → y = 3.</div>
+    <p>Після знаходження x і y перемнож їх для відповіді.</p>`
+  },
+  "function":{
+    title:"Значення функції в точці",
+    body:`<p><b>f(x) = ...</b> — це «рецепт»: підстав замість x потрібне число і обчисли.</p>
+    <p><b>f(5)</b> означає: підстав 5 замість x.</p>
+    <div class="ex">f(x) = x<sup>2</sup> + 1 → f(3) = 3<sup>2</sup> + 1 = 9 + 1 = 10.</div>
+    <p>Тут f(x) = 2x − 3, тож f(5) = 2·5 − 3.</p>`
+  },
+  "parabola":{
+    title:"Вершина параболи",
+    body:`<p>Парабола: <span class="mathline">y = ax<sup>2</sup> + bx + c</span></p>
+    <p>Координати вершини:</p>
+    <p class="formula">x<sub>в</sub> = −b / (2a)</p>
+    <p class="formula">y<sub>в</sub> = f(x<sub>в</sub>)</p>
+    <p><b>Алгоритм:</b></p>
+    <div class="step">1. Визнач a, b, c з рівняння.</div>
+    <div class="step">2. Знайди x<sub>в</sub> за формулою.</div>
+    <div class="step">3. Підстав x<sub>в</sub> у рівняння — отримаєш y<sub>в</sub>.</div>
+    <p>Тут: a=1, b=−4, c=1.</p>`
+  },
+  "triangle-area":{
+    title:"Площа трикутника через дві сторони і кут",
+    body:`<p class="formula">S = ½ · a · b · sin(γ)</p>
+    <p>де <b>a, b</b> — дві сторони, <b>γ</b> — кут <i>між ними</i>.</p>
+    <div class="ex">sin 30° = ½, sin 90° = 1, sin 60° = √3/2.</div>
+    <p>Інші формули площі (на майбутнє):</p>
+    <p>• Через висоту: <code>S = ½ · основа · висота</code></p>
+    <p>• Прямокутний: <code>S = ½ · катет<sub>1</sub> · катет<sub>2</sub></code></p>
+    <p>• Формула Герона: <code>S = √(p(p−a)(p−b)(p−c))</code>, де p — півпериметр.</p>`
+  },
+  "ap":{
+    title:"Арифметична прогресія",
+    body:`<p>Кожен наступний член = попередній <b>+ d</b> (різниця).</p>
+    <p class="formula">a<sub>n</sub> = a<sub>1</sub> + (n − 1) · d</p>
+    <p>Сума перших n членів:</p>
+    <p class="formula">S<sub>n</sub> = (a<sub>1</sub> + a<sub>n</sub>) · n / 2</p>
+    <div class="ex"><b>Приклад:</b> a<sub>1</sub>=5, d=2 → a<sub>4</sub> = 5 + 3·2 = 11.</div>
+    <p><b>Увага:</b> у формулі (n−1), а не n. Бо a<sub>1</sub> вже є — додаємо d тільки (n−1) разів.</p>`
+  },
+  "gp":{
+    title:"Геометрична прогресія",
+    body:`<p>Кожен наступний член = попередній <b>· q</b> (знаменник).</p>
+    <p class="formula">b<sub>n</sub> = b<sub>1</sub> · q<sup>n−1</sup></p>
+    <p>Сума перших n членів (для q ≠ 1):</p>
+    <p class="formula">S<sub>n</sub> = b<sub>1</sub> · (q<sup>n</sup> − 1) / (q − 1)</p>
+    <div class="ex"><b>Приклад:</b> b<sub>1</sub>=2, q=3 → b<sub>4</sub> = 2 · 3<sup>3</sup> = 54.</div>
+    <p>Знов: степінь (n−1), а не n.</p>`
+  },
+  "motion":{
+    title:"Задачі на рух",
+    body:`<p>Три величини пов'язані формулою:</p>
+    <p class="formula">S = v · t</p>
+    <p>де <b>S</b> — шлях, <b>v</b> — швидкість, <b>t</b> — час.</p>
+    <p>Звідси:</p>
+    <p class="formula">v = S / t &nbsp;&nbsp;&nbsp; t = S / v</p>
+    <div class="ex"><b>Завжди перевіряй одиниці!</b> Якщо S у км, t у годинах — v у км/год.</div>
+    <p>Тут: v = 600 / 1,5.</p>`
+  },
+  "inequality":{
+    title:"Лінійні нерівності",
+    body:`<p>Розв'язуй <b>так само, як рівняння</b>, але з одним правилом:</p>
+    <div class="step">⚠️ Якщо ділиш або множиш на <b>від'ємне</b> число — <b>знак нерівності змінюється</b> на протилежний.</div>
+    <p><b>План:</b></p>
+    <div class="step">1. Перенеси числа в один бік, x — в інший.</div>
+    <div class="step">2. Поділи на коефіцієнт при x.</div>
+    <div class="step">3. Якщо просять <i>найменше ціле</i> — обери найменше ціле з тих, що задовольняють нерівність.</div>
+    <div class="ex">x > 6 → найменше ціле x = 7 (бо 6 не входить, нерівність строга).</div>
+    <div class="ex">x ≥ 6 → найменше ціле x = 6 (тут 6 входить).</div>`
+  }
+};
+
+/* ===================== FULL SOLUTIONS (AFTER submit) ===================== */
+const solutions = {
+  "sol1":{
+    title:"Завдання 1. Розв'язання",
+    body:`<p><b>Метод:</b> бери початкову ціну <b>100</b> грн — це найзручніше число для відсотків.</p>
+    <div class="step"><b>Крок 1.</b> Підвищення на 25%:<br>
+    <span class="mathline">100 + 25%·100 = 100 · 1,25 = <b>125</b></span></div>
+    <div class="step"><b>Крок 2.</b> Тепер нову ціну (125) знижуємо на 20%. <i>Важливо:</i> 20% беремо <b>від 125, а не від 100!</b><br>
+    <span class="mathline">125 · (1 − 0,20) = 125 · 0,80 = <b>100</b></span></div>
+    <div class="step"><b>Крок 3.</b> Порівнюємо з початковою ціною: 100 = 100. <b>Ціна не змінилась.</b></div>
+    <p><b>Відповідь: C) не змінилась.</b></p>
+    <div class="ex"><b>Урок на майбутнє:</b> «зросло на 25%, потім впало на 25%» — НЕ дає початкову ціну. Бо база різна. У нашому випадку числа збіглись випадково (25% і 20% дають взаємну компенсацію).</div>`
+  },
+  "sol2":{
+    title:"Завдання 2. Розв'язання",
+    body:`<p><b>Рівняння:</b> <span class="mathline">4(x + 3) − 2x = 18</span></p>
+    <div class="step"><b>Крок 1. Розкриваємо дужки.</b><br>
+    4(x+3) = 4·x + 4·3 = 4x + 12<br>
+    Отримуємо: <span class="mathline">4x + 12 − 2x = 18</span></div>
+    <div class="step"><b>Крок 2. Зводимо подібні зліва.</b><br>
+    4x − 2x = 2x<br>
+    <span class="mathline">2x + 12 = 18</span></div>
+    <div class="step"><b>Крок 3. Переносимо 12 праворуч</b> (зі зміною знака):<br>
+    <span class="mathline">2x = 18 − 12 = 6</span></div>
+    <div class="step"><b>Крок 4. Ділимо обидві частини на 2:</b><br>
+    <span class="mathline">x = 3</span></div>
+    <p><b>Перевірка:</b> 4·(3+3) − 2·3 = 4·6 − 6 = 24 − 6 = 18 ✓</p>
+    <p><b>Відповідь: B) x = 3.</b></p>`
+  },
+  "sol3":{
+    title:"Завдання 3. Розв'язання",
+    body:`<p><b>Рівняння:</b> <span class="mathline">x<sup>2</sup> − 5x + 6 = 0</span></p>
+    <h4>Швидкий шлях — теорема Вієта</h4>
+    <p>Для зведеного рівняння <span class="mathline">x<sup>2</sup> + px + q = 0</span> сума коренів = <b>−p</b>.</p>
+    <p>Тут p = −5, тож сума коренів = <b>−(−5) = 5</b>.</p>
+    <h4>Або довгим шляхом — через дискримінант</h4>
+    <div class="step">D = b<sup>2</sup> − 4ac = (−5)<sup>2</sup> − 4·1·6 = 25 − 24 = 1</div>
+    <div class="step">x<sub>1,2</sub> = (5 ± √1) / 2 = (5 ± 1) / 2 → x<sub>1</sub> = 3, x<sub>2</sub> = 2</div>
+    <div class="step">Сума: 3 + 2 = 5 ✓</div>
+    <p><b>Відповідь: A) 5.</b></p>
+    <div class="ex"><b>Урок:</b> якщо в умові — <i>сума</i> або <i>добуток</i> коренів, ВЖЕ майже все одно завдання вирішується через теорему Вієта за 3 секунди. Самі корені шукати не треба.</div>`
+  },
+  "sol4":{
+    title:"Завдання 4. Розв'язання",
+    body:`<p><b>Вираз:</b> <span class="mathline">2<sup>5</sup> · 2<sup>3</sup> : 2<sup>6</sup></span></p>
+    <p>Однакова основа — <b>2</b>. Просто рахуємо показники.</p>
+    <div class="step"><b>Крок 1. Множення</b> — показники <b>додаємо</b>:<br>
+    <span class="mathline">2<sup>5</sup> · 2<sup>3</sup> = 2<sup>5+3</sup> = 2<sup>8</sup></span></div>
+    <div class="step"><b>Крок 2. Ділення</b> — показники <b>віднімаємо</b>:<br>
+    <span class="mathline">2<sup>8</sup> : 2<sup>6</sup> = 2<sup>8−6</sup> = 2<sup>2</sup></span></div>
+    <div class="step"><b>Крок 3.</b> 2<sup>2</sup> = 4</div>
+    <p><b>Відповідь: C) 4.</b></p>`
+  },
+  "sol5":{
+    title:"Завдання 5. Розв'язання",
+    body:`<p><b>Вираз:</b> <span class="mathline">log<sub>2</sub> 32 = ?</span></p>
+    <p><b>Питання логарифма:</b> «У який степінь треба піднести 2, щоб отримати 32?»</p>
+    <div class="step">Записуємо степені 2:<br>
+    2<sup>1</sup> = 2<br>
+    2<sup>2</sup> = 4<br>
+    2<sup>3</sup> = 8<br>
+    2<sup>4</sup> = 16<br>
+    2<sup>5</sup> = 32 ✓</div>
+    <div class="step">Тож log<sub>2</sub> 32 = <b>5</b>.</div>
+    <p><b>Відповідь: D) 5.</b></p>
+    <div class="ex"><b>Корисно знати напам'ять:</b><br>
+    log<sub>2</sub> 4 = 2, log<sub>2</sub> 8 = 3, log<sub>2</sub> 16 = 4, log<sub>2</sub> 32 = 5, log<sub>2</sub> 64 = 6.<br>
+    log<sub>3</sub> 9 = 2, log<sub>3</sub> 27 = 3, log<sub>3</sub> 81 = 4.<br>
+    log<sub>10</sub> 100 = 2, log<sub>10</sub> 1000 = 3.</div>`
+  },
+  "sol6":{
+    title:"Завдання 6. Розв'язання",
+    body:`<p><b>Рівняння:</b> <span class="mathline">3<sup>x+1</sup> = 81</span></p>
+    <div class="step"><b>Крок 1.</b> Записуємо 81 як степінь трійки:<br>
+    3<sup>1</sup>=3, 3<sup>2</sup>=9, 3<sup>3</sup>=27, 3<sup>4</sup>=<b>81</b></div>
+    <div class="step"><b>Крок 2.</b> Перепишемо рівняння з однаковими основами:<br>
+    <span class="mathline">3<sup>x+1</sup> = 3<sup>4</sup></span></div>
+    <div class="step"><b>Крок 3.</b> Основи рівні → прирівнюємо показники:<br>
+    <span class="mathline">x + 1 = 4</span> ⇒ <span class="mathline">x = 3</span></div>
+    <p><b>Перевірка:</b> 3<sup>3+1</sup> = 3<sup>4</sup> = 81 ✓</p>
+    <p><b>Відповідь: B) x = 3.</b></p>`
+  },
+  "sol7":{
+    title:"Завдання 7. Розв'язання",
+    body:`<p><b>Рівняння:</b> <span class="mathline">log<sub>3</sub>(x − 1) = 2</span></p>
+    <div class="step"><b>Крок 1.</b> За означенням логарифма:<br>
+    <span class="mathline">log<sub>a</sub> b = c ⇔ b = a<sup>c</sup></span><br>
+    Отже: <span class="mathline">x − 1 = 3<sup>2</sup></span></div>
+    <div class="step"><b>Крок 2.</b> 3<sup>2</sup> = 9, тож:<br>
+    <span class="mathline">x − 1 = 9</span> ⇒ <span class="mathline">x = 10</span></div>
+    <div class="step"><b>Крок 3. Перевірка ОДЗ:</b> аргумент логарифма має бути > 0:<br>
+    x − 1 > 0 ⇒ x > 1. Наше x = 10 > 1 ✓</div>
+    <p><b>Відповідь: A) x = 10.</b></p>
+    <div class="ex"><b>Урок:</b> у логарифмічних рівняннях <b>завжди</b> перевіряй ОДЗ — інакше можна отримати «зайвий» корінь і втратити бали.</div>`
+  },
+  "sol8":{
+    title:"Завдання 8. Розв'язання",
+    body:`<p><b>Вираз:</b> <span class="mathline">sin 30° + cos 60°</span></p>
+    <p>З таблиці значень:</p>
+    <div class="step">sin 30° = <b>1/2</b></div>
+    <div class="step">cos 60° = <b>1/2</b></div>
+    <div class="step">Сума: 1/2 + 1/2 = <b>1</b></div>
+    <p><b>Відповідь: C) 1.</b></p>
+    <div class="ex"><b>Цікаво:</b> sin α = cos(90° − α). Тому sin 30° = cos 60° автоматично. Це називається <i>формули зведення</i>.</div>`
+  },
+  "sol9":{
+    title:"Завдання 9. Розв'язання",
+    body:`<p><b>Дано:</b> прямокутний трикутник, катети <b>a = 6</b>, <b>b = 8</b>.</p>
+    <p><b>Знайти:</b> гіпотенузу <b>c</b>.</p>
+    <div class="step"><b>Теорема Піфагора:</b> <span class="formula">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span></div>
+    <div class="step">c<sup>2</sup> = 6<sup>2</sup> + 8<sup>2</sup> = 36 + 64 = 100</div>
+    <div class="step">c = √100 = <b>10</b></div>
+    <p><b>Відповідь: B) 10.</b></p>
+    <div class="ex"><b>Запам'ятай ці трійки</b> — будуть на НМТ:<br>
+    (3, 4, 5), (5, 12, 13), (8, 15, 17), (7, 24, 25).<br>
+    Усі їх кратні теж працюють: (6, 8, 10), (9, 12, 15), (10, 24, 26).</div>`
+  },
+  "sol10":{
+    title:"Завдання 10. Розв'язання",
+    body:`<p><b>Теорема про вписаний кут:</b></p>
+    <p class="formula">Вписаний кут = ½ · дуги, на яку він спирається</p>
+    <div class="step">Дуга = 80°</div>
+    <div class="step">Вписаний кут = 80° / 2 = <b>40°</b></div>
+    <p><b>Відповідь: A) 40°.</b></p>
+    <div class="ex"><b>Наслідки, які варто знати:</b><br>
+    • Вписаний кут, що спирається на діаметр (дуга 180°), завжди = <b>90°</b>.<br>
+    • Усі вписані кути, що спираються на ту саму дугу — <b>рівні між собою</b>.</div>`
+  },
+  "sol11":{
+    title:"Завдання 11. Розв'язання",
+    body:`<p><b>Об'єм куба:</b> <span class="formula">V = a<sup>3</sup></span></p>
+    <div class="step">a = 4 см</div>
+    <div class="step">V = 4<sup>3</sup> = 4 · 4 · 4 = 16 · 4 = <b>64</b> см<sup>3</sup></div>
+    <p><b>Відповідь: D) 64 см<sup>3</sup>.</b></p>
+    <div class="ex"><b>Не плутай:</b><br>
+    • <b>Об'єм</b> куба = a<sup>3</sup> (см<sup>3</sup>)<br>
+    • <b>Площа поверхні</b> куба = 6a<sup>2</sup> (см<sup>2</sup>)<br>
+    • <b>Площа однієї грані</b> = a<sup>2</sup><br>
+    • <b>Діагональ куба</b> = a√3</div>`
+  },
+  "sol12":{
+    title:"Завдання 12. Розв'язання",
+    body:`<p><b>Класичне означення:</b></p>
+    <p class="formula">P = (сприятливі) / (всього)</p>
+    <div class="step"><b>Усього куль:</b> 5 + 3 = 8</div>
+    <div class="step"><b>Сприятливих (білих):</b> 5</div>
+    <div class="step"><b>Ймовірність:</b> P = 5/8</div>
+    <p><b>Відповідь: B) 5/8.</b></p>
+    <div class="ex"><b>Завжди:</b> 0 ≤ P ≤ 1. Якщо в тебе вийшло більше 1 (наприклад, 5/3) — десь помилка.</div>`
+  },
+  "sol13":{
+    title:"Завдання 13. Розв'язання",
+    body:`<p><b>Система:</b> { x + y = 7 ; x − y = 1 }</p>
+    <h4>Метод додавання</h4>
+    <div class="step">Складаємо обидва рівняння поелементно:<br>
+    (x + y) + (x − y) = 7 + 1<br>
+    2x = 8 ⇒ <b>x = 4</b></div>
+    <div class="step">Підставляємо x = 4 у перше рівняння:<br>
+    4 + y = 7 ⇒ <b>y = 3</b></div>
+    <div class="step"><b>Добуток:</b> x · y = 4 · 3 = <b>12</b></div>
+    <p><b>Відповідь: 12.</b></p>`
+  },
+  "sol14":{
+    title:"Завдання 14. Розв'язання",
+    body:`<p><b>f(x) = 2x − 3</b>, знайти f(5).</p>
+    <div class="step">Підставляємо x = 5:<br>
+    f(5) = 2·5 − 3 = 10 − 3 = <b>7</b></div>
+    <p><b>Відповідь: 7.</b></p>
+    <div class="ex"><b>Урок:</b> функція — це «машинка». Кидаєш число, отримуєш інше за заданим правилом. У f(5) число 5 — це ВХІД, а 7 — ВИХІД.</div>`
+  },
+  "sol15":{
+    title:"Завдання 15. Розв'язання",
+    body:`<p><b>Парабола:</b> y = x<sup>2</sup> − 4x + 1</p>
+    <p>Тут a = 1, b = −4, c = 1.</p>
+    <div class="step"><b>Абсциса вершини:</b> x<sub>в</sub> = −b / (2a) = −(−4) / (2·1) = 4 / 2 = <b>2</b></div>
+    <div class="step"><b>Ордината вершини:</b> підставляємо x<sub>в</sub> = 2 у рівняння:<br>
+    y<sub>в</sub> = 2<sup>2</sup> − 4·2 + 1 = 4 − 8 + 1 = <b>−3</b></div>
+    <p><b>Відповідь: −3.</b></p>
+    <div class="ex"><b>Урок:</b> якщо a > 0 (як тут), вітки параболи дивляться вгору, і вершина — це <b>найнижча</b> точка. Її y — мінімум функції. Якщо a &lt; 0 — вітки вниз, вершина — максимум.</div>`
+  },
+  "sol16":{
+    title:"Завдання 16. Розв'язання",
+    body:`<p><b>Формула площі через дві сторони і кут:</b></p>
+    <p class="formula">S = ½ · a · b · sin γ</p>
+    <div class="step">a = 6, b = 8, γ = 30°</div>
+    <div class="step">sin 30° = 1/2 = 0,5</div>
+    <div class="step">S = ½ · 6 · 8 · ½ = (6 · 8) / 4 = 48 / 4 = <b>12</b></div>
+    <p><b>Відповідь: 12.</b></p>
+    <div class="ex"><b>Лайфхак:</b> ½ · sin 30° = ½ · ½ = ¼. Тож формула «з'їла» множник ¼ — і відповідь дуже швидка.</div>`
+  },
+  "sol17":{
+    title:"Завдання 17. Розв'язання",
+    body:`<p><b>Формула n-го члена АП:</b></p>
+    <p class="formula">a<sub>n</sub> = a<sub>1</sub> + (n − 1) · d</p>
+    <div class="step">a<sub>1</sub> = 2, d = 3, n = 10</div>
+    <div class="step">a<sub>10</sub> = 2 + (10 − 1) · 3 = 2 + 9 · 3 = 2 + 27 = <b>29</b></div>
+    <p><b>Відповідь: 29.</b></p>
+    <div class="ex"><b>Часта помилка:</b> писати (n) замість (n−1). Перевір на простому: a<sub>1</sub> = a<sub>1</sub> + 0·d ✓. Якщо було б a<sub>1</sub> + 1·d — це вже a<sub>2</sub>.</div>`
+  },
+  "sol18":{
+    title:"Завдання 18. Розв'язання",
+    body:`<p><b>Формула n-го члена ГП:</b></p>
+    <p class="formula">b<sub>n</sub> = b<sub>1</sub> · q<sup>n−1</sup></p>
+    <div class="step">b<sub>1</sub> = 3, q = 2, n = 5</div>
+    <div class="step">b<sub>5</sub> = 3 · 2<sup>5−1</sup> = 3 · 2<sup>4</sup> = 3 · 16 = <b>48</b></div>
+    <p><b>Відповідь: 48.</b></p>
+    <div class="ex"><b>Перевірка явно:</b> 3, 6, 12, 24, 48 — кожне втричі... ой, помножене на 2. ✓</div>`
+  },
+  "sol19":{
+    title:"Завдання 19. Розв'язання",
+    body:`<p><b>Формула:</b> v = S / t</p>
+    <div class="step">S = 600 км, t = 1,5 год</div>
+    <div class="step">v = 600 / 1,5</div>
+    <div class="step"><b>Як ділити на 1,5?</b> Помнож і чисельник, і знаменник на 2:<br>
+    600 / 1,5 = 1200 / 3 = <b>400</b></div>
+    <p><b>Відповідь: 400 км/год.</b></p>
+    <div class="ex"><b>Загалом ділення на дробове:</b> ділення на ½ — це множення на 2; ділення на 0,25 — множення на 4; ділення на 1,5 — множення на 2/3.</div>`
+  },
+  "sol20":{
+    title:"Завдання 20. Розв'язання",
+    body:`<p><b>Нерівність:</b> 2x − 5 > 7</p>
+    <div class="step">Переносимо −5 праворуч (зі зміною знака):<br>
+    2x > 7 + 5 ⇒ 2x > 12</div>
+    <div class="step">Ділимо на 2 (додатне число — знак не змінюється):<br>
+    x > 6</div>
+    <div class="step"><b>Найменше ціле x &gt; 6:</b> це <b>7</b> (бо 6 не входить — нерівність <i>строга</i>).</div>
+    <p><b>Відповідь: 7.</b></p>
+    <div class="ex"><b>Запам'ятай різницю:</b><br>
+    • x &gt; 6 → 6 НЕ входить (строга нерівність) → найменше ціле = 7.<br>
+    • x ≥ 6 → 6 входить (нестрога) → найменше ціле = 6.</div>`
+  }
+};
+
+/* ===================== Modal handlers ===================== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target === modalBack) modalBack.classList.remove('on'); });
+function openModal(t, b){ modalTitle.textContent = t; modalBody.innerHTML = b; modalBack.classList.add('on'); }
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const h = hints[btn.dataset.hint];
+    if(h) openModal(h.title, h.body);
+  });
+});
+document.querySelectorAll('.solbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const s = solutions[btn.dataset.sol];
+    if(s) openModal(s.title, s.body);
+  });
+});
+
+/* ===================== Progress + Timer ===================== */
+const TOTAL = 20;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c = 0;
+  for(let i=1;i<=12;i++){ if(document.querySelector(`input[name="q${i}"]:checked`)) c++; }
+  for(let i=13;i<=20;i++){
+    const el = document.querySelector(`input[name="q${i}"]`);
+    if(el && el.value.trim()!=='') c++;
+  }
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100) + '%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ===================== Reset / Fresh state ===================== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('input[type=text]').forEach(i=>{ i.value=''; i.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ===================== Submit / Score ===================== */
+function normalizeNum(s){
+  if(s==null) return '';
+  return String(s).trim().replace(',', '.').replace(/\s+/g,'');
+}
+function numEqual(given, correct){
+  const g = parseFloat(normalizeNum(given));
+  const c = parseFloat(normalizeNum(correct));
+  if(isNaN(g) || isNaN(c)) return false;
+  return Math.abs(g - c) < 1e-6;
+}
+
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  // Q1..Q12: multiple choice
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(lab){
+      const name = lab.name; // qN
+      const n = parseInt(name.replace('q',''),10);
+      const correct = li.dataset.correct;
+      const topic = li.dataset.topic;
+      const chk = li.querySelector('input[type=radio]:checked');
+      const given = chk ? chk.value : '';
+      const ok = given === correct;
+      record(n, topic, correct, given, ok);
+      li.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      li.querySelector('.solbtn')?.classList.add('on');
+    } else {
+      // numeric input
+      const inp = li.querySelector('input[type=text]');
+      if(!inp) return;
+      const n = parseInt(inp.name.replace('q',''),10);
+      const correct = li.dataset.correct;
+      const topic = li.dataset.topic;
+      const given = inp.value;
+      const ok = numEqual(given, correct);
+      record(n, topic, correct, given, ok);
+      inp.classList.remove('correct','wrong');
+      inp.classList.add(ok?'correct':'wrong');
+      li.querySelector('.solbtn')?.classList.add('on');
+    }
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round( Math.pow(pct/100, 0.95) * 100 );
+
+  // Blocks
+  const blocks = {
+    'Алгебра (рівняння і вирази)': ['linear-eq','quadratic','powers','logarithm','exp-eq','log-eq','system','inequality'],
+    'Функції': ['function','parabola'],
+    'Геометрія': ['pythagoras','inscribed-angle','cube','triangle-area'],
+    'Тригонометрія': ['trig-value'],
+    'Прогресії та ймовірність': ['ap','gp','probability'],
+    'Текстові задачі': ['percent','motion']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Verdict
+  let verdictColor, verdictText, level;
+  if(pct >= 80){ level='B+ / реальний прохідний'; verdictColor='ok';
+    verdictText='Це не «рівень 0», Григорію — це впевнений базовий рівень школяра. За місяць можеш дійти до 170–180 балів НМТ. Не зупиняйся.'; }
+  else if(pct >= 60){ level='C / середній'; verdictColor='ok';
+    verdictText='Базу пам\'ятаєш. Місяця достатньо, щоб закрити прогалини й піти на 150–170. Дисципліна — і все вийде.'; }
+  else if(pct >= 40){ level='D / нижче середнього'; verdictColor='warn';
+    verdictText='Не нуль. Половину завдань ти бачив і впізнав. За місяць реально вийти на 130–150 балів — це достатньо, щоб скласти. План нижче, працюй щодня.'; }
+  else if(pct >= 20){ level='E / слабкий старт'; verdictColor='warn';
+    verdictText='Серйозний нуль, але не катастрофа. За місяць можеш дійти до базових 110–130, якщо щодня по 3 години. Це означає: ніяких «завтра почну».'; }
+  else { level='Абсолютний нуль'; verdictColor='bad';
+    verdictText='Чесно: місяць з абсолютного нуля до НМТ — це героїчна задача. Реалістично — вибити мінімальні бали для зарахування. Сконцентруйся на найпростіших темах (відсотки, лінійні рівняння, степені, прогресії) — там можна швидко набрати половину балів.'; }
+
+  // Personalized plan
+  const weakBlocks = Object.entries(blockStats).filter(([_,s])=>s.pct < 80).sort((a,b)=>a[1].pct-b[1].pct);
+  const wrongs = details.filter(d=>!d.ok);
+
+  const planText = `
+    <div class="week"><b>Тиждень 1 (Дні 1–7) — Алгебра-основа.</b>
+      Цілі: лінійні рівняння та нерівності, відсотки, степені, корені, дроби.<br>
+      Щодня: 30 хв теорії (підручник Бевз, 7–8 клас) + 1 година задач + 30 хв розбору помилок.<br>
+      Кінець тижня: пройди заново завдання 1, 2, 3, 4, 19, 20 з цього тесту.
+    </div>
+    <div class="week"><b>Тиждень 2 (Дні 8–14) — Степені, логарифми, функції.</b>
+      Цілі: показникові й логарифмічні рівняння, лінійна та квадратична функції, парабола, графіки.<br>
+      Щодня: повторення теми тижня 1 (15 хв) + нова теорія + задачі.<br>
+      Кінець тижня: завдання 5, 6, 7, 14, 15.
+    </div>
+    <div class="week"><b>Тиждень 3 (Дні 15–21) — Геометрія + тригонометрія базова.</b>
+      Цілі: теорема Піфагора, площі трикутників, кола (вписаний/центральний кут), таблиця sin/cos/tg для 0°,30°,45°,60°,90°, найпростіші рівняння типу sin x = ½.<br>
+      Геометрія в НМТ — це 4–5 задач і часто «легкі бали».<br>
+      Кінець тижня: завдання 8, 9, 10, 16.
+    </div>
+    <div class="week"><b>Тиждень 4 (Дні 22–28) — Стереометрія, прогресії, ймовірність + 2 пробних НМТ.</b>
+      Цілі: куб/паралелепіпед/циліндр/конус/куля — об'єми; АП, ГП; класична ймовірність.<br>
+      Кінець тижня: 2 повних пробних тести НМТ на час (90 хв). Розбір КОЖНОЇ помилки.
+    </div>
+    <div class="week"><b>Дні 29–30 — Повторення і нерви.</b>
+      Не вчи нового! Тільки повторюй формули, переглядай свої помилки, спи 8 годин, не зубри в ніч перед НМТ. У день тесту: легкий сніданок, вода, шоколадка.
+    </div>`;
+
+  const resources = `
+    <h3>Ресурси (безкоштовні)</h3>
+    <ul>
+      <li><b>zno.osvita.ua</b> — банк завдань НМТ, повні тести минулих років з відповідями. <i>Твій головний інструмент.</i></li>
+      <li><b>istudy.com.ua</b> або <b>znohelp.com</b> — теорія коротко + задачі за темами.</li>
+      <li><b>Підручник Бевз/Мерзляк 7–11 клас</b> — повтори по черзі, не пропускаючи. Тебе цікавлять лише підсумкові вправи.</li>
+      <li><b>YouTube:</b> канал «Сергій Танчик», «Математика без меж» — пояснення тем НМТ за 5–10 хв.</li>
+      <li><b>Telegram-канали</b> «НМТ Математика» — щоденна задача на пошту.</li>
+    </ul>
+    <h3>Денний ритуал (3 години / день)</h3>
+    <ul>
+      <li><b>30 хв</b> — теорія однієї підтеми (читання + конспект формул).</li>
+      <li><b>90 хв</b> — 8–12 задач цього типу. <i>Не дивись відповіді, поки не спробуєш сам.</i></li>
+      <li><b>30 хв</b> — розбір помилок. Кожну помилку: <i>«чому я помилився? Що я не знав/забув?»</i> Випиши формулу/правило, яке тебе підвело — у окремий зошит «мої граблі».</li>
+      <li><b>30 хв</b> — переглянь зошит «граблі» вчорашніх днів. Це найважливіша частина.</li>
+    </ul>
+    <h3>Психологічно</h3>
+    <ul>
+      <li>За місяць ти не станеш олімпіадником, але <b>прохідних балів</b> цілком реально досягти.</li>
+      <li>На НМТ оптимально набирати завдання Частини 1 (12 простих з вибором) — вони дають половину балів, а це твоя ціль.</li>
+      <li>Один пропущений день у плані — це не кінець. Кінець — це коли пропускаєш три.</li>
+      <li>Сон важливіший за нічну зубрівку. Завжди.</li>
+    </ul>`;
+
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<li>Завдання ${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></li>`).join('')
+    : '<li>Помилок немає. Серйозно.</li>';
+
+  const blockCards = Object.entries(blockStats).map(([k,s])=>{
+    const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+    return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+  }).join('');
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% правильних · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Твій рівень зараз</h4><div class="v" style="font-size:20px">${level}</div></div>
+      <div class="card"><h4>Орієнтовний бал НМТ</h4><div class="v">${nmt} / 200</div></div>
+      <div class="card ${verdictColor}"><h4>Готовність</h4><div class="v">${pct>=60?'Середня':pct>=30?'Низька':'Дуже низька'}</div></div>
+      <div class="card"><h4>Час на тесті</h4><div class="v">${mm}:${ss}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',Verdana,sans-serif">Результати за блоками</h3>
+    <div class="scale">${blockCards}</div>
+
+    <div class="plan">
+      <h3>План на 30 днів (твоя дорожня карта)</h3>
+      ${planText}
+      ${resources}
+
+      <h3>Розбір твоїх помилок</h3>
+      <p>Натисни «📖 показати детальне рішення» біля кожного завдання вище — там покроковий розв'язок. А ось список твоїх неправильних відповідей:</p>
+      <ul>${wrongList}</ul>
+
+      <h3>Що робити прямо зараз</h3>
+      <ul>
+        <li><b>Сьогодні (день 0):</b> прочитай детальні розв'язання ВСІХ завдань, де помилився. Випиши формули, які ти не знав.</li>
+        <li><b>Завтра (день 1):</b> почни Тиждень 1 — лінійні рівняння і відсотки.</li>
+        <li><b>Через 3 дні:</b> пройди цей же тест ще раз. Ціль — ще 3–5 правильних відповідей.</li>
+        <li><b>Через 2 тижні:</b> пройди цей тест втретє. Ціль — мінімум 14/20.</li>
+      </ul>
+    </div>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" onclick="window.print()">Зберегти PDF / Роздрукувати</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>

@@ -12,13 +12,13 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
-  body{font-size:20px;line-height:1.6}
+  body{font-size:22px;line-height:1.6}
   .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
   header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
-  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:36px;margin:0 0 6px;letter-spacing:.3px}
-  .sub{color:var(--muted);font-size:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
   .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
-  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:18px;line-height:1.55}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
   section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
   section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
   .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
@@ -27,19 +27,19 @@
   ol.qs{padding-left:0;list-style:none;counter-reset:q}
   ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
   ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
-  .qtext{display:block;margin-top:6px;font-size:20px}
+  .qtext{display:block;margin-top:6px;font-size:22px}
   .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
   @media (max-width:760px){.opts{grid-template-columns:1fr}}
-  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:19px}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
   .opt:hover{background:#f1ecdb}
   .opt input{margin-top:6px;transform:scale(1.25)}
   .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
   .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
-  select{font-size:18px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
-  .passage{background:#fbf8ee;border-left:5px solid var(--accent);padding:18px 22px;border-radius:6px;font-size:19px;line-height:1.75}
+  select{font-size:20px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
+  .passage{background:#fbf8ee;border-left:5px solid var(--accent);padding:18px 22px;border-radius:6px;font-size:21px;line-height:1.75}
   .passage p{margin:0 0 12px}
   .matchgrid{display:grid;grid-template-columns:1fr 180px;gap:14px;align-items:center;margin:10px 0}
-  .matchgrid .item{padding:10px 14px;background:#fbf8ee;border-left:4px solid var(--accent-2);border-radius:4px;font-size:18px}
+  .matchgrid .item{padding:10px 14px;background:#fbf8ee;border-left:4px solid var(--accent-2);border-radius:4px;font-size:20px}
   .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
   .hintbtn:hover{background:#eaf1f8}
   .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
@@ -51,7 +51,7 @@
   button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
   .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
   .modal-back.on{display:flex}
-  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:19px;line-height:1.65}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
   .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
   .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
   .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
@@ -332,20 +332,20 @@
     </ol>
   </section>
 
-  <!-- ================ PART 5: Inversion ================ -->
+  <!-- ================ PART 5: Relative pronouns ================ -->
   <section class="task">
-    <h2>Частина 5. Inversion</h2>
-    <p class="instr">Оберіть граматично правильне речення. (Q24)</p>
+    <h2>Частина 5. Relative pronouns</h2>
+    <p class="instr">Оберіть правильний відносний займенник. (Q24)</p>
     <ol class="qs" start="24">
-      <li data-correct="C" data-topic="inversion" data-sol="sol24">
-        <span class="topic-tag">inversion</span>
-        <span class="qtext">Which sentence is grammatically correct?</span>
-        <button class="hintbtn" data-hint="inversion">💡 підказка</button>
-        <div class="opts" style="grid-template-columns:1fr">
-          <label class="opt"><input type="radio" name="q24" value="A"> A) Hardly the door had closed when the phone rang.</label>
-          <label class="opt"><input type="radio" name="q24" value="B"> B) No sooner I had closed the door than the phone rang.</label>
-          <label class="opt"><input type="radio" name="q24" value="C"> C) Hardly had I closed the door when the phone rang.</label>
-          <label class="opt"><input type="radio" name="q24" value="D"> D) No sooner did I close the door when the phone rang.</label>
+      <li data-correct="C" data-topic="relative-pronouns" data-sol="sol24">
+        <span class="topic-tag">relative pronoun</span>
+        <span class="qtext">The novel _____ I told you about last week has finally been translated into Ukrainian.</span>
+        <button class="hintbtn" data-hint="relative-pronouns">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) what</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) who</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) which</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) whose</label>
         </div>
         <button class="solbtn" data-sol="sol24">📖 детальне рішення</button>
       </li>
@@ -485,19 +485,20 @@ const hints = {
     <p>Описує дієслово. Зазвичай суфікс <code>-ly</code>.</p>
     <div class="ex">He spoke <b>professionally</b>.</div>`
   },
-  "inversion":{
-    title:"Inversion з Hardly / No sooner",
-    body:`<p>Це <b>дзеркало</b>: ставимо заперечне/обмежувальне слово на початок — підмет і допоміжне дієслово міняються місцями.</p>
-    <p class="step"><code>Hardly + had + S + V<sub>3</sub> + when + S + V<sub>2</sub></code></p>
-    <p class="step"><code>No sooner + had + S + V<sub>3</sub> + than + S + V<sub>2</sub></code></p>
-    <div class="ex"><b>Hardly had I closed</b> the door <b>when</b> the phone rang.<br>
-    <b>No sooner had I closed</b> the door <b>than</b> the phone rang.</div>
-    <p><b>Часті помилки:</b></p>
-    <p>❌ Hardly the door had closed (підмет НЕ йде після Hardly без інверсії)<br>
-    ❌ No sooner I had closed (те саме)<br>
-    ❌ No sooner ... when (треба <b>than</b>!)<br>
-    ❌ Hardly ... than (треба <b>when</b>!)</p>
-    <p><b>Запам'ятай:</b> Hardly → when. No sooner → than.</p>`
+  "relative-pronouns":{
+    title:"Relative pronouns: who / which / that / whose / what",
+    body:`<p>Запам'ятай прості правила:</p>
+    <p><code>who</code> — для <b>людей</b>. <i>The man <b>who</b> called me.</i></p>
+    <p><code>which</code> — для <b>предметів і тварин</b>. <i>The book <b>which</b> I read.</i></p>
+    <p><code>that</code> — для <b>обох</b>, але НЕ після коми. <i>The book <b>that</b> I read.</i></p>
+    <p><code>whose</code> — <b>належність</b>. <i>The man <b>whose</b> car is red.</i></p>
+    <p><code>what</code> = «те, що». <b>НЕ</b> вживається як relative pronoun після іменника. <i>Tell me <b>what</b> you know.</i> (а не: ❌ the thing what you know)</p>
+    <h4>Алгоритм вибору</h4>
+    <p>1. Подивись, на яке слово вказує пропуск.</p>
+    <p>2. Це <b>людина</b>? → who (whom — у формальному стилі).</p>
+    <p>3. Це <b>предмет/тварина</b>? → which (або that).</p>
+    <p>4. Це <b>належність</b> («чий»)? → whose.</p>
+    <div class="ex">"The novel _____ I told you about" — мова про роман (предмет). Серед варіантів — <b>which</b>.</div>`
   }
 };
 
@@ -583,13 +584,15 @@ const sols = {
     • "professionalism" — <b>якість бути професійним</b>, абстрактний іменник з -ism. Це те, що треба.</p>
     <p><b>Відповідь: D) professionalism.</b></p>
     <div class="ex">Запам'ятай суфікс <code>-ism</code> для абстрактних якостей: realism, idealism, criticism.</div>`},
-  "sol24":{title:"Q24. Inversion — правильний варіант",body:`<p>Перевіряємо кожен:</p>
-    <p>A) <i>Hardly the door had closed when</i> — НЕМАЄ інверсії. ❌</p>
-    <p>B) <i>No sooner I had closed the door than</i> — НЕМАЄ інверсії. ❌</p>
-    <p>C) <i>Hardly had I closed the door when</i> — інверсія є, "Hardly...when" — пара правильна. ✅</p>
-    <p>D) <i>No sooner did I close the door when</i> — інверсія є, але пара <b>неправильна</b>: треба "No sooner...<b>than</b>", не "when". ❌</p>
-    <p><b>Відповідь: C.</b></p>
-    <div class="ex">Запам'ятай пари: <b>Hardly → when</b>, <b>No sooner → than</b>.</div>`}
+  "sol24":{title:"Q24. Relative pronouns — which для предметів",body:`<p><b>The novel _____ I told you about last week has finally been translated.</b></p>
+    <div class="step">Запитай себе: яке слово замінює займенник у пропуску? — <b>"the novel"</b> (роман).</div>
+    <div class="step">Роман — це <b>предмет</b>, не людина. Перебираємо варіанти:</div>
+    <p>A) <code>what</code> — НЕ relative pronoun після іменника ❌</p>
+    <p>B) <code>who</code> — тільки для людей ❌</p>
+    <p>C) <code>which</code> — для предметів ✅</p>
+    <p>D) <code>whose</code> — належність («чий»), тут не пасує ❌</p>
+    <p><b>Відповідь: C) which.</b></p>
+    <div class="ex">Лайфхак: якщо у пропуск можна підставити «that» і фраза звучить логічно — це або <b>which</b> (для предметів), або <b>who</b> (для людей).</div>`}
 };
 
 /* ============== Modal ============== */
@@ -725,7 +728,8 @@ document.getElementById('submitBtn').onclick = () => {
   const blocks = {
     'Modal perfects': ['modal-perfect'],
     'Phrasal verbs & collocations': ['phrasal','collocation','preposition'],
-    'Such/So, Inversion': ['cleft','inversion'],
+    'Such/So + that': ['cleft'],
+    'Relative pronouns': ['relative-pronouns'],
     'Tenses & conditionals': ['tense','conditional'],
     'Cloze (set phrases)': ['cloze'],
     'Reading (matching)': ['reading-match'],
