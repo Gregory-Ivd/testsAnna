@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Day 3 (формат реального НМТ-2026)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--accent-2);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .task-meta{color:var(--muted);font-size:17px;margin-bottom:14px;font-style:italic}
+  .instr{color:var(--ink);font-size:18px;margin-bottom:14px;background:#fbf8ee;padding:10px 14px;border-radius:6px;border-left:4px solid var(--accent)}
+  .passage{background:#fbf8ee;border-left:5px solid var(--accent);padding:18px 22px;border-radius:6px;font-size:21px;line-height:1.75;margin-bottom:14px}
+  .passage p{margin:0 0 12px}
+  .options-box{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:6px;margin-bottom:14px;font-size:20px;line-height:1.75}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{margin:14px 0;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li.numbered::before{content:"Q" attr(data-n) ". ";font-weight:700;color:var(--accent);margin-right:6px}
+  .qtext{display:block;margin-top:4px;font-size:21px}
+  .opts{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:20px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select{font-size:19px;padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:90px;font-family:inherit}
+  .matchrow{display:grid;grid-template-columns:1fr 130px;gap:12px;align-items:center;margin:8px 0;padding:10px 14px;background:#fbf8ee;border:1px solid var(--line);border-left:4px solid var(--accent-2);border-radius:6px}
+  .matchrow.bad{background:#fbe3e3;border-color:#d49a9a}
+  .matchrow .item{font-size:19px;line-height:1.6}
+  .matchrow .q-num{font-weight:700;color:var(--accent);margin-right:4px}
+  .gapsel{display:inline-block;background:#eaf3ff;padding:3px 6px;border-radius:4px;margin:0 3px}
+  .gap-number{display:inline-block;background:var(--accent);color:#fff;font-weight:700;border-radius:50%;width:30px;height:30px;line-height:30px;text-align:center;font-size:16px;margin:0 4px;vertical-align:middle;font-family:"Trebuchet MS",sans-serif}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .task-solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:16px;padding:8px 16px;border-radius:6px;cursor:pointer;display:none;font-weight:700}
+  .task-solbtn.on{display:inline-block}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 30px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:#f7f2e0;padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:10px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:17px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap;gap:10px}
+  .timer-warn{color:var(--warn)!important;font-weight:700}
+  .timer-over{color:var(--bad)!important;font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0;font-size:18px}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+  .info-banner{background:#e9f3ec;border:1px solid #9ec3a7;padding:12px 16px;border-radius:8px;margin-top:14px;font-size:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 3 <span class="badge">формат реального НМТ-2026</span></h1>
+    <div class="sub">Тренувальний тест для Анни · 32 завдання · 60 хвилин · рівень B1+/B2</div>
+    <div class="info-banner">
+      ✅ <b>Точна структура згідно з testportal.gov.ua (УЦОЯО):</b> 32 завдання у 6 Tasks, з яких <b>11 matching</b>, <b>5 multiple choice</b>, <b>16 gap-filling</b>. Час — 60 хв. Без аудіювання та письма. Шкала балів: 100–200.
+    </div>
+    <div class="pep">
+      <b>Анно, увага.</b> Цей тест зроблений за форматом справжнього НМТ — так само структуроване, такої ж довжини, з тим самим хронометражем (60 хвилин на 32 завдання — це ~1 хв 50 сек на питання).
+      <br><br>Таймер угорі показує час до завершення 60-хвилинного «нормативу» — коли він перейде в червоний, ти вже «вийшла за час». На реальному НМТ цей дзвоник буде, тут — тільки кольорове попередження.
+      <br><br>Підказки 💡 є біля складних завдань. Після завершення — детальне рішення для всіх 32 питань.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta">
+      <span id="progressLabel">Виконано: 0 / 32</span>
+      <span id="timer">⏱ 60:00 (залишилось)</span>
+      <span id="elapsed">пройшло: 00:00</span>
+    </div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ========== TASK 1: Matching headings ========== -->
+  <section class="task">
+    <h2>Task 1 · Matching Headings</h2>
+    <p class="task-meta">5 завдань · matching · рівень B1</p>
+    <p class="instr">Прочитай п'ять абзаців. Підбери до кожного заголовок (A–F). Один заголовок зайвий.</p>
+
+    <div class="options-box">
+      <b>Headings:</b><br>
+      A) Move your body briefly<br>
+      B) Plan tomorrow tonight<br>
+      C) Skip the snooze button<br>
+      D) Hydrate before caffeine<br>
+      E) Avoid the morning scroll<br>
+      F) Why breakfast still matters
+    </div>
+
+    <div class="matchrow" data-correct="A" data-q="1" data-sol="sol1" data-topic="matching-headings">
+      <div class="item"><span class="q-num">Q1.</span> Most fitness experts agree that you don't need a one-hour workout in the morning. Five minutes of gentle stretching or a short walk around the block can boost your energy more effectively than another half-hour of sleep.</div>
+      <select name="q1"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="E" data-q="2" data-sol="sol2" data-topic="matching-headings">
+      <div class="item"><span class="q-num">Q2.</span> Resist the temptation to reach for your phone in the first ten minutes after waking. The constant flood of notifications, news, and messages activates stress responses before your brain has even fully come online.</div>
+      <select name="q2"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="D" data-q="3" data-sol="sol3" data-topic="matching-headings">
+      <div class="item"><span class="q-num">Q3.</span> Your body loses moisture during sleep, and drinking a full glass of water before your first cup of coffee helps your metabolism start the day properly. Many specialists suggest leaving the glass on your bedside table the night before.</div>
+      <select name="q3"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="C" data-q="4" data-sol="sol4" data-topic="matching-headings">
+      <div class="item"><span class="q-num">Q4.</span> Sleep experts argue that pressing snooze fragments your sleep cycles, leaving you more tired than if you had simply got up at the first alarm. Set the alarm for the latest time you can actually leave the bed — and stick to it.</div>
+      <select name="q4"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="B" data-q="5" data-sol="sol5" data-topic="matching-headings">
+      <div class="item"><span class="q-num">Q5.</span> Writing down three priorities for the next day before going to sleep dramatically reduces morning decision-making. You start the day knowing exactly what matters, instead of wasting your sharpest hours figuring it out.</div>
+      <select name="q5"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+    </div>
+
+    <button class="task-solbtn" data-sol="taskSol1">📖 Розбір Task 1</button>
+  </section>
+
+  <!-- ========== TASK 2: Matching people to statements ========== -->
+  <section class="task">
+    <h2>Task 2 · Matching People to Statements</h2>
+    <p class="task-meta">6 завдань · matching · рівень B1+</p>
+    <p class="instr">Шість учнів розповідають, як вони готувалися до іспиту з англійської мови. Підбери до кожного учня (Q6–Q11) одне з висловлювань (A–H). Два висловлювання зайві.</p>
+
+    <div class="options-box">
+      <b>Statements:</b><br>
+      A) Films with subtitles in the same language helped me.<br>
+      B) I learned by trying to explain things to someone else.<br>
+      C) I prepared by reading newspapers in English daily.<br>
+      D) I had to stop collecting materials and start using one.<br>
+      E) Keeping a record of my errors helped most.<br>
+      F) External accountability stopped me from giving up.<br>
+      G) I made progress by using small bits of free time.<br>
+      H) Travel abroad gave me the confidence I needed.
+    </div>
+
+    <div class="matchrow" data-correct="G" data-q="6" data-sol="sol6" data-topic="matching-opinion">
+      <div class="item"><span class="q-num">Q6.</span> <b>Olha:</b> I never sat down for long sessions. I used the bus rides to and from school to revise vocabulary on my phone. Twenty minutes here, fifteen there — by the end of the month I had covered everything.</div>
+      <select name="q6"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="B" data-q="7" data-sol="sol7" data-topic="matching-opinion">
+      <div class="item"><span class="q-num">Q7.</span> <b>Andriy:</b> Honestly, the most useful thing I did was teaching my younger brother. Explaining grammar rules out loud forced me to really understand them, not just recognise them.</div>
+      <select name="q7"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="D" data-q="8" data-sol="sol8" data-topic="matching-opinion">
+      <div class="item"><span class="q-num">Q8.</span> <b>Yana:</b> I downloaded every prep app and watched dozens of YouTube videos in the first week. Then I realised I was just collecting resources without actually using any of them. Eventually I picked one book and stuck with it.</div>
+      <select name="q8"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="A" data-q="9" data-sol="sol9" data-topic="matching-opinion">
+      <div class="item"><span class="q-num">Q9.</span> <b>Maks:</b> What worked for me was watching films in English with English subtitles. Not Ukrainian subtitles — English. After a month, I noticed I was understanding much more even in everyday conversations.</div>
+      <select name="q9"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="F" data-q="10" data-sol="sol10" data-topic="matching-opinion">
+      <div class="item"><span class="q-num">Q10.</span> <b>Sofia:</b> I joined an online study group. Knowing that other people were waiting for me to show up at seven on Tuesdays kept me from skipping a single session for two months.</div>
+      <select name="q10"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+
+    <div class="matchrow" data-correct="E" data-q="11" data-sol="sol11" data-topic="matching-opinion">
+      <div class="item"><span class="q-num">Q11.</span> <b>Roman:</b> I tracked my mistakes in a separate notebook. Every time I got something wrong on a practice test, I copied the rule into the notebook. Reviewing that one notebook the night before the exam was more useful than any textbook.</div>
+      <select name="q11"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+
+    <button class="task-solbtn" data-sol="taskSol2">📖 Розбір Task 2</button>
+  </section>
+
+  <!-- ========== TASK 3: Multiple choice (long text) ========== -->
+  <section class="task">
+    <h2>Task 3 · Reading Comprehension</h2>
+    <p class="task-meta">5 завдань · multiple choice · рівень B1+/B2</p>
+    <p class="instr">Прочитай текст і обери правильну відповідь на кожне з п'яти запитань (Q12–Q16).</p>
+
+    <div class="passage">
+      <p>When Sarah Mitchell was fourteen, she watched a documentary about communities in remote villages who had no access to clean drinking water. The images of children walking for hours to collect murky water from distant rivers stayed with her for weeks. While most of her classmates would have forgotten the film by the following Monday, Sarah began researching what science could do about the problem.</p>
+      <p>Her first attempts, built in her parents' garage, were almost comically unsuccessful. The early prototypes leaked, broke, or simply refused to filter anything. Her chemistry teacher, Mrs. Patel, became Sarah's unofficial advisor — staying after school twice a week to help her debug each new version. "I never told her she couldn't do it," Mrs. Patel later said in an interview. "But I also never pretended the problems she was working on were small ones."</p>
+      <p>By the time Sarah turned sixteen, she had produced a filter that could remove 99% of contaminants from river water using only materials that cost less than five dollars to manufacture. Her invention won a regional science fair, then a national one, and eventually attracted the attention of a charity that distributes low-cost water systems across Africa.</p>
+      <p>Sarah is now twenty-three and runs a non-profit organisation that has installed her filters in over four hundred villages. She remains, by her own admission, more comfortable in a workshop than in a boardroom. When asked what advice she would give to other young people with ambitious ideas, she usually says the same thing: find one teacher who will take you seriously, and work on the problem long enough to fail at least ten times before you start succeeding.</p>
+    </div>
+
+    <ol class="qs">
+      <li class="numbered" data-n="12" data-correct="B" data-topic="reading-mc" data-sol="sol12">
+        <span class="qtext">What first inspired Sarah to start her project?</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) A school chemistry lesson</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) A documentary she watched at fourteen</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) A trip to a remote village</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) Encouragement from her parents</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="13" data-correct="C" data-topic="reading-mc" data-sol="sol13">
+        <span class="qtext">According to the text, Sarah's early prototypes</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="A"> A) worked but were too expensive</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> B) had only minor technical issues</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> C) failed in basic ways</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> D) were rejected by her teacher</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="14" data-correct="B" data-topic="reading-mc" data-sol="sol14">
+        <span class="qtext">What did Mrs. Patel mainly do for Sarah?</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="A"> A) Built the prototypes herself</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> B) Provided regular technical advising</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> C) Connected Sarah with charities</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> D) Submitted Sarah's work to competitions</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="15" data-correct="A" data-topic="reading-mc" data-sol="sol15">
+        <span class="qtext">The phrase "more comfortable in a workshop than in a boardroom" suggests that Sarah</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q15" value="A"> A) prefers practical work to business meetings</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> B) refuses to attend any meetings</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> C) is uncomfortable with success</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> D) wants to return to school</label>
+        </div>
+        <button class="solbtn" data-sol="sol15">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="16" data-correct="C" data-topic="reading-mc" data-sol="sol16">
+        <span class="qtext">What is Sarah's main advice to young inventors?</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q16" value="A"> A) Always work alone</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> B) Apply for funding early</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> C) Find a supportive mentor and accept failure</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> D) Choose problems that can be solved quickly</label>
+        </div>
+        <button class="solbtn" data-sol="sol16">📖 рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ========== TASK 4: Gapped text ========== -->
+  <section class="task">
+    <h2>Task 4 · Gapped Text</h2>
+    <p class="task-meta">6 завдань · gap-filling (sentences) · рівень B2</p>
+    <p class="instr">Прочитай текст. Шість речень видалено з тексту. Обери з варіантів (A–G) речення, яке найкраще пасує до кожного пропуску (Q17–Q22). Одне речення зайве.</p>
+
+    <div class="options-box">
+      <b>Sentences:</b><br>
+      A) He encourages young people not to wait for permission to dream big.<br>
+      B) Temperatures dropped to minus fifty at times, and on day forty-two he nearly turned back.<br>
+      C) Nothing in his childhood seemed to point to such an extraordinary achievement.<br>
+      D) Even his closest friends thought he was being unrealistic.<br>
+      E) He also started training with a former Olympic skier on weekends.<br>
+      F) That single weekend convinced him that wild places were where he belonged.<br>
+      G) The team had to be airlifted out after three days due to bad weather.
+    </div>
+
+    <div class="passage">
+      <p>At the age of nineteen, Bohdan Petrov became the youngest person from Ukraine to reach the South Pole on foot. <span class="gap-number">17</span> <select name="q17"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> His parents, both schoolteachers, had assumed he would follow them into education.</p>
+
+      <p>The first sign of his future passion came at the age of nine, when his grandfather took him hiking in the Carpathian Mountains. <span class="gap-number">18</span> <select name="q18"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> Most children his age were focused on football or video games, but Bohdan started saving his pocket money to buy proper hiking boots.</p>
+
+      <p>By fifteen, he had completed several long-distance treks in Eastern Europe. <span class="gap-number">19</span> <select name="q19"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> The combination, he later said, taught him that the body could endure far more than the mind initially believed possible.</p>
+
+      <p>His decision to attempt the Antarctic crossing surprised everyone. <span class="gap-number">20</span> <select name="q20"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> Most polar explorers train for a decade before such a journey; Bohdan had only four years of serious experience.</p>
+
+      <p>The expedition itself took fifty-seven days. <span class="gap-number">21</span> <select name="q21"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> Bohdan refused to give up, partly because of stubbornness and partly because a documentary crew was depending on him to finish.</p>
+
+      <p>Today, Bohdan gives talks in schools across Ukraine. <span class="gap-number">22</span> <select name="q22"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> He insists that the most important quality for any adventure is not physical strength but the willingness to keep moving when everything inside you wants to stop.</p>
+    </div>
+
+    <button class="task-solbtn" data-sol="taskSol4">📖 Розбір Task 4</button>
+  </section>
+
+  <!-- ========== TASK 5: Multiple choice cloze ========== -->
+  <section class="task">
+    <h2>Task 5 · Multiple Choice Cloze</h2>
+    <p class="task-meta">5 завдань · gap-filling with options · рівень B1+</p>
+    <p class="instr">Прочитай текст. Обери для кожного пропуску (Q23–Q27) найкращий варіант з чотирьох запропонованих.</p>
+
+    <div class="passage">
+      <p>Last weekend, I finally <span class="gap-number">23</span> my old apartment after years of putting it off. Going through cupboards I hadn't opened in a decade, I <span class="gap-number">24</span> dozens of objects I didn't remember owning. There were birthday cards, broken electronics, and a collection of books that I had clearly meant to read but never <span class="gap-number">25</span> around to opening.</p>
+      <p>What surprised me most was how difficult it was to throw things <span class="gap-number">26</span>. Each object seemed to carry a memory, and the thought of losing those memories was harder to deal with than I had expected. By the end of the day, I had managed to fill only two bags, <span class="gap-number">27</span> my original plan of clearing half the apartment.</p>
+    </div>
+
+    <ol class="qs">
+      <li class="numbered" data-n="23" data-correct="A" data-topic="cloze-mc" data-sol="sol23">
+        <span class="qtext">Gap 23</span>
+        <button class="hintbtn" data-hint="clear-out">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q23" value="A"> A) cleared out</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> B) cleared up</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> C) cleared off</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> D) cleared away</label>
+        </div>
+        <button class="solbtn" data-sol="sol23">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="24" data-correct="B" data-topic="cloze-mc" data-sol="sol24">
+        <span class="qtext">Gap 24</span>
+        <button class="hintbtn" data-hint="come-across">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) came up with</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) came across</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) came down to</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) came over</label>
+        </div>
+        <button class="solbtn" data-sol="sol24">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="25" data-correct="A" data-topic="cloze-mc" data-sol="sol25">
+        <span class="qtext">Gap 25</span>
+        <button class="hintbtn" data-hint="get-around-to">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q25" value="A"> A) got</label>
+          <label class="opt"><input type="radio" name="q25" value="B"> B) made</label>
+          <label class="opt"><input type="radio" name="q25" value="C"> C) had</label>
+          <label class="opt"><input type="radio" name="q25" value="D"> D) put</label>
+        </div>
+        <button class="solbtn" data-sol="sol25">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="26" data-correct="C" data-topic="cloze-mc" data-sol="sol26">
+        <span class="qtext">Gap 26</span>
+        <button class="hintbtn" data-hint="throw-away">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q26" value="A"> A) off</label>
+          <label class="opt"><input type="radio" name="q26" value="B"> B) up</label>
+          <label class="opt"><input type="radio" name="q26" value="C"> C) away</label>
+          <label class="opt"><input type="radio" name="q26" value="D"> D) over</label>
+        </div>
+        <button class="solbtn" data-sol="sol26">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="27" data-correct="D" data-topic="cloze-mc" data-sol="sol27">
+        <span class="qtext">Gap 27</span>
+        <button class="hintbtn" data-hint="despite">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q27" value="A"> A) thanks to</label>
+          <label class="opt"><input type="radio" name="q27" value="B"> B) due to</label>
+          <label class="opt"><input type="radio" name="q27" value="C"> C) instead of</label>
+          <label class="opt"><input type="radio" name="q27" value="D"> D) despite</label>
+        </div>
+        <button class="solbtn" data-sol="sol27">📖 рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ========== TASK 6: Word formation ========== -->
+  <section class="task">
+    <h2>Task 6 · Word Formation</h2>
+    <p class="task-meta">5 завдань · gap-filling (word formation) · рівень B1+</p>
+    <p class="instr">У дужках наприкінці речення подано слово в основній формі (CAPS). Обери правильну похідну форму для пропуску (Q28–Q32).</p>
+
+    <ol class="qs">
+      <li class="numbered" data-n="28" data-correct="C" data-topic="wordform" data-sol="sol28">
+        <span class="qtext">His grandmother was famous for her _____ in difficult situations. <b>(PATIENT)</b></span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q28" value="A"> A) patient</label>
+          <label class="opt"><input type="radio" name="q28" value="B"> B) patiently</label>
+          <label class="opt"><input type="radio" name="q28" value="C"> C) patience</label>
+          <label class="opt"><input type="radio" name="q28" value="D"> D) impatience</label>
+        </div>
+        <button class="solbtn" data-sol="sol28">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="29" data-correct="B" data-topic="wordform" data-sol="sol29">
+        <span class="qtext">The _____ of his speech moved the entire audience. <b>(SINCERE)</b></span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q29" value="A"> A) sincerely</label>
+          <label class="opt"><input type="radio" name="q29" value="B"> B) sincerity</label>
+          <label class="opt"><input type="radio" name="q29" value="C"> C) insincere</label>
+          <label class="opt"><input type="radio" name="q29" value="D"> D) sincere</label>
+        </div>
+        <button class="solbtn" data-sol="sol29">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="30" data-correct="C" data-topic="wordform" data-sol="sol30">
+        <span class="qtext">She gave a _____ presentation on climate change. <b>(POWER)</b></span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q30" value="A"> A) powerless</label>
+          <label class="opt"><input type="radio" name="q30" value="B"> B) powered</label>
+          <label class="opt"><input type="radio" name="q30" value="C"> C) powerful</label>
+          <label class="opt"><input type="radio" name="q30" value="D"> D) empower</label>
+        </div>
+        <button class="solbtn" data-sol="sol30">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="31" data-correct="A" data-topic="wordform" data-sol="sol31">
+        <span class="qtext">The _____ between the two cities is now only two hours by train. <b>(DISTANT)</b></span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q31" value="A"> A) distance</label>
+          <label class="opt"><input type="radio" name="q31" value="B"> B) distant</label>
+          <label class="opt"><input type="radio" name="q31" value="C"> C) distantly</label>
+          <label class="opt"><input type="radio" name="q31" value="D"> D) distancing</label>
+        </div>
+        <button class="solbtn" data-sol="sol31">📖 рішення</button>
+      </li>
+      <li class="numbered" data-n="32" data-correct="C" data-topic="wordform" data-sol="sol32">
+        <span class="qtext">We all need to act more _____ if we want to protect the environment. <b>(RESPONSIBLE)</b></span>
+        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q32" value="A"> A) responsibility</label>
+          <label class="opt"><input type="radio" name="q32" value="B"> B) responsible</label>
+          <label class="opt"><input type="radio" name="q32" value="C"> C) responsibly</label>
+          <label class="opt"><input type="radio" name="q32" value="D"> D) irresponsible</label>
+        </div>
+        <button class="solbtn" data-sol="sol32">📖 рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Day 3 · точний формат НМТ-2026 згідно з testportal.gov.ua · 32 завдання · 60 хв · уровень B1+/B2</footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== HINTS ============== */
+const hints = {
+  "clear-out":{title:"Clear out / up / off / away",body:`<p><code>clear out</code> = звільнити від речей, прибрати (a room, an apartment, a cupboard).</p>
+    <p><code>clear up</code> = впорядкувати дрібний безлад; також про погоду — проясніти.</p>
+    <p><code>clear off</code> = (неформ.) забиратися геть.</p>
+    <p><code>clear away</code> = прибрати після події (clear away the dishes).</p>
+    <div class="ex">For a whole apartment after years of neglect — <b>clear out</b>.</div>`},
+  "come-across":{title:"Come across / up with / down to / over",body:`<p><code>come across</code> = випадково натрапити (sth/sb).</p>
+    <p><code>come up with</code> = придумати, запропонувати (an idea, a solution).</p>
+    <p><code>come down to</code> = зводитись до (it all comes down to money).</p>
+    <p><code>come over</code> = підійти (someone came over), охопити (a feeling came over me).</p>
+    <div class="ex">«Going through cupboards, I _____ dozens of objects» — випадково знайшов → <b>came across</b>.</div>`},
+  "get-around-to":{title:"Get around to doing sth",body:`<p><code>get around to + V-ing</code> = нарешті знайти час, щоб зробити (часто з відтінком зволікання).</p>
+    <div class="ex">I never <b>got around to</b> reading that book. = Я так і не зібрався прочитати ту книгу.</div>
+    <p>З "made / had / put" ця конструкція <b>не</b> працює.</p>`},
+  "throw-away":{title:"Throw away vs throw out / off / over",body:`<p><code>throw away</code> = викинути (звичне значення для сміття).</p>
+    <p><code>throw out</code> = теж викинути, але частіше про великі речі або людину з місця.</p>
+    <p><code>throw off</code> = скинути (одяг), збити з пантелику.</p>
+    <p><code>throw over</code> = (рідко) кинути партнера.</p>
+    <div class="ex">"Throw things <b>away</b>" — найзагальніший і безпечний вибір для побутового сміття.</div>`},
+  "despite":{title:"Despite vs although vs because of",body:`<p><code>despite + noun/V-ing</code> = незважаючи на. Без "that"!</p>
+    <p><code>although + clause</code> = хоча. З підметом і присудком.</p>
+    <p><code>thanks to / due to / because of + noun</code> = завдяки/через.</p>
+    <div class="ex">I filled only two bags, <b>despite my original plan</b>... = всупереч моєму плану.<br>
+    Дослівно: I filled only two bags, <b>although my original plan was</b>...</div>`},
+  "wordform":{title:"Word Formation — алгоритм",body:`<p>Задай питання: <b>яка частина мови потрібна в пропуску</b>?</p>
+    <h4>Іменник (noun)</h4>
+    <p>Стоїть після артикля (the), присвійних (his, her), прикметника, прийменника.</p>
+    <p>Типові суфікси: <code>-tion, -ment, -ity, -ness, -ence, -ance, -ism</code></p>
+    <h4>Прикметник (adj)</h4>
+    <p>Стоїть перед іменником або після be/seem/become.</p>
+    <p>Типові суфікси: <code>-ful, -less, -ive, -ous, -al, -able</code></p>
+    <h4>Прислівник (adv)</h4>
+    <p>Описує дієслово (act, speak, work). Зазвичай суфікс <code>-ly</code>.</p>
+    <p>Сигнал у реченні: "act <i>more</i> _____" — після "more" може бути adj або adv. Дивись, що описуєш — дієслово act → adv.</p>`}
+};
+
+/* ============== SOLUTIONS ============== */
+const sols = {
+  "sol1":{title:"Q1 → A) Move your body briefly",body:`<p>Маркери: "five minutes of gentle stretching", "short walk", "boost your energy".</p><p>Це абзац про коротку фізичну активність зранку → <b>A) Move your body briefly</b>.</p>`},
+  "sol2":{title:"Q2 → E) Avoid the morning scroll",body:`<p>Маркери: "phone", "notifications, news, and messages", "stress responses".</p><p>Уникати телефону зранку → <b>E) Avoid the morning scroll</b>.</p>`},
+  "sol3":{title:"Q3 → D) Hydrate before caffeine",body:`<p>Маркери: "glass of water", "before your first cup of coffee".</p><p>Пити воду перед кавою → <b>D) Hydrate before caffeine</b>.</p>`},
+  "sol4":{title:"Q4 → C) Skip the snooze button",body:`<p>Маркери: "pressing snooze fragments your sleep cycles", "got up at the first alarm".</p><p>Не натискати snooze → <b>C) Skip the snooze button</b>.</p>`},
+  "sol5":{title:"Q5 → B) Plan tomorrow tonight",body:`<p>Маркери: "writing down three priorities for the next day before going to sleep".</p><p>Планувати наступний день увечері → <b>B) Plan tomorrow tonight</b>.</p><p>Зайвий: F) Why breakfast still matters.</p>`},
+  "taskSol1":{title:"Task 1 — повний розбір",body:`<p><b>Стратегія matching headings:</b></p>
+    <div class="step">1. Прочитай ВСІ заголовки спочатку, щоб мати уявлення про теми.</div>
+    <div class="step">2. У кожному абзаці шукай 2–3 ключові слова, які прямо вказують на тему.</div>
+    <div class="step">3. Не давай себе обдурити словами, які лише <b>трапляються</b> в абзаці. Заголовок має відображати <b>головну ідею</b>, а не деталь.</div>
+    <div class="step">4. Один заголовок завжди зайвий — це нормально. Залиш його наостанок.</div>
+    <p><b>Відповіді:</b> Q1→A, Q2→E, Q3→D, Q4→C, Q5→B. Зайвий: F.</p>`},
+  "sol6":{title:"Q6 → G",body:`<p>Olha: "twenty minutes here, fifteen there" — це і є "small bits of free time".</p><p>→ <b>G) I made progress by using small bits of free time.</b></p>`},
+  "sol7":{title:"Q7 → B",body:`<p>Andriy: "teaching my younger brother", "explaining grammar rules out loud".</p><p>→ <b>B) I learned by trying to explain things to someone else.</b></p>`},
+  "sol8":{title:"Q8 → D",body:`<p>Yana: "collecting resources without actually using any", "picked one book and stuck with it".</p><p>→ <b>D) I had to stop collecting materials and start using one.</b></p>`},
+  "sol9":{title:"Q9 → A",body:`<p>Maks: "films in English with English subtitles. Not Ukrainian subtitles — English."</p><p>→ <b>A) Films with subtitles in the same language helped me.</b></p>`},
+  "sol10":{title:"Q10 → F",body:`<p>Sofia: "knowing that other people were waiting for me", "kept me from skipping a single session".</p><p>→ <b>F) External accountability stopped me from giving up.</b></p>`},
+  "sol11":{title:"Q11 → E",body:`<p>Roman: "tracked my mistakes in a separate notebook", "reviewing that one notebook".</p><p>→ <b>E) Keeping a record of my errors helped most.</b></p><p>Зайві: C, H.</p>`},
+  "taskSol2":{title:"Task 2 — стратегія",body:`<p><b>Як підбирати людину до висловлювання:</b></p>
+    <div class="step">1. Спочатку прочитай ВСІ висловлювання (їх більше, ніж людей — 2 зайві).</div>
+    <div class="step">2. Для кожного абзацу шукай ключову ідею, а не випадкові співпадіння слів.</div>
+    <div class="step">3. Висловлювання — це часто перифраз: ті ж ідеї, але іншими словами. Наприклад, "twenty minutes here, fifteen there" = "small bits of free time".</div>
+    <div class="step">4. Якщо вагаєшся між двома варіантами — обирай той, що відповідає ГОЛОВНІЙ ідеї абзацу, а не другорядній.</div>
+    <p><b>Відповіді:</b> Q6→G, Q7→B, Q8→D, Q9→A, Q10→F, Q11→E. Зайві: C, H.</p>`},
+  "sol12":{title:"Q12 → B",body:`<p>Перший абзац: "When Sarah Mitchell was fourteen, she watched a documentary..."</p><p>→ <b>B) A documentary she watched at fourteen.</b></p>`},
+  "sol13":{title:"Q13 → C",body:`<p>"The early prototypes leaked, broke, or simply refused to filter anything" — це <b>елементарні провали</b>.</p><p>→ <b>C) failed in basic ways.</b></p>`},
+  "sol14":{title:"Q14 → B",body:`<p>"Mrs. Patel ... staying after school twice a week to help her debug each new version" — регулярна технічна допомога.</p><p>→ <b>B) Provided regular technical advising.</b></p>`},
+  "sol15":{title:"Q15 → A",body:`<p>"More comfortable in a workshop than in a boardroom" — практична робота (workshop) проти ділових зустрічей (boardroom).</p><p>→ <b>A) prefers practical work to business meetings.</b></p><p>D ("refuses any meetings") — занадто сильно: "more comfortable" не означає "refuses".</p>`},
+  "sol16":{title:"Q16 → C",body:`<p>"Find one teacher who will take you seriously, and work on the problem long enough to fail at least ten times".</p><p>= знайти ментора + прийняти невдачі.</p><p>→ <b>C) Find a supportive mentor and accept failure.</b></p>`},
+  "sol17":{title:"Q17 → C",body:`<p>Контекст: "youngest person to reach the South Pole. ___ His parents had assumed he would follow them into education."</p><p>Логіка: розкриваємо, чому це несподівано. <b>C) "Nothing in his childhood seemed to point to such an extraordinary achievement"</b> — ідеально вводить тему: ніщо в дитинстві не вказувало на це.</p>`},
+  "sol18":{title:"Q18 → F",body:`<p>Контекст: "his grandfather took him hiking in the Carpathian Mountains. ___ Most children his age were focused on football..."</p><p><b>F) "That single weekend convinced him that wild places were where he belonged"</b> — посилається саме на цю поїздку в Карпати.</p>`},
+  "sol19":{title:"Q19 → E",body:`<p>Контекст: "By fifteen, he had completed several long-distance treks. ___ The combination, he later said, taught him..."</p><p>"The combination" — комбінація <b>чого з чим</b>? Треків з чимось ще. <b>E) "He also started training with a former Olympic skier on weekends"</b> — це і є друга складова.</p>`},
+  "sol20":{title:"Q20 → D",body:`<p>Контекст: "His decision to attempt the Antarctic crossing surprised everyone. ___ Most polar explorers train for a decade..."</p><p><b>D) "Even his closest friends thought he was being unrealistic"</b> — посилює "surprised everyone".</p>`},
+  "sol21":{title:"Q21 → B",body:`<p>Контекст: "The expedition itself took fifty-seven days. ___ Bohdan refused to give up..."</p><p><b>B) "Temperatures dropped to minus fifty at times, and on day forty-two he nearly turned back"</b> — пояснює, ЧОМУ він міг здатися, але не здався.</p>`},
+  "sol22":{title:"Q22 → A",body:`<p>Контекст: "Bohdan gives talks in schools across Ukraine. ___ He insists that the most important quality..."</p><p><b>A) "He encourages young people not to wait for permission to dream big"</b> — поєднує talks in schools із загальним посланням.</p><p>Зайве: <b>G)</b> "The team had to be airlifted out after three days" — суперечить тому, що експедиція тривала 57 днів і він її завершив.</p>`},
+  "taskSol4":{title:"Task 4 — стратегія Gapped Text",body:`<p><b>Алгоритм:</b></p>
+    <div class="step">1. Спочатку прочитай ВЕСЬ текст без пропусків — щоб зрозуміти загальну ідею.</div>
+    <div class="step">2. Для кожного пропуску дивись на речення <b>ДО</b> і <b>ПІСЛЯ</b> — там логічні зв'язки.</div>
+    <div class="step">3. Шукай "сигнали" в реченнях-кандидатах: займенники (he, she, that), сполучники (however, but, also), посилання (this combination, that weekend).</div>
+    <div class="step">4. Якщо у реченні є слово "this" або "that" — воно явно посилається на щось у попередньому реченні.</div>
+    <div class="step">5. Одне речення завжди зайве — часто воно суперечить фактам у тексті.</div>
+    <p><b>Відповіді:</b> Q17→C, Q18→F, Q19→E, Q20→D, Q21→B, Q22→A. Зайве: G.</p>`},
+  "sol23":{title:"Q23 → A) cleared out",body:`<p>"Clear out" — звільнити приміщення від речей. Стандартна колокація з apartment / house / cupboard.</p><p>Інші: cleared up = розібратися; cleared off = (неформ.) забратися; cleared away = прибрати після події.</p><p><b>Відповідь: A) cleared out.</b></p>`},
+  "sol24":{title:"Q24 → B) came across",body:`<p>"Going through cupboards, I _____ dozens of objects I didn't remember owning."</p><p>Контекст: випадково знайшла багато речей → <b>came across</b> = натрапити на.</p><p><b>Відповідь: B) came across.</b></p>`},
+  "sol25":{title:"Q25 → A) got around to",body:`<p>"Books I had meant to read but never _____ around to opening."</p><p>"Get around to + V-ing" — нарешті знайти час щось зробити (часто з відтінком зволікання).</p><p><b>Відповідь: A) got.</b></p>`},
+  "sol26":{title:"Q26 → C) away",body:`<p>"Throw things away" = викинути сміття. Найзагальніший і безпечний phrasal verb.</p><p>Throw off = скинути одяг. Throw up = виблювати (тут не пасує). Throw over = (рідко) кинути партнера.</p><p><b>Відповідь: C) away.</b></p>`},
+  "sol27":{title:"Q27 → D) despite",body:`<p>"I had managed to fill only two bags, _____ my original plan of clearing half the apartment."</p><p>Сенс: «несподівано мало, всупереч плану».</p><p><b>Despite + noun</b> = незважаючи на. Thanks to / due to / because of — означали б "завдяки/через", що тут навпаки.</p><p><b>Відповідь: D) despite.</b></p>`},
+  "sol28":{title:"Q28 → C) patience",body:`<p>"famous for her _____" — після присвійного "her" потрібен <b>іменник</b>.</p><p>patient (adj/n людина) — пацієнт або терплячий; patiently (adv) — терпляче; patience (n) — терпіння ✅; impatience (n) — нетерпіння (за змістом не пасує: "famous for her impatience" звучало б іронічно).</p><p><b>Відповідь: C) patience.</b></p>`},
+  "sol29":{title:"Q29 → B) sincerity",body:`<p>"The _____ of his speech" — після артикля "the" + before "of" потрібен <b>іменник</b>.</p><p>sincerely (adv); sincerity (n) ✅; insincere (adj negative) — не пасує; sincere (adj).</p><p><b>Відповідь: B) sincerity.</b></p>`},
+  "sol30":{title:"Q30 → C) powerful",body:`<p>"a _____ presentation" — перед іменником "presentation" потрібен <b>прикметник</b>.</p><p>powerless (adj negative) — безсилий; powered (V3) — на акумуляторі; powerful (adj) ✅ — потужний; empower (verb).</p><p><b>Відповідь: C) powerful.</b></p>`},
+  "sol31":{title:"Q31 → A) distance",body:`<p>"The _____ between the two cities" — після артикля "the" потрібен <b>іменник</b>.</p><p>distance (n) ✅; distant (adj); distantly (adv); distancing (gerund — про дистанціювання, тут не за змістом).</p><p><b>Відповідь: A) distance.</b></p>`},
+  "sol32":{title:"Q32 → C) responsibly",body:`<p>"We all need to act more _____" — після дієслова "act" потрібен <b>прислівник</b>.</p><p>responsibility (n); responsible (adj); responsibly (adv) ✅ — відповідально; irresponsible (adj negative).</p><p><b>Відповідь: C) responsibly.</b></p><div class="ex">Сигнал: дієслово (act, speak, drive) + більш ___ → adverb (-ly).</div>`}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.hintbtn').forEach(b=>b.addEventListener('click',()=>{const h=hints[b.dataset.hint]; if(h) openModal(h.title,h.body);}));
+document.querySelectorAll('.solbtn, .task-solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== Progress + Timer (real НМТ 60min) ============== */
+const TOTAL = 32;
+const LIMIT_SEC = 60 * 60;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c = 0;
+  // matching Q1-Q11 + Q17-Q22
+  document.querySelectorAll('select[name^="q"]').forEach(s=>{ if(s.value) c++; });
+  // multiple choice radios Q12-Q16, Q23-Q32
+  for(let i=12;i<=16;i++) if(document.querySelector(`input[name="q${i}"]:checked`)) c++;
+  for(let i=23;i<=32;i++) if(document.querySelector(`input[name="q${i}"]:checked`)) c++;
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+const elapsedEl = document.getElementById('elapsed');
+setInterval(()=>{
+  const sec = Math.floor((Date.now()-t0)/1000);
+  const left = LIMIT_SEC - sec;
+  // Elapsed
+  const em = String(Math.floor(sec/60)).padStart(2,'0');
+  const es = String(sec%60).padStart(2,'0');
+  elapsedEl.textContent = `пройшло: ${em}:${es}`;
+  // Countdown to 60-min limit
+  if(left >= 0){
+    const lm = String(Math.floor(left/60)).padStart(2,'0');
+    const ls = String(left%60).padStart(2,'0');
+    timerEl.textContent = `⏱ ${lm}:${ls} (залишилось)`;
+    timerEl.classList.remove('timer-over');
+    if(left <= 600) timerEl.classList.add('timer-warn'); // last 10 min — yellow
+    else timerEl.classList.remove('timer-warn');
+  } else {
+    const over = Math.abs(left);
+    const om = String(Math.floor(over/60)).padStart(2,'0');
+    const os = String(over%60).padStart(2,'0');
+    timerEl.textContent = `⏱ +${om}:${os} (понад норматив)`;
+    timerEl.classList.remove('timer-warn');
+    timerEl.classList.add('timer-over');
+  }
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('select').forEach(s=>{ s.value=''; s.style.background=''; s.style.borderColor=''; });
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.matchrow').forEach(o=>o.classList.remove('bad'));
+  document.querySelectorAll('.solbtn, .task-solbtn').forEach(b=>b.classList.remove('on'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  // Q1-Q11, Q17-Q22 → matching (selects)
+  document.querySelectorAll('.matchrow').forEach(row=>{
+    const sel = row.querySelector('select');
+    if(!sel) return;
+    const n = parseInt(sel.name.replace('q',''),10);
+    const correct = row.dataset.correct;
+    const topic = row.dataset.topic;
+    const given = sel.value;
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    if(!ok) row.classList.add('bad');
+    sel.style.borderColor = ok ? '#9ec3a7' : '#d49a9a';
+    sel.style.background = ok ? '#e9f3ec' : '#fbe3e3';
+  });
+  // Task 4 gapped text uses inline selects (q17-q22)
+  document.querySelectorAll('select[name="q17"],select[name="q18"],select[name="q19"],select[name="q20"],select[name="q21"],select[name="q22"]').forEach(sel=>{
+    // Skip if already processed via matchrow
+    if(sel.closest('.matchrow')) return;
+    const n = parseInt(sel.name.replace('q',''),10);
+    // Keys for gapped text task 4
+    const gapKey = {17:"C",18:"F",19:"E",20:"D",21:"B",22:"A"};
+    const correct = gapKey[n];
+    const given = sel.value;
+    const ok = given === correct;
+    record(n, 'gapped-text', correct, given, ok);
+    sel.style.borderColor = ok ? '#9ec3a7' : '#d49a9a';
+    sel.style.background = ok ? '#e9f3ec' : '#fbe3e3';
+  });
+
+  // Q12-Q16, Q23-Q32 → multiple choice (radios in <li.numbered>)
+  document.querySelectorAll('ol.qs > li.numbered').forEach(li=>{
+    const n = parseInt(li.dataset.n,10);
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+    li.querySelector('.solbtn')?.classList.add('on');
+  });
+
+  // Show all task-solbtns
+  document.querySelectorAll('.task-solbtn').forEach(b=>b.classList.add('on'));
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  // НМТ scale: 100-200, нелінійне відображення
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Time tracking
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+  const onTime = dt <= LIMIT_SEC;
+
+  // Verdict
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText='Анно, чудовий результат на справжньому форматі НМТ! Це впевнено 185–200 балів. Ти готова.'; }
+  else if(pct >= 75){ level='B2'; verdictColor='ok'; verdictText='Сильний результат у форматі реального НМТ. Прогноз балів: 170–185. До іспиту — лише підтримувати форму.'; }
+  else if(pct >= 60){ level='B1+/B2'; verdictColor='ok'; verdictText='Стабільний результат. Прогноз НМТ: 150–170. Підтягни блоки, де менше 70% — і будеш у топі.'; }
+  else if(pct >= 45){ level='B1'; verdictColor='warn'; verdictText='Середній рівень. Прогноз НМТ: 130–150. Працюй з прогалинами у matching і gap-filling — там швидко набираються бали.'; }
+  else if(pct >= 30){ level='A2/B1'; verdictColor='warn'; verdictText='Прохідний результат, але мінімальний. До НМТ ще потрібно щодня працювати.'; }
+  else { level='A2'; verdictColor='bad'; verdictText='Рано йти на НМТ. Спочатку — базова граматика B1, читання адаптованих текстів, лексика повсякденних тем.'; }
+
+  // Time bonus/warning
+  let timeNote = '';
+  if(!onTime){
+    const overSec = dt - LIMIT_SEC;
+    const om = Math.floor(overSec/60);
+    timeNote = ` ⚠️ На реальному НМТ ти би перевищила час на ${om} хв ${overSec%60} сек — деякі завдання залишилися б без відповіді.`;
+  } else if(dt < LIMIT_SEC * 0.8){
+    timeNote = ' ✅ Темп дуже добрий — за нормативом з запасом.';
+  } else {
+    timeNote = ' ✅ Уклалася в норматив.';
+  }
+
+  // Block stats (по типам, як в реальному НМТ)
+  const blocks = {
+    'Matching Headings (Task 1)': ['matching-headings'],
+    'Matching Opinions (Task 2)': ['matching-opinion'],
+    'Reading Comprehension (Task 3)': ['reading-mc'],
+    'Gapped Text (Task 4)': ['gapped-text'],
+    'Cloze with Options (Task 5)': ['cloze-mc'],
+    'Word Formation (Task 6)': ['wordform']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Усі 32 правильно!</div>';
+
+  // Text report
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 3 (формат реального НМТ-2026) ═══
+Учениця: Анна · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Час: ${mm}:${ss} ${onTime ? '(в межах 60 хв)' : '(перевищено норматив!)'}
+Рівень: ${level}
+Шкала НМТ: ${nmt}/200
+
+— По Tasks —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — обрала: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень CEFR</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card ${onTime?'ok':'bad'}"><h4>Норматив часу</h4><div class="v" style="font-size:18px">${onTime?'в межах':'перевищено'}</div></div>
+      <div class="card ${verdictColor}"><h4>Готовність до НМТ</h4><div class="v" style="font-size:18px">${pct>=75?'висока':pct>=55?'середня':'низька'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}${timeNote}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за Tasks</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки (${wrongs.length})</h3>
+    <p>Натисни «📖 рішення» біля кожного завдання вище — там покроковий розбір. Біля Tasks 1, 2, 4 є кнопка «📖 Розбір Task X» зі стратегією для цього типу.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Що далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> прочитай детальні рішення (особливо там, де помилилася).</li>
+      <li><b>Цього тижня:</b> ще 2–3 тренувальні тести НМТ на zno.osvita.ua — там завдання минулих років.</li>
+      <li><b>Через 5 днів:</b> пройди цей тест ще раз. Ціль: підняти результат на 5+ балів.</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат».</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>
