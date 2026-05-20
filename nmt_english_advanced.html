@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Advanced (вище за реальний рівень)</title>
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --paper:#ffffff;
+    --ink:#1c1c1e;
+    --muted:#5a5a5e;
+    --accent:#0a4d8c;
+    --accent-2:#c8102e;
+    --ok:#1f7a3a;
+    --warn:#b3651a;
+    --bad:#a51a1a;
+    --line:#d9d4c7;
+    --hl:#fff4c2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:20px;line-height:1.55}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:28px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:38px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:18px}
+  .badge{display:inline-block;background:var(--accent-2);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:26px 28px;margin:22px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:26px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:18px;margin-bottom:14px}
+  .passage{background:#fbf8ee;border-left:5px solid var(--accent);padding:18px 22px;border-radius:6px;font-size:20px;line-height:1.7}
+  .passage p{margin:0 0 12px}
+  .gap{display:inline-block;min-width:64px;border-bottom:2px solid var(--ink);text-align:center;font-weight:700;padding:0 6px}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px}
+  .opts{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:6px;cursor:pointer}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  .matchgrid{display:grid;grid-template-columns:1fr 240px;gap:14px;align-items:center}
+  .matchgrid .item{padding:10px 14px;background:#fbf8ee;border-left:4px solid var(--accent-2);border-radius:4px}
+  select{font-size:19px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:16px;padding:3px 10px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+
+  /* Modal */
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:680px;width:100%;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:20px;line-height:1.55}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:28px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:#f4f1ea;padding:2px 6px;border-radius:4px;font-size:18px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+
+  /* Result */
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:64px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:18px;color:var(--muted)}
+  .scale .v{font-size:28px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:21px;line-height:1.6}
+  .plan{margin-top:18px}
+  .plan h3{font-family:"Trebuchet MS",Verdana,sans-serif;color:var(--accent);font-size:24px;margin:18px 0 8px}
+  .plan ul{padding-left:22px}
+  .plan li{margin:8px 0}
+  .review{margin-top:24px}
+  .review .qrow{padding:12px 14px;border-radius:8px;margin:8px 0;background:#fbf8ee;border:1px solid var(--line)}
+  .review .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+  .review b{color:var(--accent)}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .legend{font-size:17px;color:var(--muted);margin-top:6px}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ • Англійська мова <span class="badge">ADVANCED+</span></h1>
+    <div class="sub">Підвищена складність: лексика C1–C2, складна граматика, академічні тексти. 30 завдань • орієнтовно 50–60 хв.</div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 30</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================== PART 1: USE OF ENGLISH (multiple choice) ================== -->
+  <section class="task" data-block="grammar">
+    <h2>Частина 1. Use of English — Multiple Choice</h2>
+    <p class="instr">Оберіть варіант, який найкраще завершує речення. (Q1–Q10)</p>
+    <ol class="qs">
+
+      <li data-correct="B" data-topic="inversion">
+        <span>Hardly _____ the door when the phone started ringing again.</span>
+        <button class="hintbtn" data-hint="inversion">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) I had closed</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) had I closed</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) did I close</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) I closed</label>
+        </div>
+      </li>
+
+      <li data-correct="C" data-topic="conditional-mixed">
+        <span>If she _____ his advice last summer, she _____ in such a mess now.</span>
+        <button class="hintbtn" data-hint="conditional-mixed">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) took / wouldn't be</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) had taken / wouldn't have been</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) had taken / wouldn't be</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) would take / wouldn't be</label>
+        </div>
+      </li>
+
+      <li data-correct="A" data-topic="subjunctive">
+        <span>The committee insisted that the report _____ by Friday at the latest.</span>
+        <button class="hintbtn" data-hint="subjunctive">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) be submitted</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) is submitted</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) was submitted</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) had been submitted</label>
+        </div>
+      </li>
+
+      <li data-correct="D" data-topic="phrasal">
+        <span>Despite repeated warnings, he refused to _____ to the new safety regulations.</span>
+        <button class="hintbtn" data-hint="phrasal">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) put up</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) carry on</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) bring about</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) conform</label>
+        </div>
+      </li>
+
+      <li data-correct="B" data-topic="vocab-collocation">
+        <span>The findings of the study _____ serious doubts on the prevailing theory.</span>
+        <button class="hintbtn" data-hint="collocation">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) put</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) cast</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) made</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) gave</label>
+        </div>
+      </li>
+
+      <li data-correct="A" data-topic="cleft">
+        <span>_____ was the silence in the hall that you could hear a pin drop.</span>
+        <button class="hintbtn" data-hint="cleft">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) Such</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) So</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) That</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) Too</label>
+        </div>
+      </li>
+
+      <li data-correct="C" data-topic="modal-perfect">
+        <span>He looks exhausted. He _____ all night to finish the proposal.</span>
+        <button class="hintbtn" data-hint="modal-perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) must work</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) should have worked</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) must have been working</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) could work</label>
+        </div>
+      </li>
+
+      <li data-correct="D" data-topic="vocab-formal">
+        <span>The minister was forced to _____ his earlier statement after public outrage.</span>
+        <button class="hintbtn" data-hint="formal-vocab">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) revoke</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) deny</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) decline</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) retract</label>
+        </div>
+      </li>
+
+      <li data-correct="B" data-topic="participle">
+        <span>_____ the report, the manager called an emergency meeting.</span>
+        <button class="hintbtn" data-hint="participle">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) Reading</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) Having read</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) Read</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) To read</label>
+        </div>
+      </li>
+
+      <li data-correct="A" data-topic="prepositions">
+        <span>Researchers remain divided _____ the long-term implications of the policy.</span>
+        <button class="hintbtn" data-hint="prepositions">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) on</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) at</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) with</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) for</label>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ================== PART 2: OPEN CLOZE ================== -->
+  <section class="task" data-block="cloze">
+    <h2>Частина 2. Open Cloze — оберіть слово зі списку</h2>
+    <p class="instr">Прочитайте текст і заповніть пропуски, обираючи слово з випадного списку. (Q11–Q18)</p>
+    <div class="passage" id="cloze-text">
+      <p>The phenomenon of urban shrinkage has long <select data-q="11"><option value="">— оберіть —</option><option>resisted</option><option>defied</option><option>eluded</option><option>denied</option></select> straightforward explanation.
+      In cities across the post-industrial world, populations decline not <select data-q="12"><option value="">—</option><option>regardless</option><option>despite</option><option>owing</option><option>according</option></select> of economic policy but in spite of it.
+      What was once dismissed as a transient hiccup has, over time, <select data-q="13"><option value="">—</option><option>turned out</option><option>given up</option><option>set in</option><option>broken down</option></select> as a structural feature of late capitalism.</p>
+      <p>Scholars now <select data-q="14"><option value="">—</option><option>argue</option><option>discuss</option><option>tell</option><option>say</option></select> that shrinkage demands a fundamental rethinking of urban planning, one that no longer <select data-q="15"><option value="">—</option><option>relies upon</option><option>depends from</option><option>looks at</option><option>counts in</option></select> perpetual growth.
+      <select data-q="16"><option value="">—</option><option>Far</option><option>By</option><option>Much</option><option>So</option></select> from being a sign of failure, planned contraction may, in certain contexts, <select data-q="17"><option value="">—</option><option>amount to</option><option>add up</option><option>get over</option><option>turn into</option></select> a more sustainable model.
+      Whether public opinion will <select data-q="18"><option value="">—</option><option>come around</option><option>get along</option><option>take after</option><option>look up</option></select> to this view is, however, an open question.</p>
+    </div>
+    <p class="legend">Правильні відповіді нараховуються автоматично.</p>
+  </section>
+
+  <!-- ================== PART 3: READING — MATCHING ================== -->
+  <section class="task" data-block="reading-match">
+    <h2>Частина 3. Reading — Matching headings</h2>
+    <p class="instr">Підберіть заголовок (A–F) до кожного абзацу. Один заголовок зайвий. (Q19–Q23)</p>
+    <div class="passage">
+      <p><b>Headings:</b><br>
+      A) The hidden cost of convenience<br>
+      B) A backlash gathers momentum<br>
+      C) When algorithms quietly take over<br>
+      D) The myth of the unbiased machine<br>
+      E) Regulation finally catches up<br>
+      F) A return to analogue habits</p>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="matchgrid" data-correct="C" data-topic="reading">
+        <div class="item"><b>Paragraph 19.</b> What began as innocuous recommendation engines — books you might like, films you might watch — has, almost imperceptibly, expanded into nearly every domain of decision-making, from credit scoring to medical triage. Few users notice the shift; fewer still consent to it in any meaningful sense.</div>
+        <select name="q19"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="D" data-topic="reading">
+        <div class="item"><b>Paragraph 20.</b> Proponents have long maintained that automated systems are inherently fairer than fallible humans. Yet a growing body of evidence suggests that such systems do not eliminate prejudice so much as launder it — encoding historical inequities in a form that resists scrutiny.</div>
+        <select name="q20"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="A" data-topic="reading">
+        <div class="item"><b>Paragraph 21.</b> Free services rarely are. The price, paid not in currency but in data, is often invisible until it materialises as a targeted political advertisement or an unwelcome insurance quote. The bargain, on closer inspection, was never quite as favourable as it appeared.</div>
+        <select name="q21"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="B" data-topic="reading">
+        <div class="item"><b>Paragraph 22.</b> Discontent, once confined to academic seminars, has spilled into the streets. Protests in several capitals, petitions signed by tens of thousands, and high-profile resignations from tech firms all point to a sea change in public mood that legislators can no longer afford to ignore.</div>
+        <select name="q22"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+      <div class="matchgrid" data-correct="E" data-topic="reading">
+        <div class="item"><b>Paragraph 23.</b> After years of warnings going unheeded, sweeping legislation has at last been put before parliaments on both sides of the Atlantic. Whether the resulting frameworks will prove adequate, or merely cosmetic, remains a matter of considerable debate.</div>
+        <select name="q23"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== PART 4: READING — DETAIL ================== -->
+  <section class="task" data-block="reading-detail">
+    <h2>Частина 4. Reading Comprehension — академічний текст</h2>
+    <p class="instr">Прочитайте уривок і дайте відповіді на запитання. (Q24–Q28)</p>
+    <div class="passage">
+      <p>For the better part of two centuries, the figure of the lone genius has loomed disproportionately large in popular accounts of scientific discovery. From Newton beneath his apocryphal apple tree to Einstein scribbling in a patent office, the narrative casts breakthroughs as the work of singular minds operating, it would seem, in splendid isolation. The reality, as historians of science have patiently demonstrated, is markedly less photogenic.</p>
+      <p>Nearly every major advance, on closer inspection, turns out to rest upon a dense substrate of correspondence, collaboration and, not infrequently, outright dispute. Newton himself, for all his protestations of solitary labour, was an indefatigable correspondent; his quarrels with Leibniz over the invention of calculus, far from incidental, were instrumental in sharpening the very concepts at issue. Einstein's special theory of relativity, though bearing his name alone, drew on the prior work of Lorentz, Poincaré and others — a debt he himself was generally careful to acknowledge, even as posterity proved less scrupulous.</p>
+      <p>Why, then, does the myth persist? Part of the answer is psychological: stories require protagonists, and a heroic individual is easier to grasp than a diffuse network. Part is institutional: prizes, professorships and biographies all reward — indeed, demand — the identification of single authors. And part, more troublingly, is ideological. The myth flatters a particular vision of human achievement, one in which insight springs unbidden from the mind of the exceptional, owing nothing to the conditions that made it possible.</p>
+    </div>
+
+    <ol class="qs" start="24">
+      <li data-correct="C" data-topic="reading-inference">
+        <span>The author's overall attitude towards the "lone genius" narrative can best be described as</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) sympathetic but cautious</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) openly hostile</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) sceptical and critical</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) genuinely neutral</label>
+        </div>
+      </li>
+      <li data-correct="B" data-topic="reading-vocab">
+        <span>In paragraph 2, the word <i>indefatigable</i> most nearly means</span>
+        <button class="hintbtn" data-hint="indefatigable">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q25" value="A"> A) reluctant</label>
+          <label class="opt"><input type="radio" name="q25" value="B"> B) tireless</label>
+          <label class="opt"><input type="radio" name="q25" value="C"> C) careless</label>
+          <label class="opt"><input type="radio" name="q25" value="D"> D) ambivalent</label>
+        </div>
+      </li>
+      <li data-correct="D" data-topic="reading-detail">
+        <span>Which of the following is NOT given as a reason the myth persists?</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q26" value="A"> A) Narrative conventions favour individual protagonists.</label>
+          <label class="opt"><input type="radio" name="q26" value="B"> B) Institutions reward identification of single authors.</label>
+          <label class="opt"><input type="radio" name="q26" value="C"> C) It serves a particular ideological function.</label>
+          <label class="opt"><input type="radio" name="q26" value="D"> D) Most scientists actively encourage the myth.</label>
+        </div>
+      </li>
+      <li data-correct="A" data-topic="reading-inference">
+        <span>The author implies that Einstein</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q27" value="A"> A) was more honest about his intellectual debts than later generations were.</label>
+          <label class="opt"><input type="radio" name="q27" value="B"> B) deliberately concealed the contributions of Lorentz and Poincaré.</label>
+          <label class="opt"><input type="radio" name="q27" value="C"> C) regarded special relativity as entirely his own invention.</label>
+          <label class="opt"><input type="radio" name="q27" value="D"> D) had little contact with other scientists of his era.</label>
+        </div>
+      </li>
+      <li data-correct="C" data-topic="reading-inference">
+        <span>The phrase "markedly less photogenic" (paragraph 1) suggests that the reality of scientific discovery is</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q28" value="A"> A) intellectually trivial</label>
+          <label class="opt"><input type="radio" name="q28" value="B"> B) genuinely shocking</label>
+          <label class="opt"><input type="radio" name="q28" value="C"> C) less suited to dramatic storytelling</label>
+          <label class="opt"><input type="radio" name="q28" value="D"> D) impossible to reconstruct</label>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================== PART 5: WORD FORMATION ================== -->
+  <section class="task" data-block="wordform">
+    <h2>Частина 5. Word Formation</h2>
+    <p class="instr">Оберіть правильну форму слова в дужках. (Q29–Q30)</p>
+    <ol class="qs" start="29">
+      <li data-correct="B" data-topic="wordform">
+        <span>His remarks were widely seen as a deliberate _____ of the principle of academic freedom. (UNDERMINE)</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q29" value="A"> A) undermining</label>
+          <label class="opt"><input type="radio" name="q29" value="B"> B) undermined</label>
+          <label class="opt"><input type="radio" name="q29" value="C"> C) underminement</label>
+          <label class="opt"><input type="radio" name="q29" value="D"> D) underminer</label>
+        </div>
+        <p class="legend">Підказка: тут потрібен іменник, який утворюється від цього дієслова в академічному стилі — обери найточніший варіант.</p>
+      </li>
+      <li data-correct="A" data-topic="wordform">
+        <span>The judge's reasoning, though _____, ultimately failed to convince the appellate court. (PERSUADE)</span>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q30" value="A"> A) persuasive</label>
+          <label class="opt"><input type="radio" name="q30" value="B"> B) persuaded</label>
+          <label class="opt"><input type="radio" name="q30" value="C"> C) persuasion</label>
+          <label class="opt"><input type="radio" name="q30" value="D"> D) persuading</label>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>
+    Підготовлено як тренувальний тест підвищеної складності. Орієнтовний рівень — B2+/C1.
+  </footer>
+</div>
+
+<!-- ====== Modal ====== -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose" aria-label="Закрити">×</button>
+    <h3 id="modalTitle">Підказка</h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ===== Cloze answers ===== */
+const clozeKey = {
+  11:"eluded", 12:"despite", 13:"set in", 14:"argue",
+  15:"relies upon", 16:"Far", 17:"amount to", 18:"come around"
+};
+
+/* ===== Matching answers ===== */
+const matchKey = { 19:"C", 20:"D", 21:"A", 22:"B", 23:"E" };
+
+/* ===== Hints database ===== */
+const hints = {
+  "inversion":{
+    title:"Інверсія з Hardly / No sooner",
+    body:`<p>Після <code>Hardly</code>, <code>No sooner</code>, <code>Scarcely</code> на початку речення йде <b>інверсія</b>: допоміжне дієслово ставиться <b>перед</b> підметом.</p>
+    <p>Час: зазвичай <b>Past Perfect</b> у головній частині + <b>Past Simple</b> у залежній (when/than).</p>
+    <div class="ex">Hardly <b>had I closed</b> the door <i>when</i> the phone rang.<br>
+    No sooner <b>had he arrived</b> <i>than</i> the meeting began.</div>`
+  },
+  "conditional-mixed":{
+    title:"Mixed Conditional (3 → 2)",
+    body:`<p>Коли минула дія впливає на <b>теперішній</b> стан, використовуємо змішаний умовний:</p>
+    <p><code>If + Past Perfect , would + bare infinitive</code></p>
+    <div class="ex">If she <b>had taken</b> his advice last summer, she <b>wouldn't be</b> in such a mess <i>now</i>.</div>
+    <p>Уважно стеж за маркерами часу: <i>last summer</i> (минуле) + <i>now</i> (теперішнє) — це сигнал змішаного типу.</p>`
+  },
+  "subjunctive":{
+    title:"Subjunctive після insist / demand / suggest",
+    body:`<p>Після дієслів-наказів (<code>insist, demand, recommend, suggest, propose, require, request</code>) у that-clause використовується <b>base form</b> (без -s, без to):</p>
+    <div class="ex">The committee insisted that the report <b>be submitted</b>.<br>
+    She demanded that he <b>leave</b> immediately.</div>
+    <p>Це формальний стиль, типовий для C1.</p>`
+  },
+  "phrasal":{
+    title:"Conform to / put up with / bring about",
+    body:`<p><code>conform to</code> = відповідати, дотримуватися (правил, стандартів).</p>
+    <p><code>put up with</code> = терпіти. <code>bring about</code> = спричиняти. <code>carry on</code> = продовжувати.</p>
+    <div class="ex">All employees must <b>conform to</b> the dress code.</div>`
+  },
+  "collocation":{
+    title:"Колокація: cast doubt(s) on",
+    body:`<p>Сталий вираз: <b>to cast doubt(s) on something</b> = ставити під сумнів.</p>
+    <div class="ex">New evidence <b>cast doubt on</b> his alibi.</div>
+    <p>Не плутати: <i>put pressure on</i>, <i>make sense of</i>, <i>give thought to</i>.</p>`
+  },
+  "cleft":{
+    title:"Such ... that vs So ... that",
+    body:`<p><code>Such + (a/an) + adjective + noun + that</code> — підкреслює <b>іменник</b>.</p>
+    <p><code>So + adjective/adverb + that</code> — підкреслює <b>прикметник/прислівник</b>.</p>
+    <div class="ex"><b>Such</b> was the silence <i>that</i>... (silence — іменник)<br>
+    The silence was <b>so</b> deep <i>that</i>... (deep — прикметник)</div>`
+  },
+  "modal-perfect":{
+    title:"Modal perfect continuous: must have been -ing",
+    body:`<p>Коли робиш <b>впевнений висновок</b> про <b>тривалу</b> дію в минулому, що пояснює теперішній стан:</p>
+    <p><code>must have been + V-ing</code></p>
+    <div class="ex">She's covered in paint. She <b>must have been painting</b> the fence.</div>`
+  },
+  "formal-vocab":{
+    title:"Retract vs revoke vs deny",
+    body:`<p><b>retract</b> a statement = офіційно забрати назад свої слова.</p>
+    <p><b>revoke</b> = скасовувати (ліцензію, дозвіл). <b>deny</b> = заперечувати (що щось відбулося).</p>
+    <div class="ex">He was forced to <b>retract</b> his earlier remarks after public outrage.</div>`
+  },
+  "participle":{
+    title:"Perfect Participle: Having + V3",
+    body:`<p>Коли одна дія завершилась <b>перед</b> іншою — використовуй <b>Having + V3</b>:</p>
+    <div class="ex"><b>Having read</b> the report, the manager called a meeting.<br>
+    = After he had read the report, he called a meeting.</div>`
+  },
+  "prepositions":{
+    title:"Divided on / divided over",
+    body:`<p><b>divided on / over</b> an issue = розколоті у поглядах на питання.</p>
+    <div class="ex">The board is sharply <b>divided on</b> whether to expand.</div>`
+  },
+  "indefatigable":{
+    title:"indefatigable (adj)",
+    body:`<p>Розкладаємо: <i>in-</i> (not) + <i>de-</i> + <i>fatigue</i> (втома) + <i>-able</i> = <b>невтомний, тireless</b>.</p>
+    <div class="ex">an <b>indefatigable</b> researcher / campaigner / correspondent</div>`
+  }
+};
+
+/* ===== Modal ===== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target === modalBack) modalBack.classList.remove('on'); });
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.hint;
+    const h = hints[k];
+    if(!h) return;
+    modalTitle.textContent = h.title;
+    modalBody.innerHTML = h.body;
+    modalBack.classList.add('on');
+  });
+});
+
+/* ===== Progress + Timer ===== */
+const TOTAL = 30;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c = 0;
+  // radio groups q1..q10, q24..q30
+  const radios = [...Array(10).keys()].map(i=>'q'+(i+1))
+    .concat(['q24','q25','q26','q27','q28','q29','q30']);
+  radios.forEach(name=>{ if(document.querySelector(`input[name="${name}"]:checked`)) c++; });
+  // cloze 11..18
+  document.querySelectorAll('select[data-q]').forEach(s=>{ if(s.value) c++; });
+  // matching 19..23
+  ['q19','q20','q21','q22','q23'].forEach(n=>{
+    const s = document.querySelector(`select[name="${n}"]`);
+    if(s && s.value) c++;
+  });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100) + '%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ===== Reset ===== */
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('select').forEach(s=>s.value='');
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.qrow,.matchgrid').forEach(o=>o.classList.remove('bad'));
+  document.getElementById('result').classList.remove('on');
+  document.getElementById('result').innerHTML='';
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ===== Submit / Score ===== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = []; // {n, topic, correct, given, ok}
+  const byTopic = {}; // topic -> {ok, total}
+
+  function record(n, topic, correct, given){
+    const ok = (given||'').toString().trim().toLowerCase() === correct.toString().trim().toLowerCase();
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+    return ok;
+  }
+
+  // Multiple choice 1..10
+  document.querySelectorAll('section[data-block="grammar"] li').forEach((li, idx)=>{
+    const n = idx+1;
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = record(n, topic, correct, given);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      opt.classList.remove('correct','wrong');
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+  });
+
+  // Cloze 11..18
+  document.querySelectorAll('select[data-q]').forEach(sel=>{
+    const n = parseInt(sel.dataset.q,10);
+    const correct = clozeKey[n];
+    const given = sel.value;
+    record(n, 'cloze', correct, given);
+    sel.style.borderColor = (given.toLowerCase()===correct.toLowerCase()) ? '#9ec3a7' : '#d49a9a';
+    sel.style.background = (given.toLowerCase()===correct.toLowerCase()) ? '#e9f3ec' : '#fbe3e3';
+  });
+
+  // Matching 19..23
+  document.querySelectorAll('section[data-block="reading-match"] .matchgrid').forEach((row, i)=>{
+    const n = 19 + i;
+    const correct = matchKey[n];
+    const sel = row.querySelector('select');
+    const given = sel.value;
+    const ok = record(n, 'reading-matching', correct, given);
+    if(!ok) row.classList.add('bad');
+    sel.style.borderColor = ok ? '#9ec3a7' : '#d49a9a';
+    sel.style.background = ok ? '#e9f3ec' : '#fbe3e3';
+  });
+
+  // Reading detail 24..28
+  document.querySelectorAll('section[data-block="reading-detail"] li').forEach((li, idx)=>{
+    const n = 24+idx;
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = record(n, topic, correct, given);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+  });
+
+  // Word formation 29..30
+  document.querySelectorAll('section[data-block="wordform"] li').forEach((li, idx)=>{
+    const n = 29+idx;
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = record(n, topic, correct, given);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+  });
+
+  /* ===== Build report ===== */
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+
+  // NMT-like 100..200 scale (просто переводим pct -> 100..200, з нелінійністю)
+  let nmt = 100 + Math.round( Math.pow(pct/100, 0.9) * 100 );
+
+  // CEFR-оцінка (умовно, з огляду на підвищену складність тесту)
+  let cefr, verdictColor, verdictText;
+  if(pct >= 90){ cefr='C1–C2'; verdictColor='ok'; verdictText='Чудовий результат. Ви вільно працюєте з академічними текстами та складними граматичними структурами. Залишайтесь у цьому темпі — і реальний НМТ буде комфортним.'; }
+  else if(pct >= 75){ cefr='B2 high → C1'; verdictColor='ok'; verdictText='Сильний рівень. Базу C1 ви відчуваєте, але є точкові прогалини у складній граматиці й колокаціях. На реальному НМТ — впевнено за 180+.'; }
+  else if(pct >= 60){ cefr='B2'; verdictColor='warn'; verdictText='Стабільний B2. Реальний НМТ ви напишете добре, але до C1 ще треба прицільно дотягнути інверсію, mixed conditionals, академічну лексику.'; }
+  else if(pct >= 45){ cefr='B1 high → B2'; verdictColor='warn'; verdictText='Середній рівень. Реальний НМТ можна скласти, але цей тест навмисно складніший — треба зміцнити граматику й читання довгих текстів.'; }
+  else { cefr='B1 і нижче'; verdictColor='bad'; verdictText='Поки рано йти на цей рівень складності. Спочатку — систематична граматика B1–B2 і регулярне читання адаптованих текстів.'; }
+
+  // Categorize topics into блоки
+  const blocks = {
+    'Граматика (складна)': ['inversion','conditional-mixed','subjunctive','cleft','modal-perfect','participle'],
+    'Лексика та фразові дієслова': ['phrasal','vocab-collocation','vocab-formal','prepositions','wordform'],
+    'Cloze (контекст)': ['cloze'],
+    'Reading': ['reading-matching','reading-inference','reading-detail','reading-vocab']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    blockStats[name] = {ok,tot,pct: tot? Math.round(ok/tot*100):0};
+  });
+
+  // Build plan
+  const weakBlocks = Object.entries(blockStats).filter(([_,s])=>s.pct < 70).sort((a,b)=>a[1].pct-b[1].pct);
+  const planMap = {
+    'Граматика (складна)': [
+      'Murphy «English Grammar in Use» (Intermediate + Advanced) — розділи про inversion, mixed conditionals, subjunctive, participle clauses.',
+      'Щодня 1 тема + 15 речень на переклад з української англійською.',
+      'Канал/підручник Destination C1 — юніти Grammar Focus.'
+    ],
+    'Лексика та фразові дієслова': [
+      'McCarthy «English Vocabulary in Use Advanced» — 1 юніт на день.',
+      'Колокації: Oxford Collocations Dictionary; виписувати конструкції типу <i>cast doubt on</i>, <i>raise concerns over</i>.',
+      'Quizlet/Anki — окрема колода Phrasal Verbs C1.'
+    ],
+    'Cloze (контекст)': [
+      'Cambridge CAE / FCE — Reading & Use of English, Part 2 (open cloze).',
+      'Читати англомовні статті (The Economist, The Guardian Long Reads) і самостійно прибирати слова, потім відновлювати.'
+    ],
+    'Reading': [
+      'Cambridge CAE Reading, Part 6–8: matching headings, multiple matching.',
+      'Один великий академічний текст у день; виписувати 5 нових слів + перефразовувати головну ідею.',
+      'Тренувати inference questions: відповідай не на «що написано», а «що з цього випливає».'
+    ]
+  };
+  let planHTML = '';
+  if(weakBlocks.length === 0){
+    planHTML = `<p>Слабких блоків немає — продовжуй у режимі підтримки: 2–3 завдання CAE Reading на тиждень, читання довгих статей англійською, активна лексика.</p>`;
+  } else {
+    weakBlocks.forEach(([name,s])=>{
+      planHTML += `<h3>${name} — ${s.ok}/${s.tot} (${s.pct}%)</h3><ul>${planMap[name].map(x=>`<li>${x}</li>`).join('')}</ul>`;
+    });
+  }
+
+  // Time taken
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  /* Build a compact text report for clipboard export */
+  const wrongDetails = details.filter(d=>!d.ok);
+  const blockLines = Object.entries(blockStats)
+    .map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n');
+  const wrongLines = wrongDetails.length
+    ? wrongDetails.map(d=>`Q${d.n} — обрав: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n')
+    : '(помилок немає)';
+  const today = new Date().toISOString().slice(0,10);
+  const textReport =
+`═══ НМТ Англійська (Advanced+) ═══
+Дата: ${today} · Час проходження: ${mm}:${ss}
+Рахунок: ${correctCount}/${total} (${pct}%)
+CEFR (приблизно): ${cefr}
+Шкала, схожа на НМТ: ${nmt}/200
+
+— Блоки —
+${blockLines}
+
+— Помилки —
+${wrongLines}
+`;
+  window.__lastReport = textReport;
+
+  // Wrong answers review
+  const wrongs = details.filter(d=>!d.ok);
+  let reviewHTML = '';
+  if(wrongs.length){
+    reviewHTML = '<h3>Розбір помилок</h3>' + wrongs.map(d=>{
+      return `<div class="qrow bad"><b>Q${d.n}</b> (${d.topic}) — ваша відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`;
+    }).join('');
+  } else {
+    reviewHTML = '<h3>Розбір помилок</h3><div class="qrow">Помилок немає. Серйозно. Можна йти на реальний НМТ.</div>';
+  }
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% правильних • час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень CEFR (приблизно)</h4><div class="v">${cefr}</div></div>
+      <div class="card"><h4>Шкала, схожа на НМТ</h4><div class="v">${nmt} / 200</div></div>
+      <div class="card"><h4>Темп</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Готовність до НМТ</h4><div class="v">${pct>=75?'Висока':pct>=60?'Середня':'Низька'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',Verdana,sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=60?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <div class="plan">
+      <h3>Над чим і як працювати</h3>
+      ${planHTML}
+      <h3>Загальні принципи на 4–6 тижнів</h3>
+      <ul>
+        <li><b>45 хв граматики</b> щодня (1 тема + 20 речень на застосування).</li>
+        <li><b>30 хв активної лексики</b>: не просто слова, а <i>колокації</i> в контексті.</li>
+        <li><b>1 повний CAE Reading test</b> на тиждень + розбір кожної помилки.</li>
+        <li><b>Раз на тиждень</b> — цей самий тест ще раз через 5–7 днів. Мета: 90%+.</li>
+        <li>Активне читання: <i>The Economist</i>, <i>Aeon</i>, <i>The Atlantic</i> — по 1 статті на день.</li>
+      </ul>
+    </div>
+
+    <div class="review">${reviewHTML}</div>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF / Роздрукувати</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:16px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  /* Wire up copy-report button */
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const originalLabel = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано — встав у чат';
+      setTimeout(()=>{ copyBtn.textContent = originalLabel; }, 2500);
+    }catch(err){
+      // file:// often blocks clipboard API — show textarea fallback
+      fallback.style.display = 'block';
+      fallback.value = text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent = '⚠ Виділив текст нижче — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = originalLabel; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ===== Force fresh state on (re)load — beats browser bfcache / form autorestore ===== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('select').forEach(s=>{ s.value=''; s.style.background=''; s.style.borderColor=''; });
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.qrow,.matchgrid').forEach(o=>o.classList.remove('bad'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+// Triggered when page comes back from bfcache (Firefox/Safari "back/forward cache")
+window.addEventListener('pageshow', (e)=>{ if(e.persisted) freshState(); });
+</script>
+</body>
+</html>
