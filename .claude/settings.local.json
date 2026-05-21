@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "PowerShell($h=@{Accept='application/vnd.github+json';'User-Agent'='claude'}; try { Invoke-RestMethod \"https://api.github.com/repos/Gregory-Ivd/testsAnna/pages\" -Headers $h | Format-List } catch { \"pages api: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(try { \\(Invoke-WebRequest \"https://gregory-ivd.github.io/testsAnna/\" -UseBasicParsing -MaximumRedirection 5\\).StatusCode } catch { \"not live: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($r = Invoke-WebRequest \"https://gregory-ivd.github.io/testsAnna/\" -UseBasicParsing; \"Length: $\\($r.Content.Length\\)\"; \"--- first 500 chars ---\"; $r.Content.Substring\\(0, [Math]::Min\\(500, $r.Content.Length\\)\\))",
+      "PowerShell(foreach \\($f in 'nmt_english_advanced.html','nmt_english_day3_real.html','nmt_english_focused_day2.html','nmt_math_real.html'\\) { try { $s = \\(Invoke-WebRequest \"https://gregory-ivd.github.io/testsAnna/$f\" -UseBasicParsing -Method Head\\).StatusCode } catch { $s = \"fail\" }; \"$s $f\" })",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\Gregory Ivd\\\\Desktop\\\\testsAnna\\\\index.html\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "PowerShell($r = Invoke-WebRequest \"https://gregory-ivd.github.io/testsAnna/\" -UseBasicParsing -Headers @{'Cache-Control'='no-cache'}; \"Length: $\\($r.Content.Length\\)\"; \"Contains 'НМТ': $\\($r.Content.Contains\\('НМТ'\\)\\)\"; \"Contains 'lockbar': $\\($r.Content.Contains\\('lockbar'\\)\\)\")",
+      "Bash(curl -sS \"https://gregory-ivd.github.io/testsAnna/\" -H \"Cache-Control: no-cache\")",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\Gregory Ivd\\\\Desktop\\\\testsAnna\\\\nmt_english_day3_real.html\")",
+      "PowerShell(try { Invoke-RestMethod \"https://script.google.com/macros/s/AKfycbwCAQe206fwf-Zzughw9E1rPFD1KYuBJTYtg03UR6vwhoUp_q9EFIm8tt8E24D1t4Il/exec\" -MaximumRedirection 5 } catch { \"GET failed: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(try { $r = Invoke-WebRequest \"https://script.google.com/macros/s/AKfycbx8NLuNLITWZy9LsL-xpGBqb-bCzpAN7GLq8kDmCI3YjI5dWkijyUAWPZXQGfobOjw/exec\" -UseBasicParsing -MaximumRedirection 5; \"Status: $\\($r.StatusCode\\)\"; \"Body \\(first 200\\): $\\($r.Content.Substring\\(0, [Math]::Min\\(200,$r.Content.Length\\)\\)\\)\" } catch { \"GET failed: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($body = '{\"name\":\"TEST · Claude diagnostic\",\"school\":\"тест-рядок \\(можна видалити\\)\",\"telegram\":\"@claude_test\",\"ts\":\"2026-05-21T17:50:00Z\",\"ua\":\"diagnostic\"}'; try { $r = Invoke-WebRequest -Uri \"https://script.google.com/macros/s/AKfycbx8NLuNLITWZy9LsL-xpGBqb-bCzpAN7GLq8kDmCI3YjI5dWkijyUAWPZXQGfobOjw/exec\" -Method POST -Body $body -ContentType \"text/plain;charset=utf-8\" -MaximumRedirection 5 -UseBasicParsing; \"Status: $\\($r.StatusCode\\)\"; \"Body: $\\($r.Content\\)\" } catch { \"POST failed: $\\($_.Exception.Message\\)\" })"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "playwright"
+  ]
+}

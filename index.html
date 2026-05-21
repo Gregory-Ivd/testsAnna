@@ -184,6 +184,7 @@
   // ───────────────────────────────────────────────────────────────────────
 
   const LS_KEY = "testsAnna.accessGranted";
+  const LS_CONTACT_KEY = "testsAnna.contact";
   const lockbar = document.getElementById("lockbar");
   const form    = document.getElementById("accessForm");
   const status  = document.getElementById("status");
@@ -207,19 +208,26 @@
 
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    const data = {
+    const contact = {
       name: form.name.value.trim(),
       school: form.school.value.trim(),
-      telegram: form.telegram.value.trim(),
-      ts: new Date().toISOString(),
-      ua: navigator.userAgent.slice(0, 180)
+      telegram: form.telegram.value.trim()
     };
-    if(!data.name || !data.school || !data.telegram){
+    if(!contact.name || !contact.school || !contact.telegram){
       showStatus("Заповни всі три поля 👇", "err");
       return;
     }
+    const data = {
+      action: "lead",
+      ...contact,
+      ts: new Date().toISOString(),
+      userAgent: navigator.userAgent.slice(0, 180)
+    };
     btn.disabled = true;
     showStatus("Надсилаю…", "");
+
+    // Сохраняем контакт в localStorage — чтобы тесты могли подтянуть его в свой result-пинг.
+    try{ localStorage.setItem(LS_CONTACT_KEY, JSON.stringify(contact)); }catch(e){}
 
     let ok = false;
     if(CONFIG.formEndpoint){

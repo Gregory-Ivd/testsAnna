@@ -376,6 +376,45 @@
 </div>
 
 <script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbx8NLuNLITWZy9LsL-xpGBqb-bCzpAN7GLq8kDmCI3YjI5dWkijyUAWPZXQGfobOjw/exec",
+  testId: "math"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
 /* ===================== HINTS (mini-lectures BEFORE solving) ===================== */
 const hints = {
   "percent":{
@@ -1075,6 +1114,17 @@ document.getElementById('submitBtn').onclick = () => {
   res.innerHTML = html;
   res.classList.add('on');
   res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  const wrongsArr = details.filter(d=>!d.ok);
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: 0,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongsArr.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
 };
 
 function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
