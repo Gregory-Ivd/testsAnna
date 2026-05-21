@@ -81,91 +81,178 @@ function setupDashboard() {
   } else {
     dash = ss.insertSheet('Dashboard');
   }
-  // Move Dashboard to first position
   ss.setActiveSheet(dash);
   ss.moveActiveSheet(1);
 
-  // Column widths
-  dash.setColumnWidth(1, 340);
-  dash.setColumnWidth(2, 220);
+  // ---------- Read raw data ----------
+  const leadsSheet   = ss.getSheetByName('leads');
+  const resultsSheet = ss.getSheetByName('results');
+  const surveysSheet = ss.getSheetByName('surveys');
+  const leadsRows   = leadsSheet   ? leadsSheet.getDataRange().getValues().slice(1).filter(r => r[0])   : [];
+  const resultsRows = resultsSheet ? resultsSheet.getDataRange().getValues().slice(1).filter(r => r[0]) : [];
+  const surveysRows = surveysSheet ? surveysSheet.getDataRange().getValues().slice(1).filter(r => r[0]) : [];
+
+  // ---------- Aggregate (JS-side, locale-independent) ----------
+  const totalLeads        = leadsRows.length;
+  const totalCompletions  = resultsRows.length;
+  const totalSurveys      = surveysRows.length;
+  const uniqueCompleters  = new Set(resultsRows.map(r => r[4]).filter(x => x)).size;
+  const conversionPct     = totalLeads ? Math.round(uniqueCompleters / totalLeads * 1000) / 10 : 0;
+
+  // Per-test stats (group by test_id = col B / idx 1)
+  const perTest = {};
+  resultsRows.forEach(r => {
+    const id = String(r[1] || '');
+    if (!id) return;
+    if (!perTest[id]) perTest[id] = {count:0, scoreSum:0, pctSum:0, timeSum:0, hintsSum:0};
+    const t = perTest[id];
+    t.count++;
+    t.scoreSum += Number(r[5]) || 0;
+    t.pctSum   += Number(r[7]) || 0;
+    t.timeSum  += Number(r[8]) || 0;
+    t.hintsSum += Number(r[9]) || 0;
+  });
+  const perTestTable = Object.entries(perTest)
+    .map(([id, t]) => [
+      id,
+      t.count,
+      Math.round(t.scoreSum / t.count * 10) / 10,
+      Math.round(t.pctSum   / t.count * 10) / 10,
+      Math.round(t.timeSum  / t.count / 60 * 10) / 10,
+      Math.round(t.hintsSum / t.count * 10) / 10
+    ])
+    .sort((a, b) => b[1] - a[1]);
+
+  // Wrong Q# frequency from wrong_qs CSV (col L / idx 11)
+  const wrongFreq = {};
+  resultsRows.forEach(r => {
+    String(r[11] || '').split(',').forEach(q => {
+      q = String(q).trim();
+      if (q) wrongFreq[q] = (wrongFreq[q] || 0) + 1;
+    });
+  });
+  const wrongTable = Object.entries(wrongFreq)
+    .map(([q, c]) => ['Q' + q.replace(/^Q/, ''), c])
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15);
+
+  // Survey wants frequency (col E / idx 4 in surveys, '; '-separated)
+  const wantsFreq = {};
+  surveysRows.forEach(r => {
+    String(r[4] || '').split(';').forEach(w => {
+      w = String(w).trim();
+      if (w) wantsFreq[w] = (wantsFreq[w] || 0) + 1;
+    });
+  });
+  const wantsTable = Object.entries(wantsFreq)
+    .map(([w, c]) => [w, c])
+    .sort((a, b) => b[1] - a[1]);
+
+  // Hint cascade analysis (only Day 3 results)
+  const day3 = resultsRows.filter(r => r[1] === 'english-day3');
+  const avgHints = day3.length ? Math.round(day3.reduce((s, r) => s + (Number(r[9]) || 0), 0) / day3.length * 10) / 10 : null;
+  const noHintTries = day3.filter(r => (Number(r[9]) || 0) === 0).length;
+  const heavyHintTries = day3.filter(r => (Number(r[9]) || 0) >= 10).length;
+  const noHintPcts = day3.filter(r => (Number(r[9]) || 0) === 0).map(r => Number(r[7]) || 0);
+  const withHintPcts = day3.filter(r => (Number(r[9]) || 0) >= 1).map(r => Number(r[7]) || 0);
+  const avgPctNoHints   = noHintPcts.length   ? Math.round(noHintPcts.reduce((s, x) => s + x, 0)   / noHintPcts.length   * 10) / 10 : null;
+  const avgPctWithHints = withHintPcts.length ? Math.round(withHintPcts.reduce((s, x) => s + x, 0) / withHintPcts.length * 10) / 10 : null;
+  let cascadeVerdict;
+  if (avgPctNoHints === null || avgPctWithHints === null) cascadeVerdict = 'потрібно більше даних';
+  else if (avgPctWithHints > avgPctNoHints) cascadeVerdict = '✅ +' + (Math.round((avgPctWithHints - avgPctNoHints) * 10) / 10) + ' % з підказками';
+  else if (avgPctWithHints === avgPctNoHints) cascadeVerdict = '≈ однаково';
+  else cascadeVerdict = '⚠️ -' + (Math.round((avgPctNoHints - avgPctWithHints) * 10) / 10) + ' % з підказками';
+
+  // ---------- Render Dashboard ----------
+  dash.setColumnWidth(1, 360);
+  dash.setColumnWidth(2, 200);
   dash.setColumnWidth(3, 24);
-  dash.setColumnWidth(4, 400);
+  dash.setColumnWidth(4, 420);
   dash.setColumnWidth(5, 110);
   dash.setColumnWidth(6, 130);
   dash.setColumnWidth(7, 130);
 
-  // Helper: style section header
   function section(addr, text) {
-    dash.getRange(addr)
-      .setValue(text)
-      .setFontWeight('bold')
-      .setFontSize(14)
-      .setBackground('#0a4d8c')
-      .setFontColor('#ffffff')
-      .setHorizontalAlignment('left')
-      .setVerticalAlignment('middle');
+    dash.getRange(addr).setValue(text)
+      .setFontWeight('bold').setFontSize(14)
+      .setBackground('#0a4d8c').setFontColor('#ffffff')
+      .setHorizontalAlignment('left').setVerticalAlignment('middle');
+  }
+  function tableHeader(row, col, headers) {
+    dash.getRange(row, col, 1, headers.length).setValues([headers])
+      .setFontWeight('bold').setBackground('#e8f0fa').setBorder(true,true,true,true,false,false);
   }
 
-  // ===== BLOCK 1: ЛІДОГЕНЕРАЦІЯ =====
+  // === Block 1 ===
   section('A1', 'ЛІДОГЕНЕРАЦІЯ');
-
-  const leadRows = [
-    ['Всього лідів (хто заповнив форму)',             '=COUNTA(leads!A2:A)'],
-    ['Унікальних учнів, що завершили хоча б 1 тест',  '=COUNTUNIQUE(FILTER(results!E2:E, results!E2:E<>""))'],
-    ['Завершених тестів усього',                      '=COUNTA(results!A2:A)'],
-    ['Конверсія: лід → завершення тесту',             '=IFERROR(ROUND(B3/B2*100, 1) & " %", "—")'],
-    ['Опитувань заповнено',                           '=COUNTA(surveys!A2:A)']
+  const leadGen = [
+    ['Всього лідів (хто заповнив форму)',             totalLeads],
+    ['Унікальних учнів, що завершили хоча б 1 тест',  uniqueCompleters],
+    ['Завершених тестів усього',                      totalCompletions],
+    ['Конверсія: лід → завершення тесту',             totalLeads ? (conversionPct + ' %') : '—'],
+    ['Опитувань заповнено',                           totalSurveys]
   ];
-  leadRows.forEach((r, i) => {
+  leadGen.forEach((r, i) => {
     dash.getRange(2 + i, 1).setValue(r[0]);
-    dash.getRange(2 + i, 2).setFormula(r[1]);
+    dash.getRange(2 + i, 2).setValue(r[1]);
   });
   dash.getRange('B2:B6').setFontWeight('bold').setFontSize(13).setHorizontalAlignment('right');
 
-  // ===== BLOCK 2: СТАТИСТИКА ПО ТЕСТАХ =====
+  // === Block 2 ===
   section('A8', 'СТАТИСТИКА ПО ТЕСТАХ');
-  dash.getRange('A9').setFormula(
-    `=IFERROR(QUERY(results!A:M, "SELECT B, COUNT(B), ROUND(AVG(F),1), ROUND(AVG(H),1), ROUND(AVG(I)/60,1), ROUND(AVG(J),1) WHERE B IS NOT NULL GROUP BY B ORDER BY COUNT(B) DESC LABEL B 'Тест', COUNT(B) 'Спроб', ROUND(AVG(F),1) 'Сер. бал', ROUND(AVG(H),1) 'Сер. %', ROUND(AVG(I)/60,1) 'Сер. час, хв', ROUND(AVG(J),1) 'Сер. підказок'", 1), "Поки немає даних")`
-  );
+  if (perTestTable.length === 0) {
+    dash.getRange('A9').setValue('Поки немає даних').setFontStyle('italic').setFontColor('#999');
+  } else {
+    tableHeader(9, 1, ['Тест', 'Спроб', 'Сер. бал', 'Сер. %', 'Сер. час, хв', 'Сер. підказок']);
+    dash.getRange(10, 1, perTestTable.length, 6).setValues(perTestTable);
+  }
 
-  // ===== BLOCK 3: ТОП ПРОВАЛЕНИХ ПИТАНЬ =====
+  // === Block 3 ===
   section('A18', 'ТОП ПРОВАЛЕНИХ ПИТАНЬ (всі тести разом)');
-  dash.getRange('A19').setFormula(
-    `=IFERROR(QUERY(FLATTEN(ARRAYFORMULA(SPLIT(FILTER(results!L2:L, results!L2:L<>""), ","))), "SELECT Col1, COUNT(Col1) WHERE Col1 IS NOT NULL GROUP BY Col1 ORDER BY COUNT(Col1) DESC LIMIT 15 LABEL Col1 'Питання Q#', COUNT(Col1) 'Разів помилились'", 0), "Поки немає даних про помилки")`
-  );
+  if (wrongTable.length === 0) {
+    dash.getRange('A19').setValue('Поки немає даних про помилки').setFontStyle('italic').setFontColor('#999');
+  } else {
+    tableHeader(19, 1, ['Питання Q#', 'Разів помилились']);
+    dash.getRange(20, 1, wrongTable.length, 2).setValues(wrongTable);
+  }
 
-  // ===== BLOCK 4: ЗАПИТИ З ОПИТУВАННЯ =====
+  // === Block 4 ===
   section('D8', 'ЗАПИТИ З ОПИТУВАННЯ');
-  dash.getRange('D9').setFormula(
-    `=IFERROR(QUERY(FLATTEN(ARRAYFORMULA(SPLIT(FILTER(surveys!E2:E, surveys!E2:E<>""), "; "))), "SELECT Col1, COUNT(Col1) WHERE Col1 IS NOT NULL GROUP BY Col1 ORDER BY COUNT(Col1) DESC LABEL Col1 'Що просять зробити далі', COUNT(Col1) 'Голосів'", 0), "Поки немає опитувань")`
-  );
+  if (wantsTable.length === 0) {
+    dash.getRange('D9').setValue('Поки немає опитувань').setFontStyle('italic').setFontColor('#999');
+  } else {
+    tableHeader(9, 4, ['Що просять зробити далі', 'Голосів']);
+    dash.getRange(10, 4, wantsTable.length, 2).setValues(wantsTable);
+  }
 
-  // ===== BLOCK 5: КАСКАД ПІДКАЗОК (Day 3) =====
+  // === Block 5 ===
   section('A30', 'КАСКАД ПІДКАЗОК (тільки Day 3)');
   const hintRows = [
-    ['Середня кількість підказок на спробу',           '=IFERROR(ROUND(AVERAGEIF(results!B:B, "english-day3", results!J:J), 1), "—")'],
-    ['Спроб без жодної підказки',                      '=COUNTIFS(results!B:B, "english-day3", results!J:J, 0)'],
-    ['Спроб з 10+ підказками',                         '=COUNTIFS(results!B:B, "english-day3", results!J:J, ">=10")'],
-    ['Сер. % правильних — БЕЗ підказок',               '=IFERROR(ROUND(AVERAGEIFS(results!H:H, results!B:B, "english-day3", results!J:J, 0), 1), "—")'],
-    ['Сер. % правильних — З підказками (1+)',          '=IFERROR(ROUND(AVERAGEIFS(results!H:H, results!B:B, "english-day3", results!J:J, ">=1"), 1), "—")']
+    ['Середня кількість підказок на спробу',         avgHints !== null ? avgHints : '—'],
+    ['Спроб без жодної підказки',                    noHintTries],
+    ['Спроб з 10+ підказками',                       heavyHintTries],
+    ['Сер. % правильних — БЕЗ підказок',             avgPctNoHints   !== null ? avgPctNoHints   : '—'],
+    ['Сер. % правильних — З підказками (1+)',        avgPctWithHints !== null ? avgPctWithHints : '—']
   ];
   hintRows.forEach((r, i) => {
     dash.getRange(31 + i, 1).setValue(r[0]);
-    dash.getRange(31 + i, 2).setFormula(r[1]);
+    dash.getRange(31 + i, 2).setValue(r[1]);
   });
   dash.getRange('B31:B35').setFontWeight('bold').setFontSize(13).setHorizontalAlignment('right');
 
-  // Key comparison verdict
-  dash.getRange('A36').setValue('B34 vs B35: чи дає каскад приріст?').setFontStyle('italic').setFontColor('#5a4810');
-  dash.getRange('B36').setFormula(
-    '=IF(OR(B34="—",B35="—"), "потрібно більше даних", IF(B35>B34, "✅ +" & ROUND(B35-B34,1) & " % з підказками", IF(B35=B34, "≈ однаково", "⚠️ -" & ROUND(B34-B35,1) & " % з підказками")))'
-  );
-  dash.getRange('B36').setFontWeight('bold').setHorizontalAlignment('right').setBackground('#fff4d6');
+  dash.getRange('A36').setValue('Чи дає каскад приріст?').setFontStyle('italic').setFontColor('#5a4810');
+  dash.getRange('B36').setValue(cascadeVerdict)
+    .setFontWeight('bold').setHorizontalAlignment('right').setBackground('#fff4d6');
 
   // Footer
-  dash.getRange('A38').setValue('Оновлення: TestsAnna меню → Setup / Refresh Dashboard. Дані тягнуться з листів leads / results / surveys автоматично.').setFontStyle('italic').setFontColor('#999');
+  dash.getRange('A38').setValue('Дашборд — статичний знімок. Щоб оновити: TestsAnna → Setup/Refresh Dashboard, або Apps Script → setupDashboard → Run.')
+    .setFontStyle('italic').setFontColor('#999');
+  dash.getRange('A39').setValue('Локально-стійкий рендер (без QUERY/FILTER) — все рахується в JS, працює в будь-якій локалі Sheets.')
+    .setFontStyle('italic').setFontColor('#999');
 
-  dash.setHiddenGridlines(false);
   SpreadsheetApp.flush();
-  SpreadsheetApp.getActive().toast('Dashboard зібрано. Дивись першу вкладку.', 'TestsAnna', 5);
+  SpreadsheetApp.getActive().toast(
+    'Dashboard оновлено: ' + totalLeads + ' лідів, ' + totalCompletions + ' завершень, ' + totalSurveys + ' опитувань.',
+    'TestsAnna', 6
+  );
 }
