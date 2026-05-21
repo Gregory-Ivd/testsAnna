@@ -44,8 +44,19 @@
   .matchrow .q-num{font-weight:700;color:var(--accent);margin-right:4px}
   .gapsel{display:inline-block;background:#eaf3ff;padding:3px 6px;border-radius:4px;margin:0 3px}
   .gap-number{display:inline-block;background:var(--accent);color:#fff;font-weight:700;border-radius:50%;width:30px;height:30px;line-height:30px;text-align:center;font-size:16px;margin:0 4px;vertical-align:middle;font-family:"Trebuchet MS",sans-serif}
-  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn{display:inline-block;margin:8px 0 0;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:4px 13px;border-radius:20px;cursor:pointer}
   .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff;border-style:solid}
+  .hintpanel{display:none;margin-top:8px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:6px 14px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
   .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
   .solbtn.on{display:inline-block}
   .solbtn:hover{background:#ffe9a8}
@@ -98,7 +109,7 @@
     <div class="pep">
       <b>Анно, увага.</b> Цей тест зроблений за форматом справжнього НМТ — так само структуроване, такої ж довжини, з тим самим хронометражем (60 хвилин на 32 завдання — це ~1 хв 50 сек на питання).
       <br><br>Таймер угорі показує час до завершення 60-хвилинного «нормативу» — коли він перейде в червоний, ти вже «вийшла за час». На реальному НМТ цей дзвоник буде, тут — тільки кольорове попередження.
-      <br><br>Підказки 💡 є біля складних завдань. Після завершення — детальне рішення для всіх 32 питань.
+      <br><br>Біля кожного з 32 питань є кнопка <b>💡 Підказка</b> — це каскад із 3 кроків, який підводить тебе до відповіді поступово, а не одразу її показує. Користуйся, коли застрягла, і не поспішай натискати останній крок. Повний розбір для всіх 32 питань — після завершення тесту.
     </div>
   </header>
 
@@ -130,26 +141,36 @@
     <div class="matchrow" data-correct="A" data-q="1" data-sol="sol1" data-topic="matching-headings">
       <div class="item"><span class="q-num">Q1.</span> Most fitness experts agree that you don't need a one-hour workout in the morning. Five minutes of gentle stretching or a short walk around the block can boost your energy more effectively than another half-hour of sleep.</div>
       <select name="q1"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <button class="hintbtn" data-q="1">💡 Підказка</button>
+      <div class="hintpanel" data-panel="1"></div>
     </div>
 
     <div class="matchrow" data-correct="E" data-q="2" data-sol="sol2" data-topic="matching-headings">
       <div class="item"><span class="q-num">Q2.</span> Resist the temptation to reach for your phone in the first ten minutes after waking. The constant flood of notifications, news, and messages activates stress responses before your brain has even fully come online.</div>
       <select name="q2"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <button class="hintbtn" data-q="2">💡 Підказка</button>
+      <div class="hintpanel" data-panel="2"></div>
     </div>
 
     <div class="matchrow" data-correct="D" data-q="3" data-sol="sol3" data-topic="matching-headings">
       <div class="item"><span class="q-num">Q3.</span> Your body loses moisture during sleep, and drinking a full glass of water before your first cup of coffee helps your metabolism start the day properly. Many specialists suggest leaving the glass on your bedside table the night before.</div>
       <select name="q3"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <button class="hintbtn" data-q="3">💡 Підказка</button>
+      <div class="hintpanel" data-panel="3"></div>
     </div>
 
     <div class="matchrow" data-correct="C" data-q="4" data-sol="sol4" data-topic="matching-headings">
       <div class="item"><span class="q-num">Q4.</span> Sleep experts argue that pressing snooze fragments your sleep cycles, leaving you more tired than if you had simply got up at the first alarm. Set the alarm for the latest time you can actually leave the bed — and stick to it.</div>
       <select name="q4"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <button class="hintbtn" data-q="4">💡 Підказка</button>
+      <div class="hintpanel" data-panel="4"></div>
     </div>
 
     <div class="matchrow" data-correct="B" data-q="5" data-sol="sol5" data-topic="matching-headings">
       <div class="item"><span class="q-num">Q5.</span> Writing down three priorities for the next day before going to sleep dramatically reduces morning decision-making. You start the day knowing exactly what matters, instead of wasting your sharpest hours figuring it out.</div>
       <select name="q5"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <button class="hintbtn" data-q="5">💡 Підказка</button>
+      <div class="hintpanel" data-panel="5"></div>
     </div>
 
     <button class="task-solbtn" data-sol="taskSol1">📖 Розбір Task 1</button>
@@ -176,31 +197,43 @@
     <div class="matchrow" data-correct="G" data-q="6" data-sol="sol6" data-topic="matching-opinion">
       <div class="item"><span class="q-num">Q6.</span> <b>Olha:</b> I never sat down for long sessions. I used the bus rides to and from school to revise vocabulary on my phone. Twenty minutes here, fifteen there — by the end of the month I had covered everything.</div>
       <select name="q6"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <button class="hintbtn" data-q="6">💡 Підказка</button>
+      <div class="hintpanel" data-panel="6"></div>
     </div>
 
     <div class="matchrow" data-correct="B" data-q="7" data-sol="sol7" data-topic="matching-opinion">
       <div class="item"><span class="q-num">Q7.</span> <b>Andriy:</b> Honestly, the most useful thing I did was teaching my younger brother. Explaining grammar rules out loud forced me to really understand them, not just recognise them.</div>
       <select name="q7"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <button class="hintbtn" data-q="7">💡 Підказка</button>
+      <div class="hintpanel" data-panel="7"></div>
     </div>
 
     <div class="matchrow" data-correct="D" data-q="8" data-sol="sol8" data-topic="matching-opinion">
       <div class="item"><span class="q-num">Q8.</span> <b>Yana:</b> I downloaded every prep app and watched dozens of YouTube videos in the first week. Then I realised I was just collecting resources without actually using any of them. Eventually I picked one book and stuck with it.</div>
       <select name="q8"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <button class="hintbtn" data-q="8">💡 Підказка</button>
+      <div class="hintpanel" data-panel="8"></div>
     </div>
 
     <div class="matchrow" data-correct="A" data-q="9" data-sol="sol9" data-topic="matching-opinion">
       <div class="item"><span class="q-num">Q9.</span> <b>Maks:</b> What worked for me was watching films in English with English subtitles. Not Ukrainian subtitles — English. After a month, I noticed I was understanding much more even in everyday conversations.</div>
       <select name="q9"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <button class="hintbtn" data-q="9">💡 Підказка</button>
+      <div class="hintpanel" data-panel="9"></div>
     </div>
 
     <div class="matchrow" data-correct="F" data-q="10" data-sol="sol10" data-topic="matching-opinion">
       <div class="item"><span class="q-num">Q10.</span> <b>Sofia:</b> I joined an online study group. Knowing that other people were waiting for me to show up at seven on Tuesdays kept me from skipping a single session for two months.</div>
       <select name="q10"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <button class="hintbtn" data-q="10">💡 Підказка</button>
+      <div class="hintpanel" data-panel="10"></div>
     </div>
 
     <div class="matchrow" data-correct="E" data-q="11" data-sol="sol11" data-topic="matching-opinion">
       <div class="item"><span class="q-num">Q11.</span> <b>Roman:</b> I tracked my mistakes in a separate notebook. Every time I got something wrong on a practice test, I copied the rule into the notebook. Reviewing that one notebook the night before the exam was more useful than any textbook.</div>
       <select name="q11"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <button class="hintbtn" data-q="11">💡 Підказка</button>
+      <div class="hintpanel" data-panel="11"></div>
     </div>
 
     <button class="task-solbtn" data-sol="taskSol2">📖 Розбір Task 2</button>
@@ -228,6 +261,8 @@
           <label class="opt"><input type="radio" name="q12" value="C"> C) A trip to a remote village</label>
           <label class="opt"><input type="radio" name="q12" value="D"> D) Encouragement from her parents</label>
         </div>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
         <button class="solbtn" data-sol="sol12">📖 рішення</button>
       </li>
       <li class="numbered" data-n="13" data-correct="C" data-topic="reading-mc" data-sol="sol13">
@@ -238,6 +273,8 @@
           <label class="opt"><input type="radio" name="q13" value="C"> C) failed in basic ways</label>
           <label class="opt"><input type="radio" name="q13" value="D"> D) were rejected by her teacher</label>
         </div>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
         <button class="solbtn" data-sol="sol13">📖 рішення</button>
       </li>
       <li class="numbered" data-n="14" data-correct="B" data-topic="reading-mc" data-sol="sol14">
@@ -248,6 +285,8 @@
           <label class="opt"><input type="radio" name="q14" value="C"> C) Connected Sarah with charities</label>
           <label class="opt"><input type="radio" name="q14" value="D"> D) Submitted Sarah's work to competitions</label>
         </div>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
         <button class="solbtn" data-sol="sol14">📖 рішення</button>
       </li>
       <li class="numbered" data-n="15" data-correct="A" data-topic="reading-mc" data-sol="sol15">
@@ -258,6 +297,8 @@
           <label class="opt"><input type="radio" name="q15" value="C"> C) is uncomfortable with success</label>
           <label class="opt"><input type="radio" name="q15" value="D"> D) wants to return to school</label>
         </div>
+        <button class="hintbtn" data-q="15">💡 Підказка</button>
+        <div class="hintpanel" data-panel="15"></div>
         <button class="solbtn" data-sol="sol15">📖 рішення</button>
       </li>
       <li class="numbered" data-n="16" data-correct="C" data-topic="reading-mc" data-sol="sol16">
@@ -268,6 +309,8 @@
           <label class="opt"><input type="radio" name="q16" value="C"> C) Find a supportive mentor and accept failure</label>
           <label class="opt"><input type="radio" name="q16" value="D"> D) Choose problems that can be solved quickly</label>
         </div>
+        <button class="hintbtn" data-q="16">💡 Підказка</button>
+        <div class="hintpanel" data-panel="16"></div>
         <button class="solbtn" data-sol="sol16">📖 рішення</button>
       </li>
     </ol>
@@ -304,6 +347,21 @@
       <p>Today, Bohdan gives talks in schools across Ukraine. <span class="gap-number">22</span> <select name="q22"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select> He insists that the most important quality for any adventure is not physical strength but the willingness to keep moving when everything inside you wants to stop.</p>
     </div>
 
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+      <button class="hintbtn" data-q="17">💡 Підказка Q17</button>
+      <button class="hintbtn" data-q="18">💡 Підказка Q18</button>
+      <button class="hintbtn" data-q="19">💡 Підказка Q19</button>
+      <button class="hintbtn" data-q="20">💡 Підказка Q20</button>
+      <button class="hintbtn" data-q="21">💡 Підказка Q21</button>
+      <button class="hintbtn" data-q="22">💡 Підказка Q22</button>
+    </div>
+    <div class="hintpanel" data-panel="17"></div>
+    <div class="hintpanel" data-panel="18"></div>
+    <div class="hintpanel" data-panel="19"></div>
+    <div class="hintpanel" data-panel="20"></div>
+    <div class="hintpanel" data-panel="21"></div>
+    <div class="hintpanel" data-panel="22"></div>
+
     <button class="task-solbtn" data-sol="taskSol4">📖 Розбір Task 4</button>
   </section>
 
@@ -321,57 +379,62 @@
     <ol class="qs">
       <li class="numbered" data-n="23" data-correct="A" data-topic="cloze-mc" data-sol="sol23">
         <span class="qtext">Gap 23</span>
-        <button class="hintbtn" data-hint="clear-out">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q23" value="A"> A) cleared out</label>
           <label class="opt"><input type="radio" name="q23" value="B"> B) cleared up</label>
           <label class="opt"><input type="radio" name="q23" value="C"> C) cleared off</label>
           <label class="opt"><input type="radio" name="q23" value="D"> D) cleared away</label>
         </div>
+        <button class="hintbtn" data-q="23">💡 Підказка</button>
+        <div class="hintpanel" data-panel="23"></div>
         <button class="solbtn" data-sol="sol23">📖 рішення</button>
       </li>
       <li class="numbered" data-n="24" data-correct="B" data-topic="cloze-mc" data-sol="sol24">
         <span class="qtext">Gap 24</span>
-        <button class="hintbtn" data-hint="come-across">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q24" value="A"> A) came up with</label>
           <label class="opt"><input type="radio" name="q24" value="B"> B) came across</label>
           <label class="opt"><input type="radio" name="q24" value="C"> C) came down to</label>
           <label class="opt"><input type="radio" name="q24" value="D"> D) came over</label>
         </div>
+        <button class="hintbtn" data-q="24">💡 Підказка</button>
+        <div class="hintpanel" data-panel="24"></div>
         <button class="solbtn" data-sol="sol24">📖 рішення</button>
       </li>
       <li class="numbered" data-n="25" data-correct="A" data-topic="cloze-mc" data-sol="sol25">
         <span class="qtext">Gap 25</span>
-        <button class="hintbtn" data-hint="get-around-to">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q25" value="A"> A) got</label>
           <label class="opt"><input type="radio" name="q25" value="B"> B) made</label>
           <label class="opt"><input type="radio" name="q25" value="C"> C) had</label>
           <label class="opt"><input type="radio" name="q25" value="D"> D) put</label>
         </div>
+        <button class="hintbtn" data-q="25">💡 Підказка</button>
+        <div class="hintpanel" data-panel="25"></div>
         <button class="solbtn" data-sol="sol25">📖 рішення</button>
       </li>
       <li class="numbered" data-n="26" data-correct="C" data-topic="cloze-mc" data-sol="sol26">
         <span class="qtext">Gap 26</span>
-        <button class="hintbtn" data-hint="throw-away">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q26" value="A"> A) off</label>
           <label class="opt"><input type="radio" name="q26" value="B"> B) up</label>
           <label class="opt"><input type="radio" name="q26" value="C"> C) away</label>
           <label class="opt"><input type="radio" name="q26" value="D"> D) over</label>
         </div>
+        <button class="hintbtn" data-q="26">💡 Підказка</button>
+        <div class="hintpanel" data-panel="26"></div>
         <button class="solbtn" data-sol="sol26">📖 рішення</button>
       </li>
       <li class="numbered" data-n="27" data-correct="D" data-topic="cloze-mc" data-sol="sol27">
         <span class="qtext">Gap 27</span>
-        <button class="hintbtn" data-hint="despite">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q27" value="A"> A) thanks to</label>
           <label class="opt"><input type="radio" name="q27" value="B"> B) due to</label>
           <label class="opt"><input type="radio" name="q27" value="C"> C) instead of</label>
           <label class="opt"><input type="radio" name="q27" value="D"> D) despite</label>
         </div>
+        <button class="hintbtn" data-q="27">💡 Підказка</button>
+        <div class="hintpanel" data-panel="27"></div>
         <button class="solbtn" data-sol="sol27">📖 рішення</button>
       </li>
     </ol>
@@ -386,57 +449,62 @@
     <ol class="qs">
       <li class="numbered" data-n="28" data-correct="C" data-topic="wordform" data-sol="sol28">
         <span class="qtext">His grandmother was famous for her _____ in difficult situations. <b>(PATIENT)</b></span>
-        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q28" value="A"> A) patient</label>
           <label class="opt"><input type="radio" name="q28" value="B"> B) patiently</label>
           <label class="opt"><input type="radio" name="q28" value="C"> C) patience</label>
           <label class="opt"><input type="radio" name="q28" value="D"> D) impatience</label>
         </div>
+        <button class="hintbtn" data-q="28">💡 Підказка</button>
+        <div class="hintpanel" data-panel="28"></div>
         <button class="solbtn" data-sol="sol28">📖 рішення</button>
       </li>
       <li class="numbered" data-n="29" data-correct="B" data-topic="wordform" data-sol="sol29">
         <span class="qtext">The _____ of his speech moved the entire audience. <b>(SINCERE)</b></span>
-        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q29" value="A"> A) sincerely</label>
           <label class="opt"><input type="radio" name="q29" value="B"> B) sincerity</label>
           <label class="opt"><input type="radio" name="q29" value="C"> C) insincere</label>
           <label class="opt"><input type="radio" name="q29" value="D"> D) sincere</label>
         </div>
+        <button class="hintbtn" data-q="29">💡 Підказка</button>
+        <div class="hintpanel" data-panel="29"></div>
         <button class="solbtn" data-sol="sol29">📖 рішення</button>
       </li>
       <li class="numbered" data-n="30" data-correct="C" data-topic="wordform" data-sol="sol30">
         <span class="qtext">She gave a _____ presentation on climate change. <b>(POWER)</b></span>
-        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q30" value="A"> A) powerless</label>
           <label class="opt"><input type="radio" name="q30" value="B"> B) powered</label>
           <label class="opt"><input type="radio" name="q30" value="C"> C) powerful</label>
           <label class="opt"><input type="radio" name="q30" value="D"> D) empower</label>
         </div>
+        <button class="hintbtn" data-q="30">💡 Підказка</button>
+        <div class="hintpanel" data-panel="30"></div>
         <button class="solbtn" data-sol="sol30">📖 рішення</button>
       </li>
       <li class="numbered" data-n="31" data-correct="A" data-topic="wordform" data-sol="sol31">
         <span class="qtext">The _____ between the two cities is now only two hours by train. <b>(DISTANT)</b></span>
-        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q31" value="A"> A) distance</label>
           <label class="opt"><input type="radio" name="q31" value="B"> B) distant</label>
           <label class="opt"><input type="radio" name="q31" value="C"> C) distantly</label>
           <label class="opt"><input type="radio" name="q31" value="D"> D) distancing</label>
         </div>
+        <button class="hintbtn" data-q="31">💡 Підказка</button>
+        <div class="hintpanel" data-panel="31"></div>
         <button class="solbtn" data-sol="sol31">📖 рішення</button>
       </li>
       <li class="numbered" data-n="32" data-correct="C" data-topic="wordform" data-sol="sol32">
         <span class="qtext">We all need to act more _____ if we want to protect the environment. <b>(RESPONSIBLE)</b></span>
-        <button class="hintbtn" data-hint="wordform">💡 підказка</button>
         <div class="opts">
           <label class="opt"><input type="radio" name="q32" value="A"> A) responsibility</label>
           <label class="opt"><input type="radio" name="q32" value="B"> B) responsible</label>
           <label class="opt"><input type="radio" name="q32" value="C"> C) responsibly</label>
           <label class="opt"><input type="radio" name="q32" value="D"> D) irresponsible</label>
         </div>
+        <button class="hintbtn" data-q="32">💡 Підказка</button>
+        <div class="hintpanel" data-panel="32"></div>
         <button class="solbtn" data-sol="sol32">📖 рішення</button>
       </li>
     </ol>
@@ -461,41 +529,138 @@
 </div>
 
 <script>
-/* ============== HINTS ============== */
-const hints = {
-  "clear-out":{title:"Clear out / up / off / away",body:`<p><code>clear out</code> = звільнити від речей, прибрати (a room, an apartment, a cupboard).</p>
-    <p><code>clear up</code> = впорядкувати дрібний безлад; також про погоду — проясніти.</p>
-    <p><code>clear off</code> = (неформ.) забиратися геть.</p>
-    <p><code>clear away</code> = прибрати після події (clear away the dishes).</p>
-    <div class="ex">For a whole apartment after years of neglect — <b>clear out</b>.</div>`},
-  "come-across":{title:"Come across / up with / down to / over",body:`<p><code>come across</code> = випадково натрапити (sth/sb).</p>
-    <p><code>come up with</code> = придумати, запропонувати (an idea, a solution).</p>
-    <p><code>come down to</code> = зводитись до (it all comes down to money).</p>
-    <p><code>come over</code> = підійти (someone came over), охопити (a feeling came over me).</p>
-    <div class="ex">«Going through cupboards, I _____ dozens of objects» — випадково знайшов → <b>came across</b>.</div>`},
-  "get-around-to":{title:"Get around to doing sth",body:`<p><code>get around to + V-ing</code> = нарешті знайти час, щоб зробити (часто з відтінком зволікання).</p>
-    <div class="ex">I never <b>got around to</b> reading that book. = Я так і не зібрався прочитати ту книгу.</div>
-    <p>З "made / had / put" ця конструкція <b>не</b> працює.</p>`},
-  "throw-away":{title:"Throw away vs throw out / off / over",body:`<p><code>throw away</code> = викинути (звичне значення для сміття).</p>
-    <p><code>throw out</code> = теж викинути, але частіше про великі речі або людину з місця.</p>
-    <p><code>throw off</code> = скинути (одяг), збити з пантелику.</p>
-    <p><code>throw over</code> = (рідко) кинути партнера.</p>
-    <div class="ex">"Throw things <b>away</b>" — найзагальніший і безпечний вибір для побутового сміття.</div>`},
-  "despite":{title:"Despite vs although vs because of",body:`<p><code>despite + noun/V-ing</code> = незважаючи на. Без "that"!</p>
-    <p><code>although + clause</code> = хоча. З підметом і присудком.</p>
-    <p><code>thanks to / due to / because of + noun</code> = завдяки/через.</p>
-    <div class="ex">I filled only two bags, <b>despite my original plan</b>... = всупереч моєму плану.<br>
-    Дослівно: I filled only two bags, <b>although my original plan was</b>...</div>`},
-  "wordform":{title:"Word Formation — алгоритм",body:`<p>Задай питання: <b>яка частина мови потрібна в пропуску</b>?</p>
-    <h4>Іменник (noun)</h4>
-    <p>Стоїть після артикля (the), присвійних (his, her), прикметника, прийменника.</p>
-    <p>Типові суфікси: <code>-tion, -ment, -ity, -ness, -ence, -ance, -ism</code></p>
-    <h4>Прикметник (adj)</h4>
-    <p>Стоїть перед іменником або після be/seem/become.</p>
-    <p>Типові суфікси: <code>-ful, -less, -ive, -ous, -al, -able</code></p>
-    <h4>Прислівник (adv)</h4>
-    <p>Описує дієслово (act, speak, work). Зазвичай суфікс <code>-ly</code>.</p>
-    <p>Сигнал у реченні: "act <i>more</i> _____" — після "more" може бути adj або adv. Дивись, що описуєш — дієслово act → adv.</p>`}
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+/* Кожне питання має 3 рівні підказок + короткий ответ.
+   h1 — направление мысли, h2 — правило/паттерн, h3 — почти-ответ, ans — правильна літера + коротке чому. */
+const qHints = {
+  1:{ h1:"Прочитай абзац ще раз і визнач головну тему: рух, харчування, сон, гаджети чи планування?",
+      h2:"Ключові слова: <i>fitness</i>, <i>gentle stretching</i>, <i>short walk</i>, <i>energy</i>. Усі стосуються однієї сфери.",
+      h3:"Текст радить коротку фізичну активність зранку замість додаткового сну. Шукай заголовок про рух тіла.",
+      ans:"A) Move your body briefly. <i>Five minutes of stretching or a short walk</i> = коротка фізична активність." },
+  2:{ h1:"Знайди, чого автор просить НЕ робити в перші 10 хв після пробудження.",
+      h2:"Ключові слова: <i>phone</i>, <i>notifications, news, and messages</i>, <i>stress responses</i>.",
+      h3:"Не брати телефон одразу = не «скролити» соцмережі/новини. Шукай заголовок зі словом про телефон чи скролінг.",
+      ans:"E) Avoid the morning scroll. <i>Scroll</i> = гортати стрічку у телефоні." },
+  3:{ h1:"Зверни увагу на дві речі в абзаці — вода і кава. Що з ними пов'язано?",
+      h2:"<i>Glass of water before your first cup of coffee</i> — порядок: спочатку вода, потім кава.",
+      h3:"Hydrate = пити воду / зволожуватися. Caffeine = кофеїн (кава). Хто перед ким?",
+      ans:"D) Hydrate before caffeine. Прямо описує: рідина → кофеїн." },
+  4:{ h1:"Що автор радить НЕ робити з будильником? Шукай дієслово.",
+      h2:"<i>Pressing snooze fragments your sleep cycles</i> — про що йдеться?",
+      h3:"Snooze = кнопка «відкласти на 5 хв» на будильнику. Skip = пропустити, не натискати.",
+      ans:"C) Skip the snooze button. Текст каже: вставай з першим будильником, не клацай snooze." },
+  5:{ h1:"Коли відбувається дія, описана в абзаці — зранку чи ввечері?",
+      h2:"<i>Writing down three priorities for the next day before going to sleep</i> — це планування. Чого і коли?",
+      h3:"Планувати ЗАВТРАШНІЙ день СЬОГОДНІ ввечері = …",
+      ans:"B) Plan tomorrow tonight. Tonight = ввечері; tomorrow = завтра." },
+  6:{ h1:"Як Olha використовувала час: великими блоками чи маленькими шматочками?",
+      h2:"Маркери: <i>twenty minutes here, fifteen there</i>, <i>bus rides</i>, <i>never sat down for long sessions</i>.",
+      h3:"«Small bits of free time» = маленькі шматочки вільного часу — це саме її підхід.",
+      ans:"G) I made progress by using small bits of free time." },
+  7:{ h1:"Кому Andriy щось пояснював? І чому це йому допомогло?",
+      h2:"Маркери: <i>teaching my younger brother</i>, <i>explaining grammar rules out loud</i>.",
+      h3:"Пояснювати комусь іншому = explain things to someone else. Це його метод.",
+      ans:"B) I learned by trying to explain things to someone else." },
+  8:{ h1:"Що Yana робила НА ПОЧАТКУ і що зрозуміла ПОТІМ?",
+      h2:"Спочатку: <i>downloaded every prep app</i>, <i>watched dozens of YouTube videos</i>. Потім: <i>just collecting resources</i>.",
+      h3:"Висновок: зупинити збирання матеріалів, обрати один і працювати. Знайди це формулювання.",
+      ans:"D) I had to stop collecting materials and start using one." },
+  9:{ h1:"Які саме субтитри обирав Maks і чому це важливо?",
+      h2:"Він підкреслює: <i>English subtitles. Not Ukrainian subtitles — English.</i> Тобто та сама мова, що й звук.",
+      h3:"«Subtitles in the same language» = субтитри тієї ж мови, що й аудіо.",
+      ans:"A) Films with subtitles in the same language helped me." },
+  10:{ h1:"Що допомагало Sofii не пропускати заняття?",
+       h2:"<i>Knowing that other people were waiting for me</i> — це зовнішній тиск/відповідальність перед іншими.",
+       h3:"External accountability = зовнішня відповідальність. Інші чекають → не можна прогуляти.",
+       ans:"F) External accountability stopped me from giving up." },
+  11:{ h1:"Що Roman записував у зошит? Куди дивився перед іспитом?",
+       h2:"<i>Tracked my mistakes in a separate notebook</i> = записував помилки в окремий зошит.",
+       h3:"«Keeping a record of my errors» = вести запис власних помилок. Та сама ідея, іншими словами.",
+       ans:"E) Keeping a record of my errors helped most." },
+  12:{ h1:"Подивись на перший абзац. Що сталося із Sarah у 14 років?",
+       h2:"<i>When Sarah Mitchell was fourteen, she watched a documentary…</i> — це і є початок історії.",
+       h3:"Документальний фільм у 14 років надихнув її. Шукай варіант зі словом «documentary».",
+       ans:"B) A documentary she watched at fourteen. Прямо в першому реченні." },
+  13:{ h1:"Знайди в тексті слова про перші спроби Sarah. Як вони описані?",
+       h2:"<i>Almost comically unsuccessful</i>, <i>leaked, broke, or simply refused to filter anything</i>.",
+       h3:"Це не дрібні проблеми (B), не дорогі (A), не відкинуті вчителем (D). Це базові, елементарні провали.",
+       ans:"C) failed in basic ways. Прототипи протікали і не фільтрували — базові провали." },
+  14:{ h1:"Що саме Mrs. Patel робила для Sarah? Знайди цитату.",
+       h2:"<i>Mrs. Patel … staying after school twice a week to help her debug each new version.</i>",
+       h3:"Регулярна (twice a week) технічна (debug) допомога — це і є «regular technical advising».",
+       ans:"B) Provided regular technical advising. Двічі на тиждень допомагала з прототипами." },
+  15:{ h1:"Що таке <i>workshop</i> і що таке <i>boardroom</i>? Подумай про сферу діяльності.",
+       h2:"Workshop = майстерня (практична робота). Boardroom = зал засідань (бізнес-зустрічі).",
+       h3:"Якщо комфортніше в майстерні — людина любить практичну роботу більше за зустрічі.",
+       ans:"A) prefers practical work to business meetings. УВАГА: B (refuses any meetings) — занадто сильно: «more comfortable» ≠ «refuses»." },
+  16:{ h1:"В ОСТАННЬОМУ абзаці Sarah дає поради. Які саме?",
+       h2:"<i>Find one teacher who will take you seriously</i> + <i>fail at least ten times before you start succeeding</i>.",
+       h3:"Дві ідеї: знайти ментора + прийняти невдачі. Шукай варіант, де є обидві.",
+       ans:"C) Find a supportive mentor and accept failure." },
+  17:{ h1:"Подивись НА НАСТУПНЕ речення: «His parents had assumed he would follow them into education». Якою думкою має закінчуватися перше речення?",
+       h2:"Логіка: батьки гадали, що він стане вчителем — але він став полярником. Це контраст. Перед цим контрастом має бути сказано, що його шлях був несподіваним.",
+       h3:"Шукай речення, яке каже: «у дитинстві ніщо не вказувало на такий результат».",
+       ans:"C) Nothing in his childhood seemed to point to such an extraordinary achievement." },
+  18:{ h1:"Про яку подію йдеться в попередньому реченні? Як вона вплинула на Bohdan?",
+       h2:"<i>His grandfather took him hiking in the Carpathian Mountains</i> — конкретна подія (один похід).",
+       h3:"Шукай речення зі словами «that weekend» — воно посилається саме на цей похід.",
+       ans:"F) That single weekend convinced him that wild places were where he belonged." },
+  19:{ h1:"Наступне речення каже: «The combination … taught him». Комбінація ЧОГО з чим?",
+       h2:"Перша складова — long-distance treks. Друга — щось НОВЕ, що додалося до треків.",
+       h3:"Шукай речення, де з'являється друга діяльність (тренування з кимось досвідченим).",
+       ans:"E) He also started training with a former Olympic skier on weekends. Treks + skiing = the combination." },
+  20:{ h1:"Попереднє речення: «surprised everyone». Як це підсилити?",
+       h2:"Потрібно показати, що навіть найближчі люди не вірили в успіх.",
+       h3:"Шукай речення про друзів/близьких, які думали, що це нереально.",
+       ans:"D) Even his closest friends thought he was being unrealistic." },
+  21:{ h1:"Наступне речення: «Bohdan refused to give up». Чому б він міг здатися?",
+       h2:"Потрібна причина, чому експедиція була на межі провалу: погода, екстремальні умови.",
+       h3:"Шукай речення з температурою, кризовим моментом, днем коли він «майже повернувся».",
+       ans:"B) Temperatures dropped to minus fifty at times, and on day forty-two he nearly turned back." },
+  22:{ h1:"Що Bohdan робить сьогодні? І яке загальне послання він передає?",
+       h2:"<i>Gives talks in schools</i> + <i>he insists … willingness to keep moving</i>. Це підтримка молоді.",
+       h3:"Шукай речення з «encourages young people» — типове послання мотиваційного спікера. УВАГА: G суперечить фактам (експедиція тривала 57 днів, а не 3).",
+       ans:"A) He encourages young people not to wait for permission to dream big. Зайве: G." },
+  23:{ h1:"Що означає «clear ___ apartment»? Що ми робимо з квартирою?",
+       h2:"Контекст: «я нарешті _____ свою стару квартиру після років відкладання» — повна розборка речей.",
+       h3:"Clear <b>out</b> = звільнити приміщення від речей. Clear up = розібратися з дрібним безладом. Clear away = прибрати після події. Clear off = (неформ.) забиратися геть.",
+       ans:"A) cleared out. Стандартна колокація для повної розборки квартири/будинку." },
+  24:{ h1:"Як я знаходив речі — навмисно чи випадково? Знайди ключове слово в контексті.",
+       h2:"<i>Going through cupboards I hadn't opened in a decade, I _____ dozens of objects</i> — випадкове знаходження.",
+       h3:"Come <b>across</b> = випадково натрапити. Come up with = придумати ідею. Come down to = зводитись до. Come over = підійти / охопити (feeling).",
+       ans:"B) came across. Випадкове знаходження речей під час перегляду шаф." },
+  25:{ h1:"Це фіксована конструкція. Тільки одне з 4 слів утворює правильну фразу з «around to + V-ing».",
+       h2:"Get around to + V-ing = нарешті знайти час щось зробити (часто з відтінком зволікання).",
+       h3:"Make / had / put around to — таких конструкцій в англійській не існує. Тільки одне дієслово підходить.",
+       ans:"A) got. «Get around to + V-ing» = нарешті дійти до чогось." },
+  26:{ h1:"Що ми робимо з непотрібними побутовими речами?",
+       h2:"Throw away — найзагальніший варіант для викидання сміття.",
+       h3:"Throw off = скинути одяг. Throw up = виблювати. Throw over = (рідко) розірвати стосунки. Throw away = викинути.",
+       ans:"C) away. Throw things away = викинути речі — побутове викидання." },
+  27:{ h1:"Чи ВДАЛОСЯ виконати план? Шукай зв'язок між реальністю і планом.",
+       h2:"Реальність: тільки 2 пакети. План: прибрати півквартири. Між ними — контраст. Який сполучник передає «всупереч»?",
+       h3:"Despite + noun = незважаючи на. Thanks to / due to / because of = «завдяки/через» (це навпаки — пояснення УСПІХУ).",
+       ans:"D) despite. «Despite my original plan» = всупереч початковому плану." },
+  28:{ h1:"Що стоїть ПЕРЕД пропуском — «her». Це присвійний займенник. Яка частина мови йде після «her / his / my»?",
+       h2:"Після присвійного потрібен ІМЕННИК. З 4 варіантів — який іменник?",
+       h3:"Patient = (adj) терплячий / (n) пацієнт; patiently = (adv) терпляче; patience = (n) терпіння ✅; impatience = (n) нетерпіння (за змістом не пасує).",
+       ans:"C) patience. Іменник «терпіння» — позитивна якість." },
+  29:{ h1:"«The _____ of his speech» — артикль «the» + потім «of». Що йде між ними?",
+       h2:"Конструкція «The ___ of …» вимагає ІМЕННИКА. Який тут?",
+       h3:"Sincerely = (adv); sincerity = (n) щирість ✅; insincere = (adj) нещирий — негативне; sincere = (adj). Іменник тут один.",
+       ans:"B) sincerity. Іменник між «the» і «of»." },
+  30:{ h1:"Що стоїть ПІСЛЯ пропуску? «Presentation» — це іменник. Яка частина мови описує іменник?",
+       h2:"Перед іменником потрібен ПРИКМЕТНИК. Який з варіантів — прикметник?",
+       h3:"Powerless = (adj) безсилий — негативне; powered = (V3) на акумуляторі; powerful = (adj) потужний ✅; empower = (verb).",
+       ans:"C) powerful. Прикметник «потужний» описує «presentation»." },
+  31:{ h1:"Що стоїть до пропуску? «The». Що зазвичай іде після артикля?",
+       h2:"Артикль «the» зазвичай вимагає ІМЕННИКА.",
+       h3:"Distance = (n) відстань ✅; distant = (adj) далекий; distantly = (adv); distancing = (gerund) дистанціювання (соц. дистанція).",
+       ans:"A) distance. «Відстань між двома містами» — це довжина дороги." },
+  32:{ h1:"Що описує пропуск? Дієслово «act». Яка частина мови описує дієслово?",
+       h2:"Дієслово описує ПРИСЛІВНИК (adverb) — зазвичай із суфіксом -ly.",
+       h3:"Responsibility = (n); responsible = (adj); responsibly = (adv) відповідально ✅; irresponsible = (adj negative).",
+       ans:"C) responsibly. Прислівник описує дієслово «act»." }
 };
 
 /* ============== SOLUTIONS ============== */
@@ -560,7 +725,51 @@ const modalBody = document.getElementById('modalBody');
 document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
 modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
 function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
-document.querySelectorAll('.hintbtn').forEach(b=>b.addEventListener('click',()=>{const h=hints[b.dataset.hint]; if(h) openModal(h.title,h.body);}));
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього питання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Правило',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+});
 document.querySelectorAll('.solbtn, .task-solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
 
 /* ============== Progress + Timer (real НМТ 60min) ============== */
