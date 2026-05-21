@@ -3,7 +3,7 @@
 ## 1. Что уже работает
 
 - Сайт: <https://gregory-ivd.github.io/testsAnna/>
-- Лендинг (`index.html`) сейчас работает в **fallback-режиме**: контакт пользователя НЕ уходит автоматически в таблицу. После заполнения формы тесты разблокируются, и пользователю показывается ссылка-`mailto:` с предзаполненным письмом тебе на `owerhint@gmail.com`.
+- Лендинг (`index.html`) сейчас работает в **fallback-режиме**: контакт пользователя НЕ уходит автоматически в таблицу. После заполнения формы тесты разблокируются, и пользователю показывается ссылка-`mailto:` с предзаполненным письмом тебе на `apshanuivd@gmail.com`.
 - Чтобы данные шли в Google Sheets автоматически — настрой Apps Script (шаги ниже, ~5 минут).
 
 ## 2. Подключить Google Sheets (один раз)
@@ -24,7 +24,7 @@
    ```js
    const CONFIG = {
      formEndpoint: "https://script.google.com/macros/s/AKfy…/exec",
-     fallbackEmail: "owerhint@gmail.com"
+     fallbackEmail: "apshanuivd@gmail.com"
    };
    ```
 
