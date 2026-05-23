@@ -721,7 +721,7 @@ document.getElementById('submitBtn').onclick = () => {
   const blockLines = Object.entries(blockStats)
     .map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n');
   const wrongLines = wrongDetails.length
-    ? wrongDetails.map(d=>`Q${d.n} — обрав: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n')
+    ? wrongDetails.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n')
     : '(помилок немає)';
   const today = new Date().toISOString().slice(0,10);
   const textReport =
