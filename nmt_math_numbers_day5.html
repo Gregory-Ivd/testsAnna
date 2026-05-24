@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Математика — Числа, відсотки, пропорції (Day 5)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:20px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:38px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:18px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#fff8e1;border:1px solid #e6cf73;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:18px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Завдання " counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:21px}
+  .mathline{background:var(--math-bg);padding:8px 14px;border-radius:6px;display:inline-block;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:22px;margin:6px 0}
+  .opts{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:6px;cursor:pointer;font-size:20px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.3)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  .numinput{margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .numinput input{font-size:22px;padding:8px 12px;border:2px solid var(--line);border-radius:8px;width:200px;font-family:inherit}
+  .numinput input:focus{outline:none;border-color:var(--accent)}
+  .numinput input.correct{border-color:#5fa073;background:#e3f3e6}
+  .numinput input.wrong{border-color:#c47373;background:#fbe3e3}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:16px;padding:4px 12px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:16px;padding:6px 14px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:28px 30px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:20px;line-height:1.65}
+  .modal h3{margin:0 0 12px;color:var(--accent);font-size:26px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:20px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:32px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code, .modal .mathline{background:var(--math-bg);padding:2px 8px;border-radius:4px;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:20px}
+  .modal .ex{background:var(--hl);padding:12px 16px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:10px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:64px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:17px;color:var(--muted)}
+  .scale .v{font-size:26px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:21px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ • Математика · Day 5 <span class="badge">числа і відсотки</span></h1>
+    <div class="sub">Числа, відсотки, відношення та пропорції · 18 завдань · рівень НМТ · ~30 хв</div>
+    <div class="pep">
+      <b><span id="ta-hello">Привіт!</span> Це фундамент НМТ-математики.</b> Відсотки, відношення й пропорції — найчастіші завдання Частини 1, і саме тут можна швидко набрати бали. Тут 12 завдань з вибором відповіді + 6 із короткою відповіддю (впиши число).
+      <br><br>Пиши на чернетці, не вгадуй. Застряг — клацни 💡 (метод розв'язання). Після завершення біля кожного завдання з'явиться «📖 детальне рішення».
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 18</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================= PART 1: MULTIPLE CHOICE (Q1–Q12) ================= -->
+  <section class="task">
+    <h2>Частина 1. Завдання з вибором відповіді (Q1–Q12)</h2>
+    <p class="instr">Оберіть один правильний варіант.</p>
+    <ol class="qs">
+
+      <li data-correct="C" data-topic="percent" data-hint="percent" data-sol="sol1">
+        <span class="topic-tag">Відсотки</span>
+        <span class="qtext">Скільки становить 30% від 250?</span>
+        <button class="hintbtn" data-hint="percent">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) 60</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) 70</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) 75</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) 80</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="percent-change" data-hint="percent-change" data-sol="sol2">
+        <span class="topic-tag">Зміна на %</span>
+        <span class="qtext">Спочатку ціну товару підвищили на 20%, а потім нову ціну знизили на 20%. Як змінилася початкова ціна?</span>
+        <button class="hintbtn" data-hint="percent-change">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) не змінилась</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) зросла на 4%</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) зменшилась на 4%</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) зменшилась на 2%</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="percent" data-hint="percent" data-sol="sol3">
+        <span class="topic-tag">Відсотки</span>
+        <span class="qtext">Число 18 становить скільки відсотків від 72?</span>
+        <button class="hintbtn" data-hint="percent">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) 20%</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) 25%</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) 30%</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) 40%</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="percent" data-hint="percent" data-sol="sol4">
+        <span class="topic-tag">Відсотки</span>
+        <span class="qtext">12% деякого числа дорівнюють 48. Знайдіть це число.</span>
+        <button class="hintbtn" data-hint="percent">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) 300</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) 360</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) 400</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) 576</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="ratio" data-hint="ratio" data-sol="sol5">
+        <span class="topic-tag">Відношення</span>
+        <span class="qtext">Суму 1500 грн поділили у відношенні 2 : 3. Знайдіть більшу частину.</span>
+        <button class="hintbtn" data-hint="ratio">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) 600</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) 750</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) 900</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) 1000</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="ratio" data-hint="ratio" data-sol="sol6">
+        <span class="topic-tag">Відношення</span>
+        <span class="qtext">У класі хлопці й дівчата у відношенні 4 : 5. Усього 27 учнів. Скільки в класі дівчат?</span>
+        <button class="hintbtn" data-hint="ratio">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) 12</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) 15</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) 18</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) 9</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="proportion" data-hint="proportion" data-sol="sol7">
+        <span class="topic-tag">Пряма пропорція</span>
+        <span class="qtext">За 6 годин насос перекачує 240 л води. Скільки літрів він перекачає за 9 годин за тієї ж швидкості?</span>
+        <button class="hintbtn" data-hint="proportion">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) 300</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) 320</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) 360</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) 400</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="proportion" data-hint="proportion" data-sol="sol8">
+        <span class="topic-tag">Обернена пропорція</span>
+        <span class="qtext">5 робітників виконують роботу за 12 днів. За скільки днів виконають ту саму роботу 6 робітників (з тією ж продуктивністю)?</span>
+        <button class="hintbtn" data-hint="proportion">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) 10</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) 14</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) 15</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) 9</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="fractions" data-hint="fractions" data-sol="sol9">
+        <span class="topic-tag">Частини / дроби</span>
+        <span class="qtext">Турист пройшов 3/8 маршруту, що становить 15 км. Яка довжина всього маршруту?</span>
+        <button class="hintbtn" data-hint="fractions">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) 30 км</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) 35 км</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) 40 км</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) 45 км</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="percent-change" data-hint="percent-change" data-sol="sol10">
+        <span class="topic-tag">Знижка</span>
+        <span class="qtext">Куртка коштувала 1200 грн. Її ціну знизили на 15%. Скільки коштує куртка тепер?</span>
+        <button class="hintbtn" data-hint="percent-change">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) 1020 грн</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) 1050 грн</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) 1080 грн</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) 1140 грн</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="average" data-hint="average" data-sol="sol11">
+        <span class="topic-tag">Середнє</span>
+        <span class="qtext">Учень отримав оцінки 8, 9, 7, 10 і 6. Яке його середнє арифметичне?</span>
+        <button class="hintbtn" data-hint="average">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) 7,5</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) 8</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) 8,5</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) 9</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="mixture" data-hint="mixture" data-sol="sol12">
+        <span class="topic-tag">Розчин</span>
+        <span class="qtext">У 200 г розчину міститься 10% солі. Скільки грамів солі в розчині?</span>
+        <button class="hintbtn" data-hint="mixture">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) 10 г</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) 15 г</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) 20 г</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) 25 г</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 показати детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================= PART 2: SHORT ANSWER (Q13–Q18) ================= -->
+  <section class="task">
+    <h2>Частина 2. Завдання з короткою відповіддю (Q13–Q18)</h2>
+    <p class="instr">Впишіть число (без одиниць). Дробову частину — через кому або крапку.</p>
+    <ol class="qs" start="13">
+
+      <li data-correct="5400" data-topic="interest" data-hint="percent-change" data-sol="sol13">
+        <span class="topic-tag">Прості відсотки</span>
+        <span class="qtext">Вклад 5000 грн поклали в банк під 8% річних (простий відсоток). Яка сума (у грн) буде на рахунку через рік?</span>
+        <button class="hintbtn" data-hint="percent-change">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q13" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol13">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="105" data-topic="proportion" data-hint="proportion" data-sol="sol14">
+        <span class="topic-tag">Пряма пропорція</span>
+        <span class="qtext">За 4 однакові зошити заплатили 60 грн. Скільки коштують 7 таких зошитів (у грн)?</span>
+        <button class="hintbtn" data-hint="proportion">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q14" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol14">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="80" data-topic="percent" data-hint="percent" data-sol="sol15">
+        <span class="topic-tag">Відсотки</span>
+        <span class="qtext">На іспиті 25 завдань. Учень правильно виконав 20. Скільки відсотків завдань виконано правильно? (впишіть число відсотків)</span>
+        <button class="hintbtn" data-hint="percent">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q15" inputmode="decimal" placeholder="число %"></div>
+        <button class="solbtn" data-sol="sol15">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="18" data-topic="ratio" data-hint="ratio" data-sol="sol16">
+        <span class="topic-tag">Відношення</span>
+        <span class="qtext">Периметр прямокутника дорівнює 48 см, а його сторони відносяться як 1 : 3. Знайдіть більшу сторону (у см).</span>
+        <button class="hintbtn" data-hint="ratio">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q16" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol16">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="25" data-topic="percent-change" data-hint="percent-change" data-sol="sol17">
+        <span class="topic-tag">Зміна на %</span>
+        <span class="qtext">Ціну товару підвищили з 80 грн до 100 грн. На скільки відсотків підвищили ціну? (впишіть число)</span>
+        <button class="hintbtn" data-hint="percent-change">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q17" inputmode="decimal" placeholder="число %"></div>
+        <button class="solbtn" data-sol="sol17">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="300" data-topic="fractions" data-hint="fractions" data-sol="sol18">
+        <span class="topic-tag">Частини / дроби</span>
+        <span class="qtext">Половину суми витратили на їжу, третину — на проїзд, а 50 грн залишилось. Якою була початкова сума (у грн)?</span>
+        <button class="hintbtn" data-hint="fractions">💡 підказка</button>
+        <div class="numinput">Відповідь: <input type="text" name="q18" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol18">📖 показати детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: числа, відсотки, пропорції · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose" aria-label="Закрити">×</button>
+    <h3 id="modalTitle">Підказка</h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "math-day5-numbers"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+/* --- Персоналізація: ім'я з форми (звертання у кличному відмінку, best-effort) --- */
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";   // Марія→Маріє, Софія→Софіє, Дарія→Даріє
+  if(/я$/i.test(n))     return n;                     // Настя, Оля, Аня — лишаємо як є
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";     // Анна→Анно, Олена→Олено, Микита→Микито
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";     // Андрій→Андрію, Сергій→Сергію
+  return n;                                           // приголосний (Максим, Олег) — як є
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'!') : 'Привіт!';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== HINTS (міні-лекції по темах) ============== */
+const hints = {
+  "percent":{title:"Відсотки: переведи у дріб",body:`<p>1% = 0,01. Щоб знайти <b>p% від числа N</b>: <code>N · p / 100</code>.</p>
+    <div class="step">«Скільки % становить a від b» → <code>a / b · 100%</code>.</div>
+    <div class="step">«p% числа = a, знайти число» → <code>число = a · 100 / p</code> (або a / (p/100)).</div>
+    <div class="ex">30% від 250 = 250 · 0,30 = 75. 18 від 72 = 18/72 = 0,25 = 25%.</div>`},
+  "percent-change":{title:"Зміна ціни на відсотки",body:`<p>Підвищення на p% → множимо на <code>(1 + p/100)</code>. Зниження на p% → множимо на <code>(1 − p/100)</code>.</p>
+    <div class="step">Послідовні зміни ПЕРЕМНОЖУЮТЬ коефіцієнти: +20%, потім −20% → 1,2 · 0,8 = 0,96 (тобто −4%, а не 0!).</div>
+    <div class="step">«На скільки % змінилось» → <code>(нове − старе) / старе · 100%</code>.</div>
+    <div class="ex">Прості відсотки за рік: сума · (1 + ставка/100).</div>`},
+  "ratio":{title:"Відношення: метод «частин»",body:`<p>Відношення a : b означає, що ціле ділиться на <b>(a + b) рівних частин</b>.</p>
+    <div class="step">1) Знайди вартість однієї частини: <code>ціле / (a + b)</code>.</div>
+    <div class="step">2) Помнож на потрібну кількість частин.</div>
+    <div class="ex">1500 у відношенні 2:3 → частин 5, одна = 300, більша = 3·300 = 900.</div>`},
+  "proportion":{title:"Пряма vs обернена пропорція",body:`<p><b>Пряма</b> (більше → більше): <code>a₁/b₁ = a₂/b₂</code>. Більше годин → більше води.</p>
+    <p><b>Обернена</b> (більше → менше): <code>a₁·b₁ = a₂·b₂</code>. Більше робітників → менше днів.</p>
+    <div class="ex">5 роб. · 12 дн = 60 (обсяг роботи). 6 роб. → 60/6 = 10 днів.</div>`},
+  "fractions":{title:"Частина від цілого",body:`<p>Якщо дріб <b>m/n</b> цілого дорівнює A, то <b>ціле = A · n / m</b> (ділимо на дріб).</p>
+    <div class="step">Витрати частинами: знайди, яка частка ЗАЛИШИЛАСЬ (1 − сума витрачених часток), прирівняй її до залишку в грн.</div>
+    <div class="ex">3/8 = 15 км → ціле = 15 · 8/3 = 40 км.</div>`},
+  "average":{title:"Середнє арифметичне",body:`<p><b>Середнє</b> = (сума всіх значень) / (їх кількість).</p>
+    <div class="ex">(8+9+7+10+6)/5 = 40/5 = 8.</div>`},
+  "mixture":{title:"Концентрація розчину",body:`<p>Маса речовини = <code>маса розчину · концентрація(%)/100</code>.</p>
+    <div class="ex">10% від 200 г = 200 · 0,10 = 20 г солі.</div>`}
+};
+
+/* ============== SOLUTIONS (детальні розбори) ============== */
+const sols = {
+  "sol1":{title:"Завдання 1 → 75",body:`<p>30% від 250 = 250 · 0,30.</p><p class="mathline">250 · 0,3 = 75</p><p><b>Відповідь: C) 75.</b></p>`},
+  "sol2":{title:"Завдання 2 → зменшилась на 4%",body:`<p>+20% → ·1,2; потім −20% → ·0,8.</p><p class="mathline">1,2 · 0,8 = 0,96</p><p>0,96 від початку = на 4% менше. Типова пастка: «вгору і вниз на однаковий %» НЕ повертає до початку.</p><p><b>Відповідь: C) зменшилась на 4%.</b></p>`},
+  "sol3":{title:"Завдання 3 → 25%",body:`<p>«Скільки % a від b» = a/b · 100%.</p><p class="mathline">18 / 72 · 100% = 0,25 · 100% = 25%</p><p><b>Відповідь: B) 25%.</b></p>`},
+  "sol4":{title:"Завдання 4 → 400",body:`<p>12% числа = 48 → число = 48 · 100 / 12.</p><p class="mathline">48 / 0,12 = 400</p><p><b>Відповідь: C) 400.</b></p>`},
+  "sol5":{title:"Завдання 5 → 900",body:`<p>Частин: 2 + 3 = 5. Одна частина = 1500 / 5 = 300.</p><p>Більша = 3 · 300 = 900.</p><p><b>Відповідь: C) 900.</b></p>`},
+  "sol6":{title:"Завдання 6 → 15",body:`<p>Частин: 4 + 5 = 9. Одна частина = 27 / 9 = 3.</p><p>Дівчат (5 частин) = 5 · 3 = 15.</p><p><b>Відповідь: B) 15.</b></p>`},
+  "sol7":{title:"Завдання 7 → 360",body:`<p>Пряма пропорція. Швидкість = 240 / 6 = 40 л/год.</p><p>За 9 год: 40 · 9 = 360 л.</p><p><b>Відповідь: C) 360.</b></p>`},
+  "sol8":{title:"Завдання 8 → 10",body:`<p>Обернена пропорція: обсяг роботи = 5 · 12 = 60 (робітнико-днів).</p><p>6 робітників: 60 / 6 = 10 днів.</p><p><b>Відповідь: A) 10.</b></p>`},
+  "sol9":{title:"Завдання 9 → 40 км",body:`<p>3/8 цілого = 15 км → ціле = 15 · 8 / 3.</p><p class="mathline">15 · 8 / 3 = 120 / 3 = 40</p><p><b>Відповідь: C) 40 км.</b></p>`},
+  "sol10":{title:"Завдання 10 → 1020 грн",body:`<p>−15% → множимо на 0,85.</p><p class="mathline">1200 · 0,85 = 1020</p><p><b>Відповідь: A) 1020 грн.</b></p>`},
+  "sol11":{title:"Завдання 11 → 8",body:`<p>Середнє = сума / кількість.</p><p class="mathline">(8+9+7+10+6) / 5 = 40 / 5 = 8</p><p><b>Відповідь: B) 8.</b></p>`},
+  "sol12":{title:"Завдання 12 → 20 г",body:`<p>Маса солі = 200 · 10 / 100.</p><p class="mathline">200 · 0,10 = 20 г</p><p><b>Відповідь: C) 20 г.</b></p>`},
+  "sol13":{title:"Завдання 13 → 5400",body:`<p>Простий відсоток за рік: сума · (1 + 8/100).</p><p class="mathline">5000 · 1,08 = 5400</p><p><b>Відповідь: 5400.</b></p>`},
+  "sol14":{title:"Завдання 14 → 105",body:`<p>Пряма пропорція. Один зошит = 60 / 4 = 15 грн.</p><p>7 зошитів: 15 · 7 = 105 грн.</p><p><b>Відповідь: 105.</b></p>`},
+  "sol15":{title:"Завдання 15 → 80",body:`<p>20 з 25 = 20/25 · 100%.</p><p class="mathline">20 / 25 · 100 = 80</p><p><b>Відповідь: 80.</b></p>`},
+  "sol16":{title:"Завдання 16 → 18",body:`<p>Периметр = 2(a + b) = 48 → a + b = 24. Сторони 1:3 → частин 4, одна = 24/4 = 6.</p><p>Більша сторона = 3 · 6 = 18 см.</p><p><b>Відповідь: 18.</b></p>`},
+  "sol17":{title:"Завдання 17 → 25",body:`<p>На скільки % = (нове − старе)/старе · 100%.</p><p class="mathline">(100 − 80) / 80 · 100 = 20 / 80 · 100 = 25</p><p><b>Відповідь: 25.</b></p>`},
+  "sol18":{title:"Завдання 18 → 300",body:`<p>Витрачено 1/2 + 1/3 = 3/6 + 2/6 = 5/6. Залишилось 1/6 цілого.</p><p>1/6 = 50 грн → ціле = 50 · 6 = 300 грн.</p><p><b>Відповідь: 300.</b></p>`}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.hintbtn').forEach(b=>b.addEventListener('click',()=>{const h=hints[b.dataset.hint]; if(h) openModal(h.title,h.body);}));
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 18;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0; const seen=new Set();
+  document.querySelectorAll('ol.qs > li input[type=radio]:checked').forEach(r=>{ if(!seen.has(r.name)){ seen.add(r.name); c++; } });
+  document.querySelectorAll('ol.qs > li input[type=text]').forEach(t=>{ if(t.value.trim()!=='') c++; });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = Math.min(100, c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('input[type=text]').forEach(t=>{ t.value=''; t.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Numeric compare ============== */
+function normalizeNum(s){
+  if(s==null) return '';
+  return String(s).trim().replace(',', '.').replace(/\s+/g,'');
+}
+function numEqual(given, correct){
+  const g = parseFloat(normalizeNum(given));
+  const c = parseFloat(normalizeNum(correct));
+  if(isNaN(g) || isNaN(c)) return false;
+  return Math.abs(g - c) < 1e-6;
+}
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(lab){
+      const n = parseInt(lab.name.replace('q',''),10);
+      const correct = li.dataset.correct;
+      const topic = li.dataset.topic;
+      const chk = li.querySelector('input[type=radio]:checked');
+      const given = chk ? chk.value : '';
+      const ok = given === correct;
+      record(n, topic, correct, given, ok);
+      li.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      li.querySelector('.solbtn')?.classList.add('on');
+    } else {
+      const inp = li.querySelector('input[type=text]');
+      if(!inp) return;
+      const n = parseInt(inp.name.replace('q',''),10);
+      const correct = li.dataset.correct;
+      const topic = li.dataset.topic;
+      const given = inp.value;
+      const ok = numEqual(given, correct);
+      record(n, topic, correct, given, ok);
+      inp.classList.remove('correct','wrong');
+      inp.classList.add(ok?'correct':'wrong');
+      li.querySelector('.solbtn')?.classList.add('on');
+    }
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.95) * 100);
+
+  // Block stats
+  const blocks = {
+    'Відсотки': ['percent','percent-change','interest'],
+    'Відношення і пропорції': ['ratio','proportion'],
+    'Дроби та частини': ['fractions'],
+    'Текстові задачі': ['average','mixture']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Verdict — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='Впевнений рівень'; verdictColor='ok'; verdictText=taHey('відсотки й пропорції — твоя сильна сторона! Це база Частини 1 НМТ, і вона в тебе закрита. Рухайся до наступних тем (вирази, рівняння).'); }
+  else if(pct >= 75){ level='Добрий'; verdictColor='ok'; verdictText='Сильна база з чисел. На НМТ ці завдання даватимуть стабільні бали. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='Середній+'; verdictColor='ok'; verdictText='Непогано. Закрий одну слабку тему (часто це «зміна на %» — пастка з підвищенням-зниженням) — і відсотки повністю твої.'; }
+  else if(pct >= 40){ level='Середній'; verdictColor='warn'; verdictText='База є. Вивчи три формули напам\'ять: p% від N, «скільки % a від b», метод «частин» для відношень. Це швидкий приріст балів.'; }
+  else if(pct >= 20){ level='Слабкий старт'; verdictColor='warn'; verdictText='Старт є. Почни з найпростішого: переведення % у дріб (1% = 0,01) і знаходження частини від числа. По 10 задач на день.'; }
+  else { level='Майже з нуля'; verdictColor='bad'; verdictText='Поки рано, але це найлегша для старту тема. Розберись із 💡-методами вище, потім прорішай по 5 задач кожного типу і повертайся.'; }
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Завдання ${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Математика · Day 5 (числа, відсотки, пропорції) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень: ${level}
+Шкала НМТ (орієнтовно): ${nmt}/200
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Завдання ${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% правильних · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень</h4><div class="v" style="font-size:20px">${level}</div></div>
+      <div class="card"><h4>Орієнтовний бал НМТ</h4><div class="v">${nmt} / 200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Готовність (ця тема)</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=45?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 показати детальне рішення» біля кожного завдання вище — там покроковий розв'язок.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> розбери всі помилки. Випиши три формули: p% від N; «скільки % a від b»; метод «частин» для відношень.</li>
+      <li><b>Цього тижня:</b> по 10 задач на день на свою найслабшу тему (дивись блоки вище).</li>
+      <li><b>Через 5–7 днів:</b> пройди тест ще раз. Ціль — 15/18 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: 0,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>

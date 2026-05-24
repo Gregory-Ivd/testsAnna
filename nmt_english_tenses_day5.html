@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Часи та форми дієслова (Day 5)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select{font-size:20px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 5 <span class="badge">часи дієслова</span></h1>
+    <div class="sub">Часи та форми дієслова · 24 завдання · рівень B1+/B2 · ~25 хв</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>часи дієслова</b> — фундамент граматики НМТ. Тут 24 короткі речення: теперішні часи, минулі, perfect, майбутні форми і мікс на послідовність часів. Саме «який час обрати» вирішує бал у завданнях Use of English.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) Спершу спробуй без підказок. Застопорився — натисни 💡 (міні-лекція по темі).
+      <br>2) Звертай увагу на маркери часу: <i>now, since, by, while, already, tomorrow</i> — вони підказують час.
+      <br>3) Після завершення біля кожного питання з'явиться «📖 детальне рішення» — читай навіть там, де відповідь правильна.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 24</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================ PART 1: Present tenses ================ -->
+  <section class="task">
+    <h2>Частина 1. Present tenses — теперішні часи</h2>
+    <p class="instr">Оберіть правильну форму для теперішнього часу (Present Simple / Continuous, стативні дієслова). (Q1–Q5)</p>
+    <ol class="qs">
+
+      <li data-correct="A" data-topic="present-tenses" data-hint="present" data-sol="sol1">
+        <span class="topic-tag">present</span>
+        <span class="qtext">Water _____ at 100 degrees Celsius — it's a law of physics.</span>
+        <button class="hintbtn" data-hint="present">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) boils</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) is boiling</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) boil</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) has boiled</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="present-tenses" data-hint="present" data-sol="sol2">
+        <span class="topic-tag weak-tag">stative verb</span>
+        <span class="qtext">I _____ what you mean now — thanks for explaining it again.</span>
+        <button class="hintbtn" data-hint="present">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) am understanding</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) understand</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) understood</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) was understanding</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="present-tenses" data-hint="present" data-sol="sol3">
+        <span class="topic-tag">present</span>
+        <span class="qtext">Be quiet, please! The baby _____ in the next room.</span>
+        <button class="hintbtn" data-hint="present">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) sleeps</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) is sleeping</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) sleep</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) has slept</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="present-tenses" data-hint="present" data-sol="sol4">
+        <span class="topic-tag weak-tag">always + -ing</span>
+        <span class="qtext">She's always _____ her keys — it really drives me mad!</span>
+        <button class="hintbtn" data-hint="present">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) loses</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) losing</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) lost</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) lose</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="present-tenses" data-hint="present" data-sol="sol5">
+        <span class="topic-tag weak-tag">timetable</span>
+        <span class="qtext">According to the timetable, the train _____ at 6 a.m., so don't be late.</span>
+        <button class="hintbtn" data-hint="present">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) leaves</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) is leaving</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) will leave</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) leaving</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: Past tenses ================ -->
+  <section class="task">
+    <h2>Частина 2. Past tenses — минулі часи</h2>
+    <p class="instr">Оберіть правильну форму минулого часу (Past Simple / Continuous / Perfect, used to). (Q6–Q10)</p>
+    <ol class="qs" start="6">
+
+      <li data-correct="B" data-topic="past-tenses" data-hint="past" data-sol="sol6">
+        <span class="topic-tag">past</span>
+        <span class="qtext">While I _____ dinner, the phone suddenly rang.</span>
+        <button class="hintbtn" data-hint="past">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) cooked</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) was cooking</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) had cooked</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) cook</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="past-tenses" data-hint="past" data-sol="sol7">
+        <span class="topic-tag weak-tag">finished past</span>
+        <span class="qtext">Shakespeare _____ more than thirty plays during his lifetime.</span>
+        <button class="hintbtn" data-hint="past">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) has written</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) wrote</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) was writing</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) writes</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="past-tenses" data-hint="past" data-sol="sol8">
+        <span class="topic-tag weak-tag">past perfect</span>
+        <span class="qtext">When we got to the cinema, the film _____.</span>
+        <button class="hintbtn" data-hint="past">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) already started</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) had already started</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) has already started</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) was already starting</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="past-tenses" data-hint="past" data-sol="sol9">
+        <span class="topic-tag">used to</span>
+        <span class="qtext">We _____ play in this park when we were children.</span>
+        <button class="hintbtn" data-hint="past">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) used to</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) use to</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) are used to</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) would used to</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="past-tenses" data-hint="past" data-sol="sol10">
+        <span class="topic-tag">past continuous</span>
+        <span class="qtext">At 8 o'clock yesterday evening we _____ a film at home.</span>
+        <button class="hintbtn" data-hint="past">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) watched</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) were watching</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) had watched</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) watch</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: Present perfect ================ -->
+  <section class="task">
+    <h2>Частина 3. Present Perfect — доконані теперішні</h2>
+    <p class="instr">Оберіть правильну форму (Present Perfect Simple / Continuous, for/since, ever/yet). (Q11–Q15)</p>
+    <ol class="qs" start="11">
+
+      <li data-correct="B" data-topic="perfect-tenses" data-hint="perfect" data-sol="sol11">
+        <span class="topic-tag weak-tag">result now</span>
+        <span class="qtext">I can't get into my flat — I _____ my keys somewhere.</span>
+        <button class="hintbtn" data-hint="perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) lost</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) have lost</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) was losing</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) lose</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="perfect-tenses" data-hint="perfect" data-sol="sol12">
+        <span class="topic-tag weak-tag">since / for</span>
+        <span class="qtext">They _____ in this town since 2010.</span>
+        <button class="hintbtn" data-hint="perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) live</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) lived</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) have lived</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) are living</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="perfect-tenses" data-hint="perfect" data-sol="sol13">
+        <span class="topic-tag weak-tag">perfect continuous</span>
+        <span class="qtext">Your eyes are red. _____ you _____?</span>
+        <button class="hintbtn" data-hint="perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="A"> A) Have / cried</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> B) Did / cry</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> C) Have / been crying</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> D) Are / crying</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="perfect-tenses" data-hint="perfect" data-sol="sol14">
+        <span class="topic-tag weak-tag">finished quantity</span>
+        <span class="qtext">She _____ five emails so far this morning, and there are more to write.</span>
+        <button class="hintbtn" data-hint="perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="A"> A) has been writing</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> B) has written</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> C) wrote</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> D) is writing</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="perfect-tenses" data-hint="perfect" data-sol="sol15">
+        <span class="topic-tag">ever / been</span>
+        <span class="qtext">_____ you ever _____ to Japan?</span>
+        <button class="hintbtn" data-hint="perfect">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q15" value="A"> A) Did / go</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> B) Have / been</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> C) Have / gone</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> D) Are / going</label>
+        </div>
+        <button class="solbtn" data-sol="sol15">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 4: Future forms ================ -->
+  <section class="task">
+    <h2>Частина 4. Future forms — майбутні форми</h2>
+    <p class="instr">Оберіть правильну форму майбутнього (will / going to / present continuous / present simple у часовому підрядному / future perfect). (Q16–Q20)</p>
+    <ol class="qs" start="16">
+
+      <li data-correct="B" data-topic="future-forms" data-hint="future" data-sol="sol16">
+        <span class="topic-tag weak-tag">evidence → going to</span>
+        <span class="qtext">Look at those dark clouds! It _____.</span>
+        <button class="hintbtn" data-hint="future">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q16" value="A"> A) will rain</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> B) is going to rain</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> C) rains</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> D) is raining</label>
+        </div>
+        <button class="solbtn" data-sol="sol16">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="future-forms" data-hint="future" data-sol="sol17">
+        <span class="topic-tag weak-tag">spontaneous → will</span>
+        <span class="qtext">"The phone is ringing." "OK, I _____ it."</span>
+        <button class="hintbtn" data-hint="future">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q17" value="A"> A) am going to answer</label>
+          <label class="opt"><input type="radio" name="q17" value="B"> B) answer</label>
+          <label class="opt"><input type="radio" name="q17" value="C"> C) will answer</label>
+          <label class="opt"><input type="radio" name="q17" value="D"> D) am answering</label>
+        </div>
+        <button class="solbtn" data-sol="sol17">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="future-forms" data-hint="future" data-sol="sol18">
+        <span class="topic-tag weak-tag">arrangement</span>
+        <span class="qtext">I can't meet you on Friday — I _____ my dentist at five o'clock.</span>
+        <button class="hintbtn" data-hint="future">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q18" value="A"> A) will see</label>
+          <label class="opt"><input type="radio" name="q18" value="B"> B) see</label>
+          <label class="opt"><input type="radio" name="q18" value="C"> C) am seeing</label>
+          <label class="opt"><input type="radio" name="q18" value="D"> D) saw</label>
+        </div>
+        <button class="solbtn" data-sol="sol18">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="future-forms" data-hint="future" data-sol="sol19">
+        <span class="topic-tag weak-tag">time clause</span>
+        <span class="qtext">I'll call you as soon as I _____ home.</span>
+        <button class="hintbtn" data-hint="future">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q19" value="A"> A) will get</label>
+          <label class="opt"><input type="radio" name="q19" value="B"> B) get</label>
+          <label class="opt"><input type="radio" name="q19" value="C"> C) am getting</label>
+          <label class="opt"><input type="radio" name="q19" value="D"> D) will have got</label>
+        </div>
+        <button class="solbtn" data-sol="sol19">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="future-forms" data-hint="future" data-sol="sol20">
+        <span class="topic-tag weak-tag">future perfect</span>
+        <span class="qtext">By 2030, scientists _____ a cure for many of today's diseases.</span>
+        <button class="hintbtn" data-hint="future">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q20" value="A"> A) will find</label>
+          <label class="opt"><input type="radio" name="q20" value="B"> B) will have found</label>
+          <label class="opt"><input type="radio" name="q20" value="C"> C) are finding</label>
+          <label class="opt"><input type="radio" name="q20" value="D"> D) find</label>
+        </div>
+        <button class="solbtn" data-sol="sol20">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 5: Mixed / sequence ================ -->
+  <section class="task">
+    <h2>Частина 5. Mixed — мікс і послідовність часів</h2>
+    <p class="instr">Оберіть форму, яка узгоджується з рештою речення. (Q21–Q24)</p>
+    <ol class="qs" start="21">
+
+      <li data-correct="B" data-topic="mixed-tenses" data-hint="mixed" data-sol="sol21">
+        <span class="topic-tag weak-tag">past perfect</span>
+        <span class="qtext">By the time the firefighters arrived, the house _____ down.</span>
+        <button class="hintbtn" data-hint="mixed">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q21" value="A"> A) burned</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> B) had burned</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> C) has burned</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> D) was burning</label>
+        </div>
+        <button class="solbtn" data-sol="sol21">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="mixed-tenses" data-hint="mixed" data-sol="sol22">
+        <span class="topic-tag weak-tag">future continuous</span>
+        <span class="qtext">This time next week I _____ on a beach in Spain. I can't wait!</span>
+        <button class="hintbtn" data-hint="mixed">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q22" value="A"> A) will lie</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> B) will be lying</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> C) lie</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> D) am lying</label>
+        </div>
+        <button class="solbtn" data-sol="sol22">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="mixed-tenses" data-hint="mixed" data-sol="sol23">
+        <span class="topic-tag weak-tag">It's the first time...</span>
+        <span class="qtext">It's the first time I _____ such a beautiful sunset.</span>
+        <button class="hintbtn" data-hint="mixed">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q23" value="A"> A) saw</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> B) have seen</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> C) see</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> D) had seen</label>
+        </div>
+        <button class="solbtn" data-sol="sol23">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="mixed-tenses" data-hint="mixed" data-sol="sol24">
+        <span class="topic-tag weak-tag">past perfect continuous</span>
+        <span class="qtext">She was exhausted because she _____ since early morning.</span>
+        <button class="hintbtn" data-hint="mixed">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) worked</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) had been working</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) has worked</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) was working</label>
+        </div>
+        <button class="solbtn" data-sol="sol24">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест на часи дієслова · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day5-tenses"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+/* --- Персоналізація: ім'я з форми (звертання у кличному відмінку, best-effort) --- */
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";   // Марія→Маріє, Софія→Софіє, Дарія→Даріє
+  if(/я$/i.test(n))     return n;                     // Настя, Оля, Аня — лишаємо як є
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";     // Анна→Анно, Олена→Олено, Микита→Микито
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";     // Андрій→Андрію, Сергій→Сергію
+  return n;                                           // приголосний (Максим, Олег) — як є
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== HINTS (міні-лекції по темах) ============== */
+const hints = {
+  "present":{title:"Теперішні часи: Simple vs Continuous",body:`<p><b>Present Simple</b> — факти, закони природи, розклади, регулярні дії: <code>Water boils at 100°C</code>, <code>The train leaves at 6</code>.</p>
+    <p><b>Present Continuous</b> — дія саме зараз / тимчасова / роздратування з <code>always</code>: <code>The baby is sleeping</code>, <code>She's always losing her keys</code>.</p>
+    <div class="step">Стативні дієслова (know, understand, like, want, believe, belong) майже НЕ вживають у Continuous — навіть зі словом «now».</div>
+    <div class="ex">Розклади (timetable) і програми — завжди Present Simple: <code>The film starts at 8</code>.</div>`},
+  "past":{title:"Минулі часи: Simple / Continuous / Perfect",body:`<p><b>Past Simple</b> — завершена дія в минулому, є момент часу: <code>I saw him yesterday</code>. Для історичних/мертвих авторів — лише Past Simple.</p>
+    <p><b>Past Continuous</b> — тло, дія в процесі в певний момент: <code>At 8 p.m. we were watching TV</code>; перерваний процес: <code>While I was cooking, the phone rang</code>.</p>
+    <p><b>Past Perfect</b> (had + V3) — дія, що відбулась РАНІШЕ за іншу минулу: <code>When we arrived, the film had started</code>.</p>
+    <div class="ex"><code>used to + inf</code> = регулярна звичка/стан у минулому, якого вже нема: <code>We used to play here</code>. Без -d: «use to» ❌.</div>`},
+  "perfect":{title:"Present Perfect: результат і досвід",body:`<p><b>Present Perfect</b> (have/has + V3) — минула дія з результатом ЗАРАЗ, без точного часу: <code>I have lost my keys</code> (= зараз їх нема).</p>
+    <p>З <code>since</code> (since 2010) / <code>for</code> (for 5 years) — дія триває досі: <code>They have lived here since 2010</code>.</p>
+    <p><b>Present Perfect Continuous</b> (have been + -ing) — підкреслює тривалість/процес: <code>You've been crying</code> (видно по очах).</p>
+    <div class="step">Завершена КІЛЬКІСТЬ результату → Perfect Simple: <code>She has written 5 emails</code>. Тривалість процесу → Continuous.</div>
+    <div class="ex"><code>have been to</code> = відвідав і повернувся; <code>have gone to</code> = поїхав і ще там. «Have you ever <b>been</b> to Japan?»</div>`},
+  "future":{title:"Майбутні форми: will / going to / Present forms",body:`<p><b>will</b> — спонтанне рішення в момент мовлення, обіцянка, прогноз без доказів: <code>I'll answer it</code>.</p>
+    <p><b>be going to</b> — намір + прогноз НА ОСНОВІ доказів: <code>Look at the clouds — it's going to rain</code>.</p>
+    <p><b>Present Continuous</b> — заздалегідь домовлена зустріч: <code>I'm seeing the dentist at 5</code>.</p>
+    <div class="step">Після <code>when, as soon as, after, until, if</code> майбутнє ПОЗначають Present Simple: <code>I'll call you as soon as I get home</code> (НЕ «will get»).</div>
+    <div class="ex"><b>Future Perfect</b> (will have + V3) — дія завершиться ДО певного майбутнього моменту: <code>By 2030 they will have found...</code></div>`},
+  "mixed":{title:"Мікс і послідовність часів",body:`<p><b>By the time + Past Simple</b> → головна частина Past Perfect: <code>By the time they arrived, the house had burned down</code>.</p>
+    <p><b>Future Continuous</b> (will be + -ing) — дія в ПРОЦЕСІ в певний майбутній момент: <code>This time next week I'll be lying on a beach</code>.</p>
+    <p><b>It's the first/second time + Present Perfect</b>: <code>It's the first time I have seen this</code>.</p>
+    <div class="ex"><b>Past Perfect Continuous</b> (had been + -ing) — тривалий процес ДО моменту в минулому + наслідок: <code>She was tired because she had been working all day</code>.</div>`}
+};
+
+/* ============== SOLUTIONS (детальні розбори) ============== */
+const sols = {
+  "sol1":{title:"Q1 → boils",body:`<p>Закон природи / загальна істина → <b>Present Simple</b>.</p>
+    <p>Water <b>boils</b> at 100°C. «is boiling» = саме зараз кипить (не загальна істина).</p>
+    <p><b>Відповідь: A) boils.</b></p>`},
+  "sol2":{title:"Q2 → understand",body:`<p><b>understand</b> — стативне дієслово, не вживається в Continuous, навіть зі словом «now».</p>
+    <p>«am understanding» ❌. Контекст теперішній → Present Simple <b>understand</b>.</p>
+    <p><b>Відповідь: B) understand.</b></p>`},
+  "sol3":{title:"Q3 → is sleeping",body:`<p>Дія відбувається саме зараз (тому «be quiet») → <b>Present Continuous</b>.</p>
+    <p>The baby <b>is sleeping</b>. «sleeps» = регулярно/взагалі.</p>
+    <p><b>Відповідь: B) is sleeping.</b></p>`},
+  "sol4":{title:"Q4 → losing",body:`<p>Конструкція <b>always + Present Continuous</b> = роздратування через дію, що часто повторюється.</p>
+    <p>She's always <b>losing</b> her keys. (be + always + V-ing)</p>
+    <p><b>Відповідь: B) losing.</b></p>`},
+  "sol5":{title:"Q5 → leaves",body:`<p>Розклад (timetable) майбутньої події → <b>Present Simple</b>.</p>
+    <p>The train <b>leaves</b> at 6 a.m. «is leaving» теж можливе для домовленості, але «according to the timetable» прямо вказує на розклад → Present Simple.</p>
+    <p><b>Відповідь: A) leaves.</b></p>`},
+  "sol6":{title:"Q6 → was cooking",body:`<p>Довша дія-тло, яку перервала коротка (the phone rang) → <b>Past Continuous</b>.</p>
+    <p>While I <b>was cooking</b>, the phone rang.</p>
+    <p><b>Відповідь: B) was cooking.</b></p>`},
+  "sol7":{title:"Q7 → wrote",body:`<p>Шекспір помер — період життя завершений, тож лише <b>Past Simple</b>, не Present Perfect.</p>
+    <p>Shakespeare <b>wrote</b> more than 30 plays. (Порівняй: «J.K. Rowling has written...» — вона жива.)</p>
+    <p><b>Відповідь: B) wrote.</b></p>`},
+  "sol8":{title:"Q8 → had already started",body:`<p>Дві минулі дії: спершу фільм почався, потім ми прийшли. Ранішу позначаємо <b>Past Perfect</b>.</p>
+    <p>When we got to the cinema, the film <b>had already started</b>.</p>
+    <p><b>Відповідь: B) had already started.</b></p>`},
+  "sol9":{title:"Q9 → used to",body:`<p><b>used to + інфінітив</b> = звичка в минулому, якої вже нема.</p>
+    <p>We <b>used to</b> play here. «use to» (без -d) ❌; «would used to» ❌; «are used to» = звикли (інше значення).</p>
+    <p><b>Відповідь: A) used to.</b></p>`},
+  "sol10":{title:"Q10 → were watching",body:`<p>Дія в процесі в конкретний момент минулого (8 o'clock) → <b>Past Continuous</b>.</p>
+    <p>At 8 o'clock we <b>were watching</b> a film.</p>
+    <p><b>Відповідь: B) were watching.</b></p>`},
+  "sol11":{title:"Q11 → have lost",body:`<p>Минула дія з результатом ЗАРАЗ (зараз не можу зайти) → <b>Present Perfect</b>.</p>
+    <p>I <b>have lost</b> my keys. Точного часу нема, важливий наслідок.</p>
+    <p><b>Відповідь: B) have lost.</b></p>`},
+  "sol12":{title:"Q12 → have lived",body:`<p><b>since 2010</b> — дія почалась у минулому й триває досі → Present Perfect.</p>
+    <p>They <b>have lived</b> here since 2010. (Past Simple «lived» був би «жили, але вже ні».)</p>
+    <p><b>Відповідь: C) have lived.</b></p>`},
+  "sol13":{title:"Q13 → Have / been crying",body:`<p>Видимий наслідок (червоні очі) недавньої тривалої дії → <b>Present Perfect Continuous</b>.</p>
+    <p>Have you <b>been crying</b>? Підкреслює сам процес.</p>
+    <p><b>Відповідь: C) Have / been crying.</b></p>`},
+  "sol14":{title:"Q14 → has written",body:`<p>Зазначено КІЛЬКІСТЬ завершеного результату (five emails) → <b>Present Perfect Simple</b>.</p>
+    <p>She <b>has written</b> five emails so far. (Continuous підкреслив би процес, а не кількість.)</p>
+    <p><b>Відповідь: B) has written.</b></p>`},
+  "sol15":{title:"Q15 → Have / been",body:`<p><b>have been to</b> = відвідав і повернувся — саме життєвий досвід (ever).</p>
+    <p>Have you ever <b>been</b> to Japan? «have gone to» = поїхав і ще там (не підходить для «ever»).</p>
+    <p><b>Відповідь: B) Have / been.</b></p>`},
+  "sol16":{title:"Q16 → is going to rain",body:`<p>Прогноз НА ОСНОВІ доказів (темні хмари) → <b>be going to</b>.</p>
+    <p>It <b>is going to rain</b>. «will rain» — прогноз без видимих доказів.</p>
+    <p><b>Відповідь: B) is going to rain.</b></p>`},
+  "sol17":{title:"Q17 → will answer",body:`<p>Спонтанне рішення в момент мовлення → <b>will</b>.</p>
+    <p>OK, I <b>will answer</b> it. (going to = вже запланований намір, а тут рішення щойно виникло.)</p>
+    <p><b>Відповідь: C) will answer.</b></p>`},
+  "sol18":{title:"Q18 → am seeing",body:`<p>Заздалегідь домовлена зустріч (із лікарем, час відомий) → <b>Present Continuous</b>.</p>
+    <p>I <b>am seeing</b> my dentist at five. (Тверда домовленість, не спонтанне «will».)</p>
+    <p><b>Відповідь: C) am seeing.</b></p>`},
+  "sol19":{title:"Q19 → get",body:`<p>Після <b>as soon as</b> майбутнє позначають <b>Present Simple</b>.</p>
+    <p>I'll call you as soon as I <b>get</b> home. «will get» після as soon as ❌.</p>
+    <p><b>Відповідь: B) get.</b></p>`},
+  "sol20":{title:"Q20 → will have found",body:`<p><b>By 2030</b> (= до певного майбутнього моменту дія завершиться) → <b>Future Perfect</b>.</p>
+    <p>Scientists <b>will have found</b> a cure by 2030.</p>
+    <p><b>Відповідь: B) will have found.</b></p>`},
+  "sol21":{title:"Q21 → had burned",body:`<p><b>By the time + Past Simple</b> → головна дія раніша → <b>Past Perfect</b>.</p>
+    <p>By the time the firefighters arrived, the house <b>had burned</b> down (= згорів раніше, ніж вони приїхали).</p>
+    <p><b>Відповідь: B) had burned.</b></p>`},
+  "sol22":{title:"Q22 → will be lying",body:`<p><b>This time next week</b> = дія в ПРОЦЕСІ в певний майбутній момент → <b>Future Continuous</b>.</p>
+    <p>I <b>will be lying</b> on a beach.</p>
+    <p><b>Відповідь: B) will be lying.</b></p>`},
+  "sol23":{title:"Q23 → have seen",body:`<p>Після <b>It's the first time</b> вживають <b>Present Perfect</b>.</p>
+    <p>It's the first time I <b>have seen</b> such a sunset.</p>
+    <p><b>Відповідь: B) have seen.</b></p>`},
+  "sol24":{title:"Q24 → had been working",body:`<p>Тривалий процес ДО моменту в минулому + наслідок (втомлена) → <b>Past Perfect Continuous</b>.</p>
+    <p>She was exhausted because she <b>had been working</b> since morning.</p>
+    <p><b>Відповідь: B) had been working.</b></p>`}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.hintbtn').forEach(b=>b.addEventListener('click',()=>{const h=hints[b.dataset.hint]; if(h) openModal(h.title,h.body);}));
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 24;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0; const seen=new Set();
+  document.querySelectorAll('ol.qs > li input[type=radio]:checked').forEach(r=>{ if(!seen.has(r.name)){ seen.add(r.name); c++; } });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(!lab) return;
+    const n = parseInt(lab.name.replace('q',''),10);
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+    li.querySelector('.solbtn')?.classList.add('on');
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict (часи) — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('чудове відчуття часів! Вибір часу — твоя сильна сторона. У завданнях Use of English це дає стабільні бали. Лишилось підтримувати форму повторенням.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне володіння часами. На НМТ граматичні завдання робитимеш упевнено. Повтори лише ті блоки, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база. Найшвидший приріст — закрити пару слабких часів (часто це perfect vs past simple). Дивись розбори нижче.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Головна точка зростання — навчитись читати маркери часу (since, by, while, as soon as) і за ними обирати час.'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Повтори систему часів по черзі: спершу Present, потім Past, потім Perfect, потім Future. По одному блоку на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Почни з трьох опор: Present Simple vs Continuous, Past Simple, Present Perfect. Потім повертайся до цього тесту.'; }
+
+  // Block stats
+  const blocks = {
+    'Теперішні часи': ['present-tenses'],
+    'Минулі часи': ['past-tenses'],
+    'Perfect (доконані)': ['perfect-tenses'],
+    'Майбутні форми': ['future-forms'],
+    'Мікс / послідовність': ['mixed-tenses']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 5 (часи дієслова) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище — там покроковий розбір.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> переглянь усі детальні рішення. Випиши маркери часу (since, by, while, as soon as) і час, який вони «вмикають».</li>
+      <li><b>Цього тижня:</b> повтори систему часів по одному блоку на день; склади по 2 власні речення на кожен час.</li>
+      <li><b>Через 5–7 днів:</b> пройди цей тест ще раз. Ціль — 20/24 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: 0,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>
