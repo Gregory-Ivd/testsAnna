@@ -163,6 +163,35 @@ function setupDashboard() {
   else if (avgPctWithHints === avgPctNoHints) cascadeVerdict = '≈ однаково';
   else cascadeVerdict = '⚠️ -' + (Math.round((avgPctNoHints - avgPctWithHints) * 10) / 10) + ' % з підказками';
 
+  // Weak topics — aggregate the per-topic ok/total JSON (col K / idx 10) across ALL results.
+  // Ключі-слаги мапимо в людські назви; невідомі лишаємо як є.
+  const TOPIC_LABELS = {
+    phrasal:'Фразові дієслова', collocation:'Колокації', preposition:'Прийменники',
+    wordform:'Словотвір', wordchoice:'Вибір слова',
+    'present-tenses':'Теперішні часи', 'past-tenses':'Минулі часи', 'perfect-tenses':'Perfect-часи',
+    'future-forms':'Майбутні форми', 'mixed-tenses':'Часи (mixed)',
+    conditionals:'Умовні речення', modals:'Модальні дієслова', passive:'Пасивний стан', reported:'Непряма мова',
+    percent:'Відсотки', 'percent-change':'Зміна у %', ratio:'Відношення', proportion:'Пропорції',
+    fractions:'Дроби', average:'Середнє', mixture:'Суміші', interest:'Складні відсотки'
+  };
+  const topicAgg = {};
+  resultsRows.forEach(r => {
+    let obj;
+    try { obj = JSON.parse(r[10]); } catch (e) { return; }
+    if (!obj || typeof obj !== 'object') return;
+    Object.keys(obj).forEach(k => {
+      const cell = obj[k] || {};
+      const ok = Number(cell.ok) || 0, tot = Number(cell.total) || 0;
+      if (!tot) return;
+      if (!topicAgg[k]) topicAgg[k] = {ok:0, total:0};
+      topicAgg[k].ok += ok;
+      topicAgg[k].total += tot;
+    });
+  });
+  const weakTable = Object.entries(topicAgg)
+    .map(([k, a]) => [TOPIC_LABELS[k] || k, Math.round(a.ok / a.total * 1000) / 10, a.ok, a.total])
+    .sort((a, b) => a[1] - b[1]); // найслабші (найнижчий %) — зверху
+
   // ---------- Render Dashboard ----------
   dash.setColumnWidth(1, 360);
   dash.setColumnWidth(2, 200);
@@ -244,10 +273,28 @@ function setupDashboard() {
   dash.getRange('B36').setValue(cascadeVerdict)
     .setFontWeight('bold').setHorizontalAlignment('right').setBackground('#fff4d6');
 
+  // === Block 6 === слабкі теми (per-topic, агрегат по всіх результатах)
+  section('A38', 'СЛАБКІ ТЕМИ (агрегат по всіх учнях)');
+  let footerRow;
+  if (weakTable.length === 0) {
+    dash.getRange('A39').setValue('Поки немає даних по темах').setFontStyle('italic').setFontColor('#999');
+    footerRow = 41;
+  } else {
+    tableHeader(39, 1, ['Тема', 'Успішність (правильно / всього)']);
+    const rendered = weakTable.map(t => [t[0], t[1] + ' %  ·  ' + t[2] + '/' + t[3]]);
+    dash.getRange(40, 1, rendered.length, 2).setValues(rendered);
+    // Світлофор: <60 % червоний, 60–80 % жовтий, ≥80 % зелений
+    weakTable.forEach((t, i) => {
+      const bg = t[1] < 60 ? '#fbe3e3' : (t[1] < 80 ? '#fff2dc' : '#e9f3ec');
+      dash.getRange(40 + i, 1, 1, 2).setBackground(bg);
+    });
+    footerRow = 40 + weakTable.length + 2;
+  }
+
   // Footer
-  dash.getRange('A38').setValue('Дашборд — статичний знімок. Щоб оновити: TestsAnna → Setup/Refresh Dashboard, або Apps Script → setupDashboard → Run.')
+  dash.getRange(footerRow, 1).setValue('Дашборд — статичний знімок. Щоб оновити: TestsAnna → Setup/Refresh Dashboard, або Apps Script → setupDashboard → Run.')
     .setFontStyle('italic').setFontColor('#999');
-  dash.getRange('A39').setValue('Локально-стійкий рендер (без QUERY/FILTER) — все рахується в JS, працює в будь-якій локалі Sheets.')
+  dash.getRange(footerRow + 1, 1).setValue('Локально-стійкий рендер (без QUERY/FILTER) — все рахується в JS, працює в будь-якій локалі Sheets.')
     .setFontStyle('italic').setFontColor('#999');
 
   SpreadsheetApp.flush();
