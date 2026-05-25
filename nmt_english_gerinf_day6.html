@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Герундій та інфінітив (Day 6)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a4d8c'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='40' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>G</text></svg>">
+<style>
+  :root{
+    --bg:#c2b588; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select{font-size:20px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 6 <span class="badge">gerund / infinitive</span></h1>
+    <div class="sub">Герундій та інфінітив (verb patterns) · 24 завдання · рівень B1+/B2 · ~25 хв</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>герундій (-ing) та інфінітив (to + V)</b> — одну з найчастіших пасток НМТ. Після одних дієслів іде <i>-ing</i> (enjoy doing), після інших — <i>to</i> (decide to do), а деякі змінюють ЗНАЧЕННЯ залежно від форми (stop to rest ≠ stop resting).
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) Спершу спробуй без підказок. Застопорився — натисни 💡 (списки дієслів + правила).
+      <br>2) Пам'ятай головне: після ПРИЙМЕННИКА — завжди <i>-ing</i> (look forward to seeing).
+      <br>3) Після завершення біля кожного питання з'явиться «📖 детальне рішення» — читай навіть там, де відповідь правильна.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 24</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================ PART 1: verb + gerund ================ -->
+  <section class="task">
+    <h2>Частина 1. Дієслово + герундій (-ing)</h2>
+    <p class="instr">enjoy, mind, avoid, suggest, finish… → V-ing. (Q1–Q5)</p>
+    <ol class="qs">
+
+      <li data-correct="A" data-topic="verb-gerund" data-hint="gerund" data-sol="sol1">
+        <span class="topic-tag">enjoy + -ing</span>
+        <span class="qtext">I enjoy _____ to music in the evening.</span>
+        <button class="hintbtn" data-hint="gerund">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) listening</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) to listen</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) listen</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) listened</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="verb-gerund" data-hint="gerund" data-sol="sol2">
+        <span class="topic-tag">mind + -ing</span>
+        <span class="qtext">Would you mind _____ the window?</span>
+        <button class="hintbtn" data-hint="gerund">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) to open</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) open</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) opened</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) opening</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="verb-gerund" data-hint="gerund" data-sol="sol3">
+        <span class="topic-tag">avoid + -ing</span>
+        <span class="qtext">We should avoid _____ the same mistake twice.</span>
+        <button class="hintbtn" data-hint="gerund">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) to make</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) make</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) making</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) made</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="verb-gerund" data-hint="gerund" data-sol="sol4">
+        <span class="topic-tag weak-tag">suggest + -ing</span>
+        <span class="qtext">He suggested _____ a taxi instead of walking.</span>
+        <button class="hintbtn" data-hint="gerund">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) taking</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) to take</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) take</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) to taking</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="verb-gerund" data-hint="gerund" data-sol="sol5">
+        <span class="topic-tag">finish + -ing</span>
+        <span class="qtext">She finished _____ her homework an hour ago.</span>
+        <button class="hintbtn" data-hint="gerund">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) to do</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) doing</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) do</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) done</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: verb + infinitive ================ -->
+  <section class="task">
+    <h2>Частина 2. Дієслово + інфінітив (to + V)</h2>
+    <p class="instr">decide, hope, promise, manage, afford… → to + V. (Q6–Q10)</p>
+    <ol class="qs" start="6">
+
+      <li data-correct="C" data-topic="verb-infinitive" data-hint="infinitive" data-sol="sol6">
+        <span class="topic-tag">decide + to</span>
+        <span class="qtext">They decided _____ a new house.</span>
+        <button class="hintbtn" data-hint="infinitive">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) buying</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) buy</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) to buy</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) bought</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="verb-infinitive" data-hint="infinitive" data-sol="sol7">
+        <span class="topic-tag weak-tag">afford + to</span>
+        <span class="qtext">I can't afford _____ such an expensive car.</span>
+        <button class="hintbtn" data-hint="infinitive">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) buying</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) buy</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) bought</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) to buy</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="verb-infinitive" data-hint="infinitive" data-sol="sol8">
+        <span class="topic-tag">promise + to</span>
+        <span class="qtext">She promised _____ me with the project.</span>
+        <button class="hintbtn" data-hint="infinitive">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) helping</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) help</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) to help</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) helped</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="verb-infinitive" data-hint="infinitive" data-sol="sol9">
+        <span class="topic-tag weak-tag">manage + to</span>
+        <span class="qtext">He managed _____ the problem on his own.</span>
+        <button class="hintbtn" data-hint="infinitive">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) solving</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) to solve</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) solve</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) solved</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="verb-infinitive" data-hint="infinitive" data-sol="sol10">
+        <span class="topic-tag">hope + to</span>
+        <span class="qtext">We hope _____ you again soon.</span>
+        <button class="hintbtn" data-hint="infinitive">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) to see</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) see</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) saw</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) seeing</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: after prepositions / fixed structures ================ -->
+  <section class="task">
+    <h2>Частина 3. Після прийменника — завжди -ing</h2>
+    <p class="instr">good at, interested in, without, look forward to, be used to… → V-ing. (Q11–Q15)</p>
+    <ol class="qs" start="11">
+
+      <li data-correct="C" data-topic="prep-gerund" data-hint="prep" data-sol="sol11">
+        <span class="topic-tag">good at + -ing</span>
+        <span class="qtext">She is good at _____ problems quickly.</span>
+        <button class="hintbtn" data-hint="prep">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) solve</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) to solve</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) solving</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) solved</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="prep-gerund" data-hint="prep" data-sol="sol12">
+        <span class="topic-tag weak-tag">look forward TO + -ing</span>
+        <span class="qtext">I'm looking forward to _____ from you.</span>
+        <button class="hintbtn" data-hint="prep">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) hear</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) hearing</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) to hear</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) heard</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="prep-gerund" data-hint="prep" data-sol="sol13">
+        <span class="topic-tag">without + -ing</span>
+        <span class="qtext">He left without _____ goodbye.</span>
+        <button class="hintbtn" data-hint="prep">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="A"> A) to say</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> B) say</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> C) said</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> D) saying</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="prep-gerund" data-hint="prep" data-sol="sol14">
+        <span class="topic-tag">interested in + -ing</span>
+        <span class="qtext">They are interested in _____ Spanish.</span>
+        <button class="hintbtn" data-hint="prep">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="A"> A) learning</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> B) to learn</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> C) learn</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> D) learned</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="prep-gerund" data-hint="prep" data-sol="sol15">
+        <span class="topic-tag weak-tag">be used TO + -ing</span>
+        <span class="qtext">I'm used to _____ up early — it's my habit.</span>
+        <button class="hintbtn" data-hint="prep">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q15" value="A"> A) get</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> B) to get</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> C) getting</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> D) got</label>
+        </div>
+        <button class="solbtn" data-sol="sol15">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 4: change of meaning ================ -->
+  <section class="task">
+    <h2>Частина 4. Дієслова, що міняють значення</h2>
+    <p class="instr">remember, forget, stop, try — форма змінює зміст. Читай контекст! (Q16–Q20)</p>
+    <ol class="qs" start="16">
+
+      <li data-correct="B" data-topic="meaning-change" data-hint="meaning" data-sol="sol16">
+        <span class="topic-tag weak-tag">remember + to (майбутнє)</span>
+        <span class="qtext">Remember _____ the door when you leave — don't forget!</span>
+        <button class="hintbtn" data-hint="meaning">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q16" value="A"> A) locking</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> B) to lock</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> C) lock</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> D) locked</label>
+        </div>
+        <button class="solbtn" data-sol="sol16">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="meaning-change" data-hint="meaning" data-sol="sol17">
+        <span class="topic-tag weak-tag">forget + -ing (спогад)</span>
+        <span class="qtext">I'll never forget _____ the Eiffel Tower for the first time.</span>
+        <button class="hintbtn" data-hint="meaning">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q17" value="A"> A) to see</label>
+          <label class="opt"><input type="radio" name="q17" value="B"> B) see</label>
+          <label class="opt"><input type="radio" name="q17" value="C"> C) saw</label>
+          <label class="opt"><input type="radio" name="q17" value="D"> D) seeing</label>
+        </div>
+        <button class="solbtn" data-sol="sol17">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="meaning-change" data-hint="meaning" data-sol="sol18">
+        <span class="topic-tag weak-tag">stop + to (мета)</span>
+        <span class="qtext">We were tired, so we stopped _____ for a few minutes.</span>
+        <button class="hintbtn" data-hint="meaning">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q18" value="A"> A) resting</label>
+          <label class="opt"><input type="radio" name="q18" value="B"> B) to rest</label>
+          <label class="opt"><input type="radio" name="q18" value="C"> C) rest</label>
+          <label class="opt"><input type="radio" name="q18" value="D"> D) rested</label>
+        </div>
+        <button class="solbtn" data-sol="sol18">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="meaning-change" data-hint="meaning" data-sol="sol19">
+        <span class="topic-tag weak-tag">stop + -ing (припинити)</span>
+        <span class="qtext">He stopped _____ two years ago; now he's much healthier.</span>
+        <button class="hintbtn" data-hint="meaning">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q19" value="A"> A) to smoke</label>
+          <label class="opt"><input type="radio" name="q19" value="B"> B) smoke</label>
+          <label class="opt"><input type="radio" name="q19" value="C"> C) smoking</label>
+          <label class="opt"><input type="radio" name="q19" value="D"> D) smoked</label>
+        </div>
+        <button class="solbtn" data-sol="sol19">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="meaning-change" data-hint="meaning" data-sol="sol20">
+        <span class="topic-tag weak-tag">try + to (намагатись)</span>
+        <span class="qtext">I tried _____ the window, but it wouldn't open.</span>
+        <button class="hintbtn" data-hint="meaning">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q20" value="A"> A) opening</label>
+          <label class="opt"><input type="radio" name="q20" value="B"> B) to open</label>
+          <label class="opt"><input type="radio" name="q20" value="C"> C) open</label>
+          <label class="opt"><input type="radio" name="q20" value="D"> D) opened</label>
+        </div>
+        <button class="solbtn" data-sol="sol20">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 5: bare infinitive + mixed ================ -->
+  <section class="task">
+    <h2>Частина 5. Голий інфінітив (без to) + мікс</h2>
+    <p class="instr">make / let + bare inf, would rather, had better… (Q21–Q24)</p>
+    <ol class="qs" start="21">
+
+      <li data-correct="A" data-topic="bare-mixed" data-hint="bare" data-sol="sol21">
+        <span class="topic-tag weak-tag">let + bare inf</span>
+        <span class="qtext">My parents let me _____ out late on weekends.</span>
+        <button class="hintbtn" data-hint="bare">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q21" value="A"> A) stay</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> B) staying</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> C) to stay</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> D) stayed</label>
+        </div>
+        <button class="solbtn" data-sol="sol21">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="bare-mixed" data-hint="bare" data-sol="sol22">
+        <span class="topic-tag weak-tag">make sb + bare inf</span>
+        <span class="qtext">The teacher made us _____ the test again.</span>
+        <button class="hintbtn" data-hint="bare">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q22" value="A"> A) to do</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> B) do</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> C) doing</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> D) done</label>
+        </div>
+        <button class="solbtn" data-sol="sol22">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="bare-mixed" data-hint="bare" data-sol="sol23">
+        <span class="topic-tag weak-tag">would rather + bare inf</span>
+        <span class="qtext">I'd rather _____ at home tonight than go out.</span>
+        <button class="hintbtn" data-hint="bare">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q23" value="A"> A) to stay</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> B) staying</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> C) stay</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> D) stayed</label>
+        </div>
+        <button class="solbtn" data-sol="sol23">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="bare-mixed" data-hint="bare" data-sol="sol24">
+        <span class="topic-tag weak-tag">had better + bare inf</span>
+        <span class="qtext">You had better _____ a doctor about that cough.</span>
+        <button class="hintbtn" data-hint="bare">💡 підказка</button>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) to see</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) see</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) seeing</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) saw</label>
+        </div>
+        <button class="solbtn" data-sol="sol24">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: герундій та інфінітив · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day6-gerinf"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+/* --- Персоналізація: ім'я з форми (звертання у кличному відмінку, best-effort) --- */
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";   // Марія→Маріє, Софія→Софіє, Дарія→Даріє
+  if(/я$/i.test(n))     return n;                     // Настя, Оля, Аня — лишаємо як є
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";     // Анна→Анно, Олена→Олено, Микита→Микито
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";     // Андрій→Андрію, Сергій→Сергію
+  return n;                                           // приголосний (Максим, Олег) — як є
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== HINTS (міні-лекції по темах) ============== */
+const hints = {
+  "gerund":{title:"Дієслово + герундій (-ing)",body:`<p>Після цих дієслів іде форма <b>-ing</b>: <code>enjoy, avoid, mind, suggest, finish, practise, keep, miss, imagine, consider, give up, can't help, can't stand, deny, admit</code>.</p>
+    <div class="step">Мнемоніка: «процеси, які подобаються / уникаються / завершуються» — тягнуть -ing.</div>
+    <div class="ex">I enjoy reading. · Would you mind waiting? · He suggested going home. · Avoid making noise.</div>`},
+  "infinitive":{title:"Дієслово + інфінітив (to + V)",body:`<p>Після цих дієслів іде <b>to + V</b>: <code>want, would like, decide, hope, plan, promise, agree, refuse, manage, afford, offer, expect, learn, choose, seem, fail, pretend</code>.</p>
+    <div class="step">Мнемоніка: «рішення, наміри, плани на майбутнє» — тягнуть to.</div>
+    <div class="ex">They decided to leave. · I can't afford to buy it. · She promised to help. · We hope to see you.</div>`},
+  "prep":{title:"Після прийменника — завжди -ing",body:`<p>Будь-який <b>прийменник</b> (in, at, on, of, about, without, after, before, for…) + <b>V-ing</b>.</p>
+    <div class="step">⚠️ Пастка: у виразах <code>look forward TO</code>, <code>be used TO</code>, <code>object TO</code> слово «to» — це ПРИЙМЕННИК, а не частка інфінітива. Тож після нього теж -ing!</div>
+    <div class="ex">good at solving · interested in learning · without saying · I look forward to seeing you. · I'm used to getting up early.</div>`},
+  "meaning":{title:"Дієслова, що міняють значення",body:`<p><b>remember/forget + to</b> = майбутня дія, не забути зробити (<code>Remember to lock the door</code>). <b>+ -ing</b> = спогад про вже зроблене (<code>I'll never forget seeing it</code>).</p>
+    <p><b>stop + to</b> = зупинитися, ЩОБ щось зробити (мета: <code>stopped to rest</code>). <b>+ -ing</b> = припинити дію (<code>stopped smoking</code>).</p>
+    <div class="step"><b>try + to</b> = намагатись, докласти зусиль (<code>I tried to open it, but couldn't</code>). <b>+ -ing</b> = спробувати як експеримент (<code>try adding salt</code>).</div>`},
+  "bare":{title:"Голий інфінітив (без to)",body:`<p>Після <b>make sb</b> та <b>let sb</b> у дійсному стані — інфінітив БЕЗ to: <code>made us do</code>, <code>let me stay</code>.</p>
+    <p>Після модальних (can, must, will…) і конструкцій <b>would rather</b>, <b>had better</b> — теж без to: <code>I'd rather stay</code>, <code>You'd better see a doctor</code>.</p>
+    <div class="ex">⚠️ У пасиві «make» іде з to: <code>We were made to do it</code>.</div>`}
+};
+
+/* ============== SOLUTIONS (детальні розбори) ============== */
+const sols = {
+  "sol1":{title:"Q1 → listening",body:`<p>Після <b>enjoy</b> — герундій.</p><p>I enjoy <b>listening</b> to music.</p><p><b>Відповідь: A) listening.</b></p>`},
+  "sol2":{title:"Q2 → opening",body:`<p>Після <b>mind</b> — герундій (Would you mind + -ing — ввічливе прохання).</p><p>Would you mind <b>opening</b> the window?</p><p><b>Відповідь: D) opening.</b></p>`},
+  "sol3":{title:"Q3 → making",body:`<p>Після <b>avoid</b> — герундій.</p><p>avoid <b>making</b> the same mistake.</p><p><b>Відповідь: C) making.</b></p>`},
+  "sol4":{title:"Q4 → taking",body:`<p>Після <b>suggest</b> — герундій (suggest doing). «suggest to do» ❌.</p><p>He suggested <b>taking</b> a taxi.</p><p><b>Відповідь: A) taking.</b></p>`},
+  "sol5":{title:"Q5 → doing",body:`<p>Після <b>finish</b> — герундій.</p><p>She finished <b>doing</b> her homework.</p><p><b>Відповідь: B) doing.</b></p>`},
+  "sol6":{title:"Q6 → to buy",body:`<p>Після <b>decide</b> — інфінітив з to.</p><p>They decided <b>to buy</b> a house.</p><p><b>Відповідь: C) to buy.</b></p>`},
+  "sol7":{title:"Q7 → to buy",body:`<p>Після <b>afford</b> — інфінітив з to (can't afford to do).</p><p>I can't afford <b>to buy</b> it.</p><p><b>Відповідь: D) to buy.</b></p>`},
+  "sol8":{title:"Q8 → to help",body:`<p>Після <b>promise</b> — інфінітив з to.</p><p>She promised <b>to help</b> me.</p><p><b>Відповідь: C) to help.</b></p>`},
+  "sol9":{title:"Q9 → to solve",body:`<p>Після <b>manage</b> — інфінітив з to (manage to do = спромогтися/зуміти).</p><p>He managed <b>to solve</b> the problem.</p><p><b>Відповідь: B) to solve.</b></p>`},
+  "sol10":{title:"Q10 → to see",body:`<p>Після <b>hope</b> — інфінітив з to.</p><p>We hope <b>to see</b> you soon.</p><p><b>Відповідь: A) to see.</b></p>`},
+  "sol11":{title:"Q11 → solving",body:`<p>Після прийменника <b>at</b> (good at) — герундій.</p><p>good at <b>solving</b> problems.</p><p><b>Відповідь: C) solving.</b></p>`},
+  "sol12":{title:"Q12 → hearing",body:`<p>У виразі <b>look forward TO</b> «to» — це ПРИЙМЕННИК, тож після нього -ing.</p><p>I'm looking forward to <b>hearing</b> from you. (Класична пастка!)</p><p><b>Відповідь: B) hearing.</b></p>`},
+  "sol13":{title:"Q13 → saying",body:`<p>Після прийменника <b>without</b> — герундій.</p><p>He left without <b>saying</b> goodbye.</p><p><b>Відповідь: D) saying.</b></p>`},
+  "sol14":{title:"Q14 → learning",body:`<p>Після <b>interested in</b> — герундій (in — прийменник).</p><p>interested in <b>learning</b> Spanish.</p><p><b>Відповідь: A) learning.</b></p>`},
+  "sol15":{title:"Q15 → getting",body:`<p><b>be used TO</b> (звикнути до) — «to» прийменник → герундій. Не плутай з «used to do» (раніше робив).</p><p>I'm used to <b>getting</b> up early.</p><p><b>Відповідь: C) getting.</b></p>`},
+  "sol16":{title:"Q16 → to lock",body:`<p><b>remember + to</b> = не забути зробити (дія попереду). Контекст «when you leave, don't forget» → майбутнє.</p><p>Remember <b>to lock</b> the door.</p><p><b>Відповідь: B) to lock.</b></p>`},
+  "sol17":{title:"Q17 → seeing",body:`<p><b>forget + -ing</b> = спогад про вже зроблене (саме «не забуду, як побачив»).</p><p>I'll never forget <b>seeing</b> the Eiffel Tower.</p><p><b>Відповідь: D) seeing.</b></p>`},
+  "sol18":{title:"Q18 → to rest",body:`<p><b>stop + to</b> = зупинитися, ЩОБ (мета). «We were tired, so we stopped to rest» = зупинились, аби відпочити.</p><p>stopped <b>to rest</b>.</p><p><b>Відповідь: B) to rest.</b></p>`},
+  "sol19":{title:"Q19 → smoking",body:`<p><b>stop + -ing</b> = припинити саму дію. «two years ago; now healthier» = кинув курити.</p><p>He stopped <b>smoking</b>.</p><p><b>Відповідь: C) smoking.</b></p>`},
+  "sol20":{title:"Q20 → to open",body:`<p><b>try + to</b> = намагатись, докласти зусиль (міг не вдатися). «but it wouldn't open» підтверджує спробу-зусилля.</p><p>I tried <b>to open</b> the window.</p><p><b>Відповідь: B) to open.</b></p>`},
+  "sol21":{title:"Q21 → stay",body:`<p>Після <b>let sb</b> — голий інфінітив (без to).</p><p>let me <b>stay</b> out late.</p><p><b>Відповідь: A) stay.</b></p>`},
+  "sol22":{title:"Q22 → do",body:`<p>Після <b>make sb</b> (у дійсному стані) — голий інфінітив (без to).</p><p>made us <b>do</b> the test.</p><p><b>Відповідь: B) do.</b></p>`},
+  "sol23":{title:"Q23 → stay",body:`<p>Після <b>would rather</b> — голий інфінітив.</p><p>I'd rather <b>stay</b> at home.</p><p><b>Відповідь: C) stay.</b></p>`},
+  "sol24":{title:"Q24 → see",body:`<p>Після <b>had better</b> — голий інфінітив.</p><p>You'd better <b>see</b> a doctor.</p><p><b>Відповідь: B) see.</b></p>`}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.hintbtn').forEach(b=>b.addEventListener('click',()=>{const h=hints[b.dataset.hint]; if(h) openModal(h.title,h.body);}));
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 24;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0; const seen=new Set();
+  document.querySelectorAll('ol.qs > li input[type=radio]:checked').forEach(r=>{ if(!seen.has(r.name)){ seen.add(r.name); c++; } });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(!lab) return;
+    const n = parseInt(lab.name.replace('q',''),10);
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+    li.querySelector('.solbtn')?.classList.add('on');
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict (verb patterns) — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('герундій та інфінітив — твоя сильна сторона! Ти впевнено бачиш, де -ing, а де to, і не ведешся на пастку «look forward to». Чудово.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне відчуття verb patterns. На НМТ ці завдання робитимеш упевнено. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база. Найшвидший приріст — вивчити списки дієслів і запам\'ятати пастку «after preposition → -ing». Дивись розбори нижче.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Головна точка зростання — два списки (verb + -ing / verb + to) і чотири дієслова зі зміною значення (remember, forget, stop, try).'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Вивчи напам\'ять короткі списки: enjoy/avoid/finish (+ -ing) і want/decide/hope (+ to). По одному блоку на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Почни з трьох опор: enjoy + -ing, want + to, і «після прийменника завжди -ing». Потім повертайся до цього тесту.'; }
+
+  // Block stats
+  const blocks = {
+    'Дієслово + герундій': ['verb-gerund'],
+    'Дієслово + інфінітив': ['verb-infinitive'],
+    'Після прийменника': ['prep-gerund'],
+    'Зміна значення': ['meaning-change'],
+    'Голий інфінітив / мікс': ['bare-mixed']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 6 (герундій та інфінітив) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище — там покроковий розбір.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> переглянь усі детальні рішення. Випиши два списки (verb + -ing / verb + to) і пастку «після прийменника — -ing».</li>
+      <li><b>Цього тижня:</b> повтори по одному блоку на день; склади по 2 власні речення на кожне дієслово.</li>
+      <li><b>Через 5–7 днів:</b> пройди цей тест ще раз. Ціль — 20/24 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: 0,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>
