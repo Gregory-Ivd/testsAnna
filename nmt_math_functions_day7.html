@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Математика — Функції, графіки, показникові й логарифмічні (Day 7)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23c8102e'/><text x='32' y='32' font-family='Cambria Math,Cambria,Georgia,serif' font-size='44' font-style='italic' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>f</text></svg>">
+<style>
+  :root{
+    --bg:#b4a271; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:20px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:38px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:18px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#fff8e1;border:1px solid #e6cf73;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:18px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Завдання " counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:21px}
+  .mathline{background:var(--math-bg);padding:8px 14px;border-radius:6px;display:inline-block;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:22px;margin:6px 0}
+  .opts{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:6px;cursor:pointer;font-size:20px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.3)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  .numinput{margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .numinput input{font-size:22px;padding:8px 12px;border:2px solid var(--line);border-radius:8px;width:200px;font-family:inherit}
+  .numinput input:focus{outline:none;border-color:var(--accent)}
+  .numinput input.correct{border-color:#5fa073;background:#e3f3e6}
+  .numinput input.wrong{border-color:#c47373;background:#fbe3e3}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:16px;padding:4px 12px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  /* ===== Каскадні підказки (крок за кроком) ===== */
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .mathline{font-size:20px;margin:4px 0}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:16px;padding:6px 14px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:28px 30px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:20px;line-height:1.65}
+  .modal h3{margin:0 0 12px;color:var(--accent);font-size:26px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:20px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:32px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code, .modal .mathline{background:var(--math-bg);padding:2px 8px;border-radius:4px;font-family:"Cambria Math","Cambria",Georgia,serif;font-size:20px}
+  .modal .ex{background:var(--hl);padding:12px 16px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:10px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:64px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:17px;color:var(--muted)}
+  .scale .v{font-size:26px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:21px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ • Математика · Day 7 <span class="badge">функції · log</span></h1>
+    <div class="sub">Функції та графіки · показникові й логарифмічні · 20 завдань · рівень НМТ · ~35 хв</div>
+    <div class="pep">
+      <b><span id="ta-hello">Привіт!</span> Це блок про функції.</b> Уміння обчислити f(x), знайти область визначення, прочитати графік (нахил прямої, гілки параболи) і розв'язати показникове/логарифмічне рівняння — окрема велика частина НМТ. Тут 12 завдань з вибором відповіді + 8 із короткою відповіддю (впиши число).
+      <br><br>Пиши на чернетці, не вгадуй. Застряг — клацни 💡: підказка дається <b>крок за кроком</b> (напрямок → формула → майже-відповідь). Після завершення біля кожного завдання з'явиться «📖 детальне рішення».
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 20</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================= PART 1: MULTIPLE CHOICE (Q1–Q12) ================= -->
+  <section class="task">
+    <h2>Частина 1. Завдання з вибором відповіді (Q1–Q12)</h2>
+    <p class="instr">Оберіть один правильний варіант.</p>
+    <ol class="qs">
+
+      <li data-correct="A" data-topic="func-value" data-sol="sol1">
+        <span class="topic-tag">Значення функції</span>
+        <span class="qtext">Дано <span class="mathline">f(x) = 2x − 3</span>. Знайдіть f(4).</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) 5</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) 8</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) 11</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) 2</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="func-value" data-sol="sol2">
+        <span class="topic-tag">Значення функції</span>
+        <span class="qtext">Дано <span class="mathline">f(x) = x² + 1</span>. Знайдіть f(−2).</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) −3</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) 5</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) 3</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) −5</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="func-domain" data-sol="sol3">
+        <span class="topic-tag">Область визначення</span>
+        <span class="qtext">Знайдіть область визначення функції <span class="mathline">f(x) = 1 / (x − 3)</span></span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) x ≠ 0</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) x ≠ 3</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) x &gt; 3</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) усі числа</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="func-domain" data-sol="sol4">
+        <span class="topic-tag">Область визначення</span>
+        <span class="qtext">Знайдіть область визначення функції <span class="mathline">f(x) = √(x − 2)</span></span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) x &gt; 2</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) x ≥ 2</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) x ≤ 2</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) x ≥ 0</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="func-linear" data-sol="sol5">
+        <span class="topic-tag">Лінійна функція</span>
+        <span class="qtext">Знайдіть кутовий коефіцієнт (нахил) прямої <span class="mathline">y = −3x + 5</span></span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) 5</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) 3</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) −3</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) −5</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="func-linear" data-sol="sol6">
+        <span class="topic-tag">Графік прямої</span>
+        <span class="qtext">У якій точці пряма <span class="mathline">y = 2x − 7</span> перетинає вісь Oy?</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) (0; 2)</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) (0; −7)</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) (0; 7)</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) (0; 0)</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="func-quadratic" data-sol="sol7">
+        <span class="topic-tag">Парабола</span>
+        <span class="qtext">Куди напрямлені гілки параболи <span class="mathline">y = x² − 4x + 3</span> ?</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) угору</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) униз</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) уліво</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) управо</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="func-quadratic" data-sol="sol8">
+        <span class="topic-tag">Нулі функції</span>
+        <span class="qtext">У яких точках графік <span class="mathline">y = x² − 4</span> перетинає вісь Ox?</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) x = 4</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) x = ±2</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) x = ±4</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) x = 2</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="exp-eq" data-sol="sol9">
+        <span class="topic-tag">Показникове рівняння</span>
+        <span class="qtext">Розв'яжіть рівняння: <span class="mathline">2ˣ = 8</span></span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) 2</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) 3</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) 4</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) 1,5</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="exp-eq" data-sol="sol10">
+        <span class="topic-tag">Показникове рівняння</span>
+        <span class="qtext">Розв'яжіть рівняння: <span class="mathline">3ˣ = 1/9</span></span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) −2</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) 2</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) −3</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) 3</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="log-def" data-sol="sol11">
+        <span class="topic-tag">Логарифм</span>
+        <span class="qtext">Обчисліть: <span class="mathline">log₂ 16</span></span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) 4</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) 8</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) 2</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) 256</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="log-def" data-sol="sol12">
+        <span class="topic-tag">Десятковий логарифм</span>
+        <span class="qtext">Обчисліть: <span class="mathline">log₁₀ 1000</span></span>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) 2</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) 3</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) 100</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) 10</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 показати детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================= PART 2: SHORT ANSWER (Q13–Q20) ================= -->
+  <section class="task">
+    <h2>Частина 2. Завдання з короткою відповіддю (Q13–Q20)</h2>
+    <p class="instr">Впишіть число. Дробову частину — через кому або крапку.</p>
+    <ol class="qs" start="13">
+
+      <li data-correct="17" data-topic="func-value" data-sol="sol13">
+        <span class="topic-tag">Значення функції</span>
+        <span class="qtext">Дано <span class="mathline">f(x) = 5x + 2</span>. Знайдіть f(3).</span>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
+        <div class="numinput">Відповідь: <input type="text" name="q13" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol13">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="15" data-topic="func-value" data-sol="sol14">
+        <span class="topic-tag">Значення функції</span>
+        <span class="qtext">Дано <span class="mathline">g(x) = x² − 2x</span>. Знайдіть g(5).</span>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
+        <div class="numinput">Відповідь: <input type="text" name="q14" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol14">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="5" data-topic="exp-eq" data-sol="sol15">
+        <span class="topic-tag">Показникове рівняння</span>
+        <span class="qtext">Розв'яжіть рівняння: <span class="mathline">2ˣ = 32</span></span>
+        <button class="hintbtn" data-q="15">💡 Підказка</button>
+        <div class="hintpanel" data-panel="15"></div>
+        <div class="numinput">Відповідь: x = <input type="text" name="q15" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol15">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="4" data-topic="log-def" data-sol="sol16">
+        <span class="topic-tag">Логарифм</span>
+        <span class="qtext">Обчисліть: <span class="mathline">log₃ 81</span></span>
+        <button class="hintbtn" data-q="16">💡 Підказка</button>
+        <div class="hintpanel" data-panel="16"></div>
+        <div class="numinput">Відповідь: <input type="text" name="q16" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol16">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="5" data-topic="log-prop" data-sol="sol17">
+        <span class="topic-tag">Властивості логарифмів</span>
+        <span class="qtext">Обчисліть: <span class="mathline">log₂ 8 + log₂ 4</span></span>
+        <button class="hintbtn" data-q="17">💡 Підказка</button>
+        <div class="hintpanel" data-panel="17"></div>
+        <div class="numinput">Відповідь: <input type="text" name="q17" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol17">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="0" data-topic="log-def" data-sol="sol18">
+        <span class="topic-tag">Логарифм одиниці</span>
+        <span class="qtext">Обчисліть: <span class="mathline">log₅ 1</span></span>
+        <button class="hintbtn" data-q="18">💡 Підказка</button>
+        <div class="hintpanel" data-panel="18"></div>
+        <div class="numinput">Відповідь: <input type="text" name="q18" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol18">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="3" data-topic="func-quadratic" data-sol="sol19">
+        <span class="topic-tag">Вершина параболи</span>
+        <span class="qtext">Знайдіть абсцису вершини параболи <span class="mathline">y = x² − 6x + 5</span></span>
+        <button class="hintbtn" data-q="19">💡 Підказка</button>
+        <div class="hintpanel" data-panel="19"></div>
+        <div class="numinput">Відповідь: x₀ = <input type="text" name="q19" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol19">📖 показати детальне рішення</button>
+      </li>
+
+      <li data-correct="4" data-topic="func-linear" data-sol="sol20">
+        <span class="topic-tag">Нуль функції</span>
+        <span class="qtext">Знайдіть нуль функції <span class="mathline">f(x) = 2x − 8</span> (значення x, при якому f(x) = 0).</span>
+        <button class="hintbtn" data-q="20">💡 Підказка</button>
+        <div class="hintpanel" data-panel="20"></div>
+        <div class="numinput">Відповідь: x = <input type="text" name="q20" inputmode="decimal" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol20">📖 показати детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: функції, графіки, показникові й логарифмічні · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose" aria-label="Закрити">×</button>
+    <h3 id="modalTitle">Підказка</h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "math-day7-functions"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+/* --- Персоналізація: ім'я з форми (звертання у кличному відмінку, best-effort) --- */
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";   // Марія→Маріє, Софія→Софіє, Дарія→Даріє
+  if(/я$/i.test(n))     return n;                     // Настя, Оля, Аня — лишаємо як є
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";     // Анна→Анно, Олена→Олено, Микита→Микито
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";     // Андрій→Андрію, Сергій→Сергію
+  return n;                                           // приголосний (Максим, Олег) — як є
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'!') : 'Привіт!';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+/* Кожне завдання: 3 рівні підказок + відповідь.
+   h1 — напрямок/яка формула, h2 — сама формула, h3 — майже-відповідь (підстановка), ans — число/варіант + чому. */
+let __hintsUsedCount = 0;
+const qHints = {
+  1:{ h1:"«f(4)» означає: підстав замість x число 4 у формулу функції.",
+      h2:"f(x) = 2x − 3 → f(4) = 2·(4) − 3. Спершу множення, потім віднімання.",
+      h3:"2·4 = 8; 8 − 3 = 5.",
+      ans:"A) 5. f(4) = 5." },
+  2:{ h1:"Підстав x = −2. Будь уважний зі знаком при піднесенні до квадрата.",
+      h2:"(−2)² = 4 (мінус на мінус = плюс), потім + 1.",
+      h3:"4 + 1 = 5.",
+      ans:"B) 5. f(−2) = 5." },
+  3:{ h1:"Де функція НЕ існує? У дробу знаменник не може дорівнювати нулю.",
+      h2:"Прирівняй знаменник до нуля й виключи це значення: x − 3 = 0.",
+      h3:"x − 3 = 0 → x = 3. Отже допустимі всі x, крім 3.",
+      ans:"B) x ≠ 3." },
+  4:{ h1:"Підкореневий вираз (під √) має бути НЕвід'ємним (≥ 0).",
+      h2:"Склади умову: x − 2 ≥ 0.",
+      h3:"x − 2 ≥ 0 → x ≥ 2. (саме ≥, бо √0 = 0 існує).",
+      ans:"B) x ≥ 2." },
+  5:{ h1:"У формі y = kx + b нахил — це k (коефіцієнт при x).",
+      h2:"Подивись на число, що стоїть перед x.",
+      h3:"y = −3x + 5 → k = −3.",
+      ans:"C) −3." },
+  6:{ h1:"Перетин з віссю Oy — це коли x = 0. Підстав x = 0.",
+      h2:"У y = kx + b при x = 0 виходить y = b (вільний член).",
+      h3:"y = 2·0 − 7 = −7 → точка (0; −7).",
+      ans:"B) (0; −7)." },
+  7:{ h1:"Напрям гілок параболи залежить ТІЛЬКИ від знака a — коефіцієнта при x².",
+      h2:"a &gt; 0 → гілки вгору; a &lt; 0 → униз.",
+      h3:"Тут a = 1 &gt; 0 → гілки вгору.",
+      ans:"A) угору." },
+  8:{ h1:"«Перетин з Ox» = нулі функції: прирівняй y до нуля.",
+      h2:"x² − 4 = 0 → x² = 4 → x = ±√4.",
+      h3:"x = ±2.",
+      ans:"B) x = ±2." },
+  9:{ h1:"Зведи 8 до степеня з основою 2.",
+      h2:"8 = 2³. Якщо основи рівні, то рівні й показники.",
+      h3:"2ˣ = 2³ → x = 3.",
+      ans:"B) 3." },
+  10:{ h1:"Зведи 1/9 до степеня з основою 3 (згадай від'ємний показник).",
+       h2:"1/9 = 1/3² = 3⁻².",
+       h3:"3ˣ = 3⁻² → x = −2.",
+       ans:"A) −2." },
+  11:{ h1:"log₂ 16 питає: «у який степінь піднести 2, щоб отримати 16?»",
+       h2:"2^? = 16. Перебери степені двійки: 2, 4, 8, 16.",
+       h3:"2⁴ = 16 → log₂ 16 = 4.",
+       ans:"A) 4." },
+  12:{ h1:"«У який степінь піднести 10, щоб отримати 1000?»",
+       h2:"10^? = 1000. Рахуй нулі: 1000 = 10³.",
+       h3:"10³ = 1000 → log₁₀ 1000 = 3.",
+       ans:"B) 3." },
+  13:{ h1:"Підстав x = 3 у формулу f(x) = 5x + 2.",
+       h2:"f(3) = 5·3 + 2.",
+       h3:"15 + 2 = 17.",
+       ans:"17." },
+  14:{ h1:"Підстав x = 5 у формулу g(x) = x² − 2x.",
+       h2:"g(5) = 5² − 2·5.",
+       h3:"25 − 10 = 15.",
+       ans:"15." },
+  15:{ h1:"Зведи 32 до степеня з основою 2.",
+       h2:"32 = 2⁵.",
+       h3:"2ˣ = 2⁵ → x = 5.",
+       ans:"5." },
+  16:{ h1:"«3 у якому степені дорівнює 81?»",
+       h2:"3^? = 81. Перебери: 3, 9, 27, 81.",
+       h3:"3⁴ = 81 → log₃ 81 = 4.",
+       ans:"4." },
+  17:{ h1:"Порахуй кожен логарифм окремо, потім додай.",
+       h2:"log₂ 8 = 3 (2³=8); log₂ 4 = 2 (2²=4).",
+       h3:"3 + 2 = 5. (Або log₂(8·4) = log₂ 32 = 5.)",
+       ans:"5." },
+  18:{ h1:"«5 у якому степені дорівнює 1?» Згадай: будь-яке число в нульовому степені = 1.",
+       h2:"5⁰ = 1, тож логарифм одиниці завжди дорівнює 0.",
+       h3:"log₅ 1 = 0.",
+       ans:"0." },
+  19:{ h1:"Абсциса вершини параболи: x₀ = −b / (2a).",
+       h2:"Тут a = 1, b = −6 → x₀ = −(−6) / (2·1).",
+       h3:"6 / 2 = 3.",
+       ans:"3." },
+  20:{ h1:"Нуль функції — це x, при якому f(x) = 0. Прирівняй вираз до нуля.",
+       h2:"2x − 8 = 0 → 2x = 8.",
+       h3:"x = 8 / 2 = 4.",
+       ans:"4." }
+};
+
+/* ============== SOLUTIONS (детальні розбори після сдачі) ============== */
+const sols = {
+  "sol1":{title:"Завдання 1 → 5",body:`<p>Підставляємо x = 4 у f(x) = 2x − 3.</p><p class="mathline">f(4) = 2·4 − 3 = 8 − 3 = 5</p><p><b>Відповідь: A) 5.</b></p>`},
+  "sol2":{title:"Завдання 2 → 5",body:`<p>Підставляємо x = −2 у f(x) = x² + 1.</p><p class="mathline">f(−2) = (−2)² + 1 = 4 + 1 = 5</p><p>Увага: (−2)² = 4, бо мінус на мінус = плюс.</p><p><b>Відповідь: B) 5.</b></p>`},
+  "sol3":{title:"Завдання 3 → x ≠ 3",body:`<p>Знаменник дробу не може дорівнювати нулю.</p><p class="mathline">x − 3 ≠ 0 → x ≠ 3</p><p>Область визначення: усі дійсні числа, крім 3.</p><p><b>Відповідь: B) x ≠ 3.</b></p>`},
+  "sol4":{title:"Завдання 4 → x ≥ 2",body:`<p>Підкореневий вираз має бути ≥ 0.</p><p class="mathline">x − 2 ≥ 0 → x ≥ 2</p><p>Саме ≥, бо √0 = 0 теж існує.</p><p><b>Відповідь: B) x ≥ 2.</b></p>`},
+  "sol5":{title:"Завдання 5 → −3",body:`<p>У рівнянні прямої y = kx + b нахил — це k.</p><p class="mathline">y = −3x + 5 → k = −3</p><p><b>Відповідь: C) −3.</b></p>`},
+  "sol6":{title:"Завдання 6 → (0; −7)",body:`<p>Перетин з Oy: підставляємо x = 0.</p><p class="mathline">y = 2·0 − 7 = −7</p><p>Точка (0; −7) — це і є вільний член b.</p><p><b>Відповідь: B) (0; −7).</b></p>`},
+  "sol7":{title:"Завдання 7 → угору",body:`<p>Напрям гілок визначає знак a (коефіцієнта при x²).</p><p class="mathline">y = x² − 4x + 3 → a = 1 &gt; 0</p><p>a &gt; 0 → гілки напрямлені вгору.</p><p><b>Відповідь: A) угору.</b></p>`},
+  "sol8":{title:"Завдання 8 → x = ±2",body:`<p>Нулі функції: y = 0.</p><p class="mathline">x² − 4 = 0 → x² = 4 → x = ±2</p><p>Графік перетинає Ox у точках x = −2 і x = 2.</p><p><b>Відповідь: B) x = ±2.</b></p>`},
+  "sol9":{title:"Завдання 9 → 3",body:`<p>Зводимо до однакової основи: 8 = 2³.</p><p class="mathline">2ˣ = 2³ → x = 3</p><p><b>Відповідь: B) 3.</b></p>`},
+  "sol10":{title:"Завдання 10 → −2",body:`<p>1/9 = 3⁻² (від'ємний показник «перевертає» дріб).</p><p class="mathline">3ˣ = 3⁻² → x = −2</p><p><b>Відповідь: A) −2.</b></p>`},
+  "sol11":{title:"Завдання 11 → 4",body:`<p>log₂ 16 = у який степінь піднести 2, щоб отримати 16.</p><p class="mathline">2⁴ = 16 → log₂ 16 = 4</p><p><b>Відповідь: A) 4.</b></p>`},
+  "sol12":{title:"Завдання 12 → 3",body:`<p>log₁₀ 1000 = у який степінь піднести 10, щоб отримати 1000.</p><p class="mathline">10³ = 1000 → log₁₀ 1000 = 3</p><p><b>Відповідь: B) 3.</b></p>`},
+  "sol13":{title:"Завдання 13 → 17",body:`<p>Підставляємо x = 3 у f(x) = 5x + 2.</p><p class="mathline">f(3) = 5·3 + 2 = 15 + 2 = 17</p><p><b>Відповідь: 17.</b></p>`},
+  "sol14":{title:"Завдання 14 → 15",body:`<p>Підставляємо x = 5 у g(x) = x² − 2x.</p><p class="mathline">g(5) = 5² − 2·5 = 25 − 10 = 15</p><p><b>Відповідь: 15.</b></p>`},
+  "sol15":{title:"Завдання 15 → 5",body:`<p>32 = 2⁵.</p><p class="mathline">2ˣ = 2⁵ → x = 5</p><p><b>Відповідь: 5.</b></p>`},
+  "sol16":{title:"Завдання 16 → 4",body:`<p>3⁴ = 81.</p><p class="mathline">log₃ 81 = 4</p><p><b>Відповідь: 4.</b></p>`},
+  "sol17":{title:"Завдання 17 → 5",body:`<p>log₂ 8 = 3 (2³=8); log₂ 4 = 2 (2²=4).</p><p class="mathline">3 + 2 = 5</p><p>Або за властивістю: log₂(8·4) = log₂ 32 = 5.</p><p><b>Відповідь: 5.</b></p>`},
+  "sol18":{title:"Завдання 18 → 0",body:`<p>Логарифм одиниці за будь-якою основою = 0, бо 5⁰ = 1.</p><p class="mathline">log₅ 1 = 0</p><p><b>Відповідь: 0.</b></p>`},
+  "sol19":{title:"Завдання 19 → 3",body:`<p>Абсциса вершини: x₀ = −b/(2a), де a = 1, b = −6.</p><p class="mathline">x₀ = −(−6)/(2·1) = 6/2 = 3</p><p><b>Відповідь: 3.</b></p>`},
+  "sol20":{title:"Завдання 20 → 4",body:`<p>Нуль функції: f(x) = 0.</p><p class="mathline">2x − 8 = 0 → 2x = 8 → x = 4</p><p><b>Відповідь: 4.</b></p>`}
+};
+
+/* ============== Modal (для детальних рішень) ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього завдання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Формула',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 20;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0; const seen=new Set();
+  document.querySelectorAll('ol.qs > li input[type=radio]:checked').forEach(r=>{ if(!seen.has(r.name)){ seen.add(r.name); c++; } });
+  document.querySelectorAll('ol.qs > li input[type=text]').forEach(t=>{ if(t.value.trim()!=='') c++; });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = Math.min(100, c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('input[type=text]').forEach(t=>{ t.value=''; t.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  __hintsUsedCount = 0;
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Numeric compare ============== */
+function normalizeNum(s){
+  if(s==null) return '';
+  return String(s).trim().replace(',', '.').replace(/\s+/g,'');
+}
+function numEqual(given, correct){
+  const g = parseFloat(normalizeNum(given));
+  const c = parseFloat(normalizeNum(correct));
+  if(isNaN(g) || isNaN(c)) return false;
+  return Math.abs(g - c) < 1e-6;
+}
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(lab){
+      const n = parseInt(lab.name.replace('q',''),10);
+      const correct = li.dataset.correct;
+      const topic = li.dataset.topic;
+      const chk = li.querySelector('input[type=radio]:checked');
+      const given = chk ? chk.value : '';
+      const ok = given === correct;
+      record(n, topic, correct, given, ok);
+      li.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      li.querySelector('.solbtn')?.classList.add('on');
+    } else {
+      const inp = li.querySelector('input[type=text]');
+      if(!inp) return;
+      const n = parseInt(inp.name.replace('q',''),10);
+      const correct = li.dataset.correct;
+      const topic = li.dataset.topic;
+      const given = inp.value;
+      const ok = numEqual(given, correct);
+      record(n, topic, correct, given, ok);
+      inp.classList.remove('correct','wrong');
+      inp.classList.add(ok?'correct':'wrong');
+      li.querySelector('.solbtn')?.classList.add('on');
+    }
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.95) * 100);
+
+  // Block stats
+  const blocks = {
+    'Значення / область визначення': ['func-value','func-domain'],
+    'Лінійна функція та графік': ['func-linear'],
+    'Квадратична функція': ['func-quadratic'],
+    'Показникові рівняння': ['exp-eq'],
+    'Логарифми': ['log-def','log-prop']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Verdict — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='Впевнений рівень'; verdictColor='ok'; verdictText=taHey('функції — твоя сильна сторона! Ти впевнено обчислюєш f(x), читаєш графік і розв\'язуєш показникові/логарифмічні. Це велика частина балів НМТ.'); }
+  else if(pct >= 75){ level='Добрий'; verdictColor='ok'; verdictText='Сильна база з функцій. На НМТ ці завдання даватимуть стабільні бали. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='Середній+'; verdictColor='ok'; verdictText='Непогано. Закрий одну слабку тему (часто це логарифми або область визначення) — і функції стануть надійною опорою.'; }
+  else if(pct >= 40){ level='Середній'; verdictColor='warn'; verdictText='База є. Вивчи три речі: підстановку у f(x), означення логарифма (logₐb = c ⇔ aᶜ = b) і «зведи до однакової основи» для показникових.'; }
+  else if(pct >= 20){ level='Слабкий старт'; verdictColor='warn'; verdictText='Старт є. Почни з найпростішого: обчислення f(x) підстановкою, нахил k у y = kx + b, і 2ˣ = 8. По кілька прикладів на день.'; }
+  else { level='Майже з нуля'; verdictColor='bad'; verdictText='Поки рано, але це окрема велика тема НМТ. Розберись із 💡-кроками вище, прорішай по 5 прикладів кожного типу і повертайся.'; }
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Завдання ${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Математика · Day 7 (функції, графіки, показникові й логарифмічні) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень: ${level}
+Шкала НМТ (орієнтовно): ${nmt}/200
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Завдання ${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% правильних · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень</h4><div class="v" style="font-size:20px">${level}</div></div>
+      <div class="card"><h4>Орієнтовний бал НМТ</h4><div class="v">${nmt} / 200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Готовність (ця тема)</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=45?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 показати детальне рішення» біля кожного завдання вище — там покроковий розв'язок.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> розбери всі помилки. Випиши: обчислення f(x), область визначення (знаменник ≠ 0, під коренем ≥ 0), означення логарифма.</li>
+      <li><b>Цього тижня:</b> по кілька прикладів на день на свою найслабшу тему (дивись блоки вище).</li>
+      <li><b>Через 5–7 днів:</b> пройди тест ще раз. Ціль — 17/20 (85%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>

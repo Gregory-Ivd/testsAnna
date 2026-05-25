@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Прикметник, прислівник, ступені порівняння (Day 7)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a4d8c'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='40' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>C</text></svg>">
+<style>
+  :root{
+    --bg:#b8a877; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select{font-size:20px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  /* ===== Каскадні підказки (крок за кроком) ===== */
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 7 <span class="badge">comparison</span></h1>
+    <div class="sub">Прикметник, прислівник · ступені порівняння · 24 завдання · рівень B1+/B2 · ~25 хв</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>ступені порівняння та різницю «прикметник vs прислівник»</b>. Тут перевіряється, чи бачиш ти, коли <i>-er/-est</i>, а коли <i>more/most</i>; неправильні форми (good→better→best, bad→worse→worst); конструкції (<i>as…as</i>, <i>the more…the better</i>, <i>much easier</i>); і коли потрібен прикметник, а коли прислівник (good vs well, hard vs hardly).
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) Спершу спробуй сам. Застряг — натисни 💡: підказка дається <b>крок за кроком</b> (спочатку напрямок думки, потім правило, і лише потім — майже-відповідь). Бери стільки кроків, скільки треба.
+      <br>2) Головне правило: короткі прикметники → <i>-er/-est</i>, довгі (3+ склади) → <i>more/most</i>; <b>«very» не вживають перед comparative</b> (much/far easier, не «very easier»).
+      <br>3) Після завершення біля кожного питання з'явиться «📖 детальне рішення» — читай навіть там, де відповідь правильна.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 24</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================ PART 1: regular comparative / superlative ================ -->
+  <section class="task">
+    <h2>Частина 1. Ступені порівняння — правильні форми</h2>
+    <p class="instr">Короткі прикметники → -er/-est; довгі → more/most. Слідкуй за правописом. (Q1–Q5)</p>
+    <ol class="qs">
+
+      <li data-correct="A" data-topic="comp-regular" data-sol="sol1">
+        <span class="topic-tag">comparative (short)</span>
+        <span class="qtext">This box is _____ than that one.</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) heavier</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) more heavy</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) heaviest</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) heavy</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-regular" data-sol="sol2">
+        <span class="topic-tag">comparative (long)</span>
+        <span class="qtext">A train is _____ than a bus for long trips.</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) comfortabler</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) more comfortable</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) most comfortable</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) comfortablest</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="comp-regular" data-sol="sol3">
+        <span class="topic-tag">superlative (short)</span>
+        <span class="qtext">Everest is the _____ mountain in the world.</span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) higher</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) more high</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) highest</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) most high</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="D" data-topic="comp-regular" data-sol="sol4">
+        <span class="topic-tag">superlative (long)</span>
+        <span class="qtext">It was the _____ film I have ever seen.</span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) interestingest</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) more interesting</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) interestinger</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) most interesting</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="comp-regular" data-sol="sol5">
+        <span class="topic-tag weak-tag">правопис (CVC)</span>
+        <span class="qtext">Today is _____ than yesterday.</span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) hoter</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) more hot</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) hotter</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) hottest</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: irregular comparison ================ -->
+  <section class="task">
+    <h2>Частина 2. Неправильні форми</h2>
+    <p class="instr">good→better→best, bad→worse→worst, far→further, little→less, many→more. (Q6–Q10)</p>
+    <ol class="qs" start="6">
+
+      <li data-correct="C" data-topic="comp-irregular" data-sol="sol6">
+        <span class="topic-tag">good → better</span>
+        <span class="qtext">Her English is _____ than mine.</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) gooder</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) more good</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) better</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) best</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-irregular" data-sol="sol7">
+        <span class="topic-tag">bad → worse</span>
+        <span class="qtext">The traffic today is _____ than usual.</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) badder</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) worse</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) worst</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) more bad</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="comp-irregular" data-sol="sol8">
+        <span class="topic-tag weak-tag">good → best (superlative)</span>
+        <span class="qtext">This is the _____ pizza I've ever eaten.</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) goodest</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) better</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) best</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) most good</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-irregular" data-sol="sol9">
+        <span class="topic-tag weak-tag">far → further</span>
+        <span class="qtext">We can't walk any _____ — let's stop and rest.</span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) farer</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) further</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) more far</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) farrer</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-irregular" data-sol="sol10">
+        <span class="topic-tag weak-tag">little → less</span>
+        <span class="qtext">Since I started working, I have _____ free time than before.</span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) littler</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) less</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) least</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) more little</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: comparison structures ================ -->
+  <section class="task">
+    <h2>Частина 3. Конструкції порівняння</h2>
+    <p class="instr">as…as, the more…the better, comparative + and + comparative, much/far + comparative. (Q11–Q15)</p>
+    <ol class="qs" start="11">
+
+      <li data-correct="B" data-topic="comp-structure" data-sol="sol11">
+        <span class="topic-tag">as … as</span>
+        <span class="qtext">She is _____ tall as her brother.</span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) so</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) as</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) more</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) than</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-structure" data-sol="sol12">
+        <span class="topic-tag weak-tag">not as … as</span>
+        <span class="qtext">This phone isn't as expensive _____ that one.</span>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) than</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) as</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) like</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) that</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-structure" data-sol="sol13">
+        <span class="topic-tag weak-tag">the more … the better</span>
+        <span class="qtext">_____ you practise, the better you become.</span>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="A"> A) More</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> B) The more</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> C) The most</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> D) As more</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="comp-structure" data-sol="sol14">
+        <span class="topic-tag weak-tag">comparative + and + comparative</span>
+        <span class="qtext">Without an umbrella, the weather just kept getting _____.</span>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="A"> A) worse and worse</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> B) more and more worse</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> C) worst and worst</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> D) bad and bad</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="comp-structure" data-sol="sol15">
+        <span class="topic-tag weak-tag">much + comparative</span>
+        <span class="qtext">This test is _____ easier than the last one.</span>
+        <button class="hintbtn" data-q="15">💡 Підказка</button>
+        <div class="hintpanel" data-panel="15"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q15" value="A"> A) very</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> B) much</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> C) more</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> D) so</label>
+        </div>
+        <button class="solbtn" data-sol="sol15">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 4: adjective vs adverb ================ -->
+  <section class="task">
+    <h2>Частина 4. Прикметник vs прислівник</h2>
+    <p class="instr">Прислівник описує дію (-ly); після be/seem/look/taste/feel — прикметник. good/well, hard/hardly, late/lately. (Q16–Q20)</p>
+    <ol class="qs" start="16">
+
+      <li data-correct="B" data-topic="adj-adverb" data-sol="sol16">
+        <span class="topic-tag">adverb описує дію</span>
+        <span class="qtext">She sings very _____.</span>
+        <button class="hintbtn" data-q="16">💡 Підказка</button>
+        <div class="hintpanel" data-panel="16"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q16" value="A"> A) beautiful</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> B) beautifully</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> C) more beautiful</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> D) beauty</label>
+        </div>
+        <button class="solbtn" data-sol="sol16">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="adj-adverb" data-sol="sol17">
+        <span class="topic-tag weak-tag">linking verb → adjective</span>
+        <span class="qtext">This soup tastes _____.</span>
+        <button class="hintbtn" data-q="17">💡 Підказка</button>
+        <div class="hintpanel" data-panel="17"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q17" value="A"> A) deliciously</label>
+          <label class="opt"><input type="radio" name="q17" value="B"> B) delicious</label>
+          <label class="opt"><input type="radio" name="q17" value="C"> C) more deliciously</label>
+          <label class="opt"><input type="radio" name="q17" value="D"> D) well</label>
+        </div>
+        <button class="solbtn" data-sol="sol17">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="adj-adverb" data-sol="sol18">
+        <span class="topic-tag weak-tag">good vs well</span>
+        <span class="qtext">He plays the guitar really _____.</span>
+        <button class="hintbtn" data-q="18">💡 Підказка</button>
+        <div class="hintpanel" data-panel="18"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q18" value="A"> A) good</label>
+          <label class="opt"><input type="radio" name="q18" value="B"> B) well</label>
+          <label class="opt"><input type="radio" name="q18" value="C"> C) more good</label>
+          <label class="opt"><input type="radio" name="q18" value="D"> D) goodly</label>
+        </div>
+        <button class="solbtn" data-sol="sol18">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="adj-adverb" data-sol="sol19">
+        <span class="topic-tag weak-tag">hard vs hardly</span>
+        <span class="qtext">She worked _____ all year to pass the exam.</span>
+        <button class="hintbtn" data-q="19">💡 Підказка</button>
+        <div class="hintpanel" data-panel="19"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q19" value="A"> A) hardly</label>
+          <label class="opt"><input type="radio" name="q19" value="B"> B) hard</label>
+          <label class="opt"><input type="radio" name="q19" value="C"> C) hardest</label>
+          <label class="opt"><input type="radio" name="q19" value="D"> D) more hardly</label>
+        </div>
+        <button class="solbtn" data-sol="sol19">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="adj-adverb" data-sol="sol20">
+        <span class="topic-tag weak-tag">late vs lately</span>
+        <span class="qtext">I haven't seen him _____ — is he OK?</span>
+        <button class="hintbtn" data-q="20">💡 Підказка</button>
+        <div class="hintpanel" data-panel="20"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q20" value="A"> A) late</label>
+          <label class="opt"><input type="radio" name="q20" value="B"> B) lately</label>
+          <label class="opt"><input type="radio" name="q20" value="C"> C) later</label>
+          <label class="opt"><input type="radio" name="q20" value="D"> D) latest</label>
+        </div>
+        <button class="solbtn" data-sol="sol20">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 5: order + -ed/-ing + enough ================ -->
+  <section class="task">
+    <h2>Частина 5. Порядок прикметників · -ed/-ing · enough</h2>
+    <p class="instr">Порядок (думка-розмір-вік-колір…), boring vs bored, old enough. (Q21–Q24)</p>
+    <ol class="qs" start="21">
+
+      <li data-correct="C" data-topic="adj-order" data-sol="sol21">
+        <span class="topic-tag weak-tag">порядок прикметників</span>
+        <span class="qtext">They have a _____ cat.</span>
+        <button class="hintbtn" data-q="21">💡 Підказка</button>
+        <div class="hintpanel" data-panel="21"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q21" value="A"> A) black little lovely</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> B) little lovely black</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> C) lovely little black</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> D) lovely black little</label>
+        </div>
+        <button class="solbtn" data-sol="sol21">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="adj-ed-ing" data-sol="sol22">
+        <span class="topic-tag weak-tag">-ing (описує річ)</span>
+        <span class="qtext">The lesson was so _____ that I almost fell asleep.</span>
+        <button class="hintbtn" data-q="22">💡 Підказка</button>
+        <div class="hintpanel" data-panel="22"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q22" value="A"> A) bored</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> B) boring</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> C) more bored</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> D) bore</label>
+        </div>
+        <button class="solbtn" data-sol="sol22">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="adj-ed-ing" data-sol="sol23">
+        <span class="topic-tag weak-tag">-ed (описує почуття)</span>
+        <span class="qtext">I was really _____ when I heard the news.</span>
+        <button class="hintbtn" data-q="23">💡 Підказка</button>
+        <div class="hintpanel" data-panel="23"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q23" value="A"> A) surprising</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> B) surprise</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> C) surprised</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> D) more surprising</label>
+        </div>
+        <button class="solbtn" data-sol="sol23">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="adj-intensifier" data-sol="sol24">
+        <span class="topic-tag weak-tag">adjective + enough</span>
+        <span class="qtext">He isn't old _____ to drive a car yet.</span>
+        <button class="hintbtn" data-q="24">💡 Підказка</button>
+        <div class="hintpanel" data-panel="24"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) too</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) enough</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) so</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) such</label>
+        </div>
+        <button class="solbtn" data-sol="sol24">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: прикметник, прислівник, ступені порівняння · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day7-comparison"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+/* --- Персоналізація: ім'я з форми (звертання у кличному відмінку, best-effort) --- */
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";   // Марія→Маріє, Софія→Софіє, Дарія→Даріє
+  if(/я$/i.test(n))     return n;                     // Настя, Оля, Аня — лишаємо як є
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";     // Анна→Анно, Олена→Олено, Микита→Микито
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";     // Андрій→Андрію, Сергій→Сергію
+  return n;                                           // приголосний (Максим, Олег) — як є
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+/* Кожне питання: 3 рівні підказок + відповідь.
+   h1 — напрямок думки, h2 — правило/паттерн, h3 — майже-відповідь, ans — літера + коротке чому. */
+let __hintsUsedCount = 0;
+const qHints = {
+  1:{ h1:"Подивись на слово-сигнал після пропуску. Бачиш <i>than</i>? Воно підказує ступінь порівняння.",
+      h2:"<i>than</i> → потрібен вищий ступінь (comparative). <b>heavy</b> — короткий двоскладовий на -y, тож додаємо <code>-er</code>, а не <i>more</i>.",
+      h3:"heavy → y змінюється на i + er. «more heavy» не існує; «heaviest» — це найвищий ступінь, а нам треба вищий.",
+      ans:"A) heavier. This box is <b>heavier</b> than that one." },
+  2:{ h1:"Порахуй склади у прикметнику <b>comfortable</b> — це вирішує, -er чи more.",
+      h2:"Довгі прикметники (3+ склади) утворюють comparative через <b>more</b>, а не -er.",
+      h3:"com-for-ta-ble = довгий. «comfortabler» не існує. Є <i>than</i> → потрібен вищий ступінь.",
+      ans:"B) more comfortable." },
+  3:{ h1:"Зверни увагу на «<i>the … in the world</i>». Це вищий ступінь чи найвищий?",
+      h2:"<b>the + прикметник + in/of</b> → найвищий ступінь (superlative). <b>high</b> — короткий → <code>-est</code>.",
+      h3:"high → highest. «most high» для короткого прикметника не вживають; «higher» — лише вищий ступінь.",
+      ans:"C) highest." },
+  4:{ h1:"«<i>the … I have ever seen</i>» — це найвищий ступінь. А <b>interesting</b> — короткий чи довгий?",
+      h2:"Довгий прикметник у superlative → <b>most</b>. «interestingest»/«interestinger» не існують.",
+      h3:"the most interesting. «more interesting» — це лише вищий ступінь, а тут найвищий.",
+      ans:"D) most interesting." },
+  5:{ h1:"Знову <i>than</i> → comparative. Але тут пастка у правописі — придивись до будови слова <b>hot</b>.",
+      h2:"<b>hot</b> = приголосна-голосна-приголосна (CVC) під наголосом → подвоюємо останню приголосну перед -er.",
+      h3:"h-o-t → hot + t + er = hotter. «hoter» з однією t — помилка; «hottest» — найвищий ступінь.",
+      ans:"C) hotter." },
+  6:{ h1:"<b>good</b> — особливий прикметник. Чи можна сказати «gooder»? Згадай неправильні форми.",
+      h2:"good → <b>better</b> → best (неправильне порівняння). Є <i>than</i> → потрібен вищий ступінь.",
+      h3:"comparative від good = better. «more good» теж помилка; «best» — найвищий ступінь.",
+      ans:"C) better." },
+  7:{ h1:"<b>bad</b> теж неправильний. Є <i>than</i> → який ступінь потрібен?",
+      h2:"bad → <b>worse</b> → worst. <i>than</i> → вищий ступінь = worse.",
+      h3:"«worst» — це найвищий ступінь (the worst), а тут вищий (than). «badder/more bad» не існують.",
+      ans:"B) worse." },
+  8:{ h1:"«<i>the … I've ever eaten</i>» — який це ступінь?",
+      h2:"Це найвищий ступінь (superlative). Неправильна форма: good → better → <b>the best</b>.",
+      h3:"the best pizza. «goodest/most good» — помилки; «better» — лише вищий ступінь.",
+      ans:"C) best." },
+  9:{ h1:"Чи існує форма «farer»? <b>far</b> — неправильне слово.",
+      h2:"far → <b>further</b> (або farther) → furthest. «more far», «farer», «farrer» не існують.",
+      h3:"can't walk any further = не можемо йти далі. Comparative від far = further.",
+      ans:"B) further." },
+  10:{ h1:"Контекст: <i>free time</i> (незлічуване, «мало»). Як буде «менше»?",
+       h2:"<b>little → less → least</b>. Є <i>than</i> → вищий ступінь = less.",
+       h3:"less free time than before. «littler/more little» для кількості не вживають; «least» — найвищий ступінь.",
+       ans:"B) less." },
+  11:{ h1:"Подивись на кінець речення: «<i>… as her brother</i>». Яке слово робить пару з цим <i>as</i>?",
+       h2:"Рівність («такий самий») = <b>as + прикметник + as</b>. Парне слово — теж <i>as</i>.",
+       h3:"as tall as. «so tall as» у стверджувальному не вживають; more/than — інша конструкція.",
+       ans:"B) as." },
+  12:{ h1:"«<i>isn't as expensive ___</i>» — згадай конструкцію рівності навіть у запереченні.",
+       h2:"<b>not as … as</b> — другий елемент завжди <i>as</i>, а не <i>than</i>.",
+       h3:"isn't as expensive as that one. «than» іде з comparative (cheaper than), а тут as … as.",
+       ans:"B) as." },
+  13:{ h1:"Друга частина: «<i>the better you become</i>». Помічаєш паралель? Як має початися перша частина?",
+       h2:"Конструкція «чим…, тим…»: <b>The + comparative …, the + comparative …</b>. Обидві частини з <i>The</i>.",
+       h3:"The more you practise, the better you become. Просто «More» без the — неповно; «The most» — найвищий ступінь.",
+       ans:"B) The more." },
+  14:{ h1:"«<i>kept getting ___</i>» = поступова зміна. Як англійською «дедалі/щораз гірше»?",
+       h2:"Поступове наростання = <b>comparative + and + comparative</b> (bigger and bigger, worse and worse).",
+       h3:"Від bad comparative = worse → worse and worse. «more and more worse» (подвійний), «worst and worst» — помилки.",
+       ans:"A) worse and worse." },
+  15:{ h1:"Чи можна сказати «very easier»? Подумай, ЩО підсилює comparative.",
+       h2:"Comparative підсилюють через <b>much / far / a lot / a bit</b>, а НЕ через <i>very</i>.",
+       h3:"much easier. «very» вживають із простим прикметником (very easy); «more easier» — подвійний comparative.",
+       ans:"B) much." },
+  16:{ h1:"Що описує пропуск — спів (дію <i>sings</i>)? Це вирішує: прикметник чи прислівник.",
+       h2:"Описуємо дію (дієслово) → <b>прислівник</b>, зазвичай із -ly.",
+       h3:"sings + як? → beautifully. «beautiful» — прикметник (описав би іменник), «beauty» — іменник.",
+       ans:"B) beautifully." },
+  17:{ h1:"Дієслово перед пропуском — <b>taste</b>. Це звичайна дія чи дієслово-відчуття (як be/look)?",
+       h2:"Дієслова-зв'язки відчуттів (taste, look, smell, sound, feel, seem) беруть <b>прикметник</b>, не прислівник.",
+       h3:"tastes delicious (= is delicious). «deliciously» було б помилкою; «well» тут не за змістом.",
+       ans:"B) delicious." },
+  18:{ h1:"Що описуємо — гру (дію <i>plays</i>)? Тоді яка частина мови потрібна?",
+       h2:"Дію описує прислівник. Прислівник від <b>good</b> — це <b>well</b> (неправильна форма).",
+       h3:"plays well. «good» — прикметник (a good player), але грає — well.",
+       ans:"B) well." },
+  19:{ h1:"Пастка: <b>hard</b> і <b>hardly</b> — різні слова. Контекст — «щоб скласти іспит».",
+       h2:"<b>hard</b> (прислівник) = наполегливо, з зусиллям. <b>hardly</b> = ледве, майже не (заперечний відтінок).",
+       h3:"«worked hard to pass» = наполегливо. «hardly worked» означало б «майже не працювала» — суперечить меті.",
+       ans:"B) hard." },
+  20:{ h1:"«<i>haven't seen him ___</i>» — Present Perfect. Яке слово означає «останнім часом»?",
+       h2:"<b>late</b> = пізно; <b>lately</b> = останнім часом (= recently), типове з Present Perfect.",
+       h3:"haven't seen him lately. «late» тут змінило б зміст на «пізно».",
+       ans:"B) lately." },
+  21:{ h1:"Кілька прикметників підряд мають фіксований порядок. Який тип кожного: lovely / little / black?",
+       h2:"Порядок: <b>думка → розмір → колір</b> → іменник. lovely=думка, little=розмір, black=колір.",
+       h3:"Отже: lovely (думка) → little (розмір) → black (колір) → cat.",
+       ans:"C) lovely little black." },
+  22:{ h1:"Хто/що джерело нудьги — сам урок чи людина, що відчуває? Це вирішує -ing чи -ed.",
+       h2:"<b>-ing</b> описує те, що ВИКЛИКАЄ почуття (the lesson). <b>-ed</b> описує того, хто ВІДЧУВАЄ (I was bored).",
+       h3:"Урок викликає нудьгу → boring. «bored» сказали б про себе (I was bored).",
+       ans:"B) boring." },
+  23:{ h1:"Хто відчуває емоцію в реченні — «I». Тоді -ing чи -ed?",
+       h2:"Людина, що ВІДЧУВАЄ → <b>-ed</b> (I was surprised/interested/bored). Джерело емоції → -ing.",
+       h3:"I was surprised when I heard the news. «surprising» описало б саму новину.",
+       ans:"C) surprised." },
+  24:{ h1:"Подивись на позицію: «<i>old ___</i>». Слово стоїть ПІСЛЯ прикметника. Що ставлять після прикметника?",
+       h2:"<b>enough</b> іде ПІСЛЯ прикметника (old enough, tall enough). <b>too</b> — ПЕРЕД (too old).",
+       h3:"isn't old enough to drive = недостатньо дорослий. «too» стояло б перед: too young.",
+       ans:"B) enough." }
+};
+
+/* ============== SOLUTIONS (детальні розбори після сдачі) ============== */
+const sols = {
+  "sol1":{title:"Q1 → heavier",body:`<p>Є слово <b>than</b> → потрібен comparative. <b>heavy</b> — двоскладовий на -y → <code>-er</code>, причому y→i.</p><p>This box is <b>heavier</b> than that one.</p><p><b>Відповідь: A) heavier.</b></p>`},
+  "sol2":{title:"Q2 → more comfortable",body:`<p><b>comfortable</b> — довгий прикметник (3 склади) → <code>more</code>. Форми «comfortabler» не існує.</p><p>A train is <b>more comfortable</b> than a bus.</p><p><b>Відповідь: B) more comfortable.</b></p>`},
+  "sol3":{title:"Q3 → highest",body:`<p><b>the … in the world</b> → superlative. <b>high</b> — короткий → <code>-est</code>.</p><p>the <b>highest</b> mountain.</p><p><b>Відповідь: C) highest.</b></p>`},
+  "sol4":{title:"Q4 → most interesting",body:`<p><b>the … I have ever seen</b> → superlative. <b>interesting</b> — довгий → <code>most</code>. «interestingest» ❌.</p><p>the <b>most interesting</b> film.</p><p><b>Відповідь: D) most interesting.</b></p>`},
+  "sol5":{title:"Q5 → hotter",body:`<p><b>than</b> → comparative. <b>hot</b> = CVC (h-o-t) → подвоюємо приголосну: <code>hotter</code>. «hoter» ❌, «hottest» — це superlative.</p><p>Today is <b>hotter</b> than yesterday.</p><p><b>Відповідь: C) hotter.</b></p>`},
+  "sol6":{title:"Q6 → better",body:`<p><b>good</b> — неправильний прикметник: good → <b>better</b> → best. «gooder/more good» ❌.</p><p>Her English is <b>better</b> than mine.</p><p><b>Відповідь: C) better.</b></p>`},
+  "sol7":{title:"Q7 → worse",body:`<p><b>bad</b> → <b>worse</b> → worst. Є <b>than</b> → comparative = worse. «worst» — це superlative.</p><p>The traffic is <b>worse</b> than usual.</p><p><b>Відповідь: B) worse.</b></p>`},
+  "sol8":{title:"Q8 → best",body:`<p><b>the … I've ever eaten</b> → superlative від good = <b>the best</b>.</p><p>the <b>best</b> pizza.</p><p><b>Відповідь: C) best.</b></p>`},
+  "sol9":{title:"Q9 → further",body:`<p><b>far</b> → <b>further</b> (або farther) → furthest. «farer/farrer/more far» не існують.</p><p>We can't walk any <b>further</b>.</p><p><b>Відповідь: B) further.</b></p>`},
+  "sol10":{title:"Q10 → less",body:`<p><b>little → less → least</b>. Є <b>than</b> → comparative = less. «littler/more little» ❌ (для кількості).</p><p>I have <b>less</b> free time than before.</p><p><b>Відповідь: B) less.</b></p>`},
+  "sol11":{title:"Q11 → as",body:`<p>Конструкція рівності: <b>as + adjective + as</b>.</p><p>She is <b>as</b> tall as her brother.</p><p><b>Відповідь: B) as.</b></p>`},
+  "sol12":{title:"Q12 → as",body:`<p>Заперечна рівність — теж <b>not as … as</b> (другий елемент завжди <b>as</b>, не «than»).</p><p>isn't as expensive <b>as</b> that one.</p><p><b>Відповідь: B) as.</b></p>`},
+  "sol13":{title:"Q13 → The more",body:`<p>Подвійний comparative: <b>The + comparative …, the + comparative …</b> = «чим…, тим…». Перша частина теж починається з <b>The</b>.</p><p><b>The more</b> you practise, the better you become.</p><p><b>Відповідь: B) The more.</b></p>`},
+  "sol14":{title:"Q14 → worse and worse",body:`<p>«Щораз гірше» = <b>comparative + and + comparative</b>. Від bad → comparative = worse → <b>worse and worse</b>. «more and more worse», «worst and worst» ❌.</p><p><b>Відповідь: A) worse and worse.</b></p>`},
+  "sol15":{title:"Q15 → much",body:`<p>Підсилити comparative можна через <b>much / far / a lot</b> + easier. <b>«very» з comparative не вживають</b> («very easier» ❌). «more easier» — подвійний comparative ❌.</p><p>This test is <b>much</b> easier.</p><p><b>Відповідь: B) much.</b></p>`},
+  "sol16":{title:"Q16 → beautifully",body:`<p>Описуємо ДІЮ (sings) → потрібен <b>прислівник</b>: beautiful → <b>beautifully</b>.</p><p>She sings very <b>beautifully</b>.</p><p><b>Відповідь: B) beautifully.</b></p>`},
+  "sol17":{title:"Q17 → delicious",body:`<p><b>taste</b> — дієслово-зв'язка (як be/look/smell). Після нього — <b>прикметник</b>, а не прислівник.</p><p>This soup tastes <b>delicious</b>. (не «deliciously»)</p><p><b>Відповідь: B) delicious.</b></p>`},
+  "sol18":{title:"Q18 → well",body:`<p>Описуємо ДІЮ (plays) → прислівник <b>well</b>. <b>good</b> — це прикметник (a good player), але грає — <b>well</b>.</p><p>He plays really <b>well</b>.</p><p><b>Відповідь: B) well.</b></p>`},
+  "sol19":{title:"Q19 → hard",body:`<p><b>hard</b> як прислівник = «наполегливо» (форма та сама, без -ly). <b>hardly</b> = «ледве/майже не» — інше значення, тут не підходить.</p><p>She worked <b>hard</b> to pass.</p><p><b>Відповідь: B) hard.</b></p>`},
+  "sol20":{title:"Q20 → lately",body:`<p><b>lately</b> = «останнім часом» (= recently), типово в Present Perfect. <b>late</b> = «пізно» — інше значення.</p><p>I haven't seen him <b>lately</b>.</p><p><b>Відповідь: B) lately.</b></p>`},
+  "sol21":{title:"Q21 → lovely little black",body:`<p>Порядок: <b>думка</b> (lovely) → <b>розмір</b> (little) → <b>колір</b> (black) → іменник.</p><p>a <b>lovely little black</b> cat.</p><p><b>Відповідь: C) lovely little black.</b></p>`},
+  "sol22":{title:"Q22 → boring",body:`<p><b>-ing</b> описує те, що ВИКЛИКАЄ нудьгу (сам урок). <b>bored</b> описав би людину, що відчуває.</p><p>The lesson was so <b>boring</b>.</p><p><b>Відповідь: B) boring.</b></p>`},
+  "sol23":{title:"Q23 → surprised",body:`<p><b>-ed</b> описує почуття людини (я відчув). «I was <b>surprised</b>». «surprising» описало б саму новину.</p><p>I was really <b>surprised</b>.</p><p><b>Відповідь: C) surprised.</b></p>`},
+  "sol24":{title:"Q24 → enough",body:`<p><b>enough</b> стоїть ПІСЛЯ прикметника: <code>old enough</code> = достатньо дорослий. <b>too</b> ставилося б ПЕРЕД (too young).</p><p>He isn't old <b>enough</b> to drive.</p><p><b>Відповідь: B) enough.</b></p>`}
+};
+
+/* ============== Modal (для детальних рішень) ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього питання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Правило',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 24;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0; const seen=new Set();
+  document.querySelectorAll('ol.qs > li input[type=radio]:checked').forEach(r=>{ if(!seen.has(r.name)){ seen.add(r.name); c++; } });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  __hintsUsedCount = 0;
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(!lab) return;
+    const n = parseInt(lab.name.replace('q',''),10);
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+    li.querySelector('.solbtn')?.classList.add('on');
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict (comparison / adj-adverb) — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('ступені порівняння та «прикметник vs прислівник» — твоя сильна сторона! Ти впевнено бачиш, де -er/-est, а де more/most, і не плутаєш good/well. Чудово.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне відчуття теми. На НМТ такі завдання робитимеш упевнено. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база. Найшвидший приріст — вивчити неправильні форми (good/bad/far) і пастку «very + comparative» (треба much). Дивись розбори нижче.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Головні точки зростання — правило «короткий/довгий прикметник» і різниця прикметник vs прислівник (good/well, hard/hardly).'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Вивчи напам\'ять п\'ять неправильних форм і правило -er/more. По одному блоку на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Почни з трьох опор: tall→taller→tallest, good→better→best, та «прислівник дії = -ly». Потім повертайся до цього тесту.'; }
+
+  // Block stats
+  const blocks = {
+    'Правильні форми': ['comp-regular'],
+    'Неправильні форми': ['comp-irregular'],
+    'Конструкції порівняння': ['comp-structure'],
+    'Прикметник vs прислівник': ['adj-adverb'],
+    'Порядок · -ed/-ing · enough': ['adj-order','adj-ed-ing','adj-intensifier']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 7 (прикметник, прислівник, ступені порівняння) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище — там покроковий розбір.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> переглянь усі детальні рішення. Випиши п'ять неправильних форм і правило «короткий → -er / довгий → more».</li>
+      <li><b>Цього тижня:</b> повтори по одному блоку на день; склади власні речення з as…as, the more…the better, good/well.</li>
+      <li><b>Через 5–7 днів:</b> пройди цей тест ще раз. Ціль — 20/24 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>

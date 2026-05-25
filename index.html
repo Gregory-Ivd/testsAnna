@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Тести НМТ-2026 — англійська та математика</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text x='32' y='50' font-size='52' text-anchor='middle'>🎓</text></svg>">
-<meta name="description" content="Безкоштовні тести в форматі реального НМТ-2026: 8 з англійської + 3 з математики. З таймером, ключами та поясненнями.">
+<meta name="description" content="Безкоштовні тести в форматі реального НМТ-2026: 10 з англійської + 4 з математики. З таймером, ключами, підказками крок-за-кроком та поясненнями.">
 <style>
   :root{
     --bg:#f4f1ea; --paper:#ffffff; --paper-2:#fffdf7; --ink:#1c1c1e; --muted:#5a5a5e;
@@ -35,24 +35,44 @@
   .why li{margin:8px 0}
   .why b{color:var(--accent)}
 
-  /* Tests grid */
-  .tests-wrap{position:relative}
-  .tests{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  /* Subject groups */
+  .subject{margin:26px 0 30px}
+  .subject-title{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:25px;margin:0 0 8px;display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--line);padding-bottom:10px}
+  .subject-title.en{color:var(--accent)}
+  .subject-title.math{color:var(--accent-2)}
+  .subject-title .count{font-size:14px;color:var(--muted);font-weight:normal;font-family:"Trebuchet MS",Verdana,sans-serif;letter-spacing:.3px}
+
+  /* Day dropdowns */
+  details.day{border:1px solid var(--line);border-radius:10px;margin:12px 0;background:var(--paper-2);box-shadow:var(--shadow);overflow:hidden}
+  details.day > summary{cursor:pointer;padding:14px 18px;font-family:"Trebuchet MS",Verdana,sans-serif;font-size:19px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:12px;user-select:none}
+  details.day > summary::-webkit-details-marker{display:none}
+  details.day > summary::before{content:"▸";color:var(--accent);font-size:18px;transition:transform .2s;display:inline-block}
+  details.day[open] > summary::before{transform:rotate(90deg)}
+  details.day[open] > summary{border-bottom:1px solid var(--line);background:#faf7ee}
+  details.day > summary .scount{margin-left:auto;font-size:14px;color:var(--muted);font-weight:normal}
+  details.day .fresh-badge{background:var(--ok);color:#fff;font-size:12px;font-family:"Trebuchet MS",Verdana,sans-serif;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:4px}
+  details.day.fresh > summary{background:#eaf3ff}
+  details.day.fresh[open] > summary{background:#e3eefa}
+  details.day.fresh{border-color:#9ec0e2}
+
+  /* Tests grid (inside each day) */
+  .tests{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:18px}
   @media (max-width:760px){.tests{grid-template-columns:1fr}}
   .test{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:22px 24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
-  .test h3{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:22px;margin:0;color:var(--accent)}
+  .test h4{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:21px;margin:0;color:var(--accent)}
   .test .meta{color:var(--muted);font-size:15px;font-style:italic}
-  .test p{margin:0;font-size:18px;line-height:1.55}
+  .test p{margin:0;font-size:17px;line-height:1.55}
   .test .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
   .tag{background:#eaf3ff;border:1px solid #9ec0e2;color:var(--accent);padding:3px 10px;border-radius:20px;font-size:13px;font-family:"Trebuchet MS",Verdana,sans-serif}
   .tag.red{background:#fbe3e3;border-color:#d49a9a;color:var(--accent-2)}
   .tag.green{background:#e3f3e6;border-color:#97c9a5;color:var(--ok)}
+  .tag.gold{background:#fff4d6;border-color:#c9a55f;color:#7a5410}
   .go{margin-top:8px;display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:10px 18px;border-radius:6px;font-family:"Trebuchet MS",Verdana,sans-serif;font-size:16px;text-align:center;width:fit-content;transition:background .2s}
   .go:hover{background:#0d5fa8}
   .go.locked{background:#a8a8a8;cursor:not-allowed;pointer-events:none}
   .go.locked:hover{background:#a8a8a8}
 
-  /* Banner above tests grid when locked */
+  /* Banner above tests when locked */
   .lockbar{display:flex;align-items:center;gap:14px;background:#fbf8ee;border:1px solid #c9a55f;border-left:5px solid var(--accent-2);border-radius:8px;padding:14px 18px;margin-bottom:16px;font-size:17px;color:#5a4810}
   .lockbar.hide{display:none}
   .lockbar .lock-icon{font-size:22px}
@@ -84,7 +104,7 @@
 <header class="site">
   <div class="brand">НМТ · 2026 · підготовка</div>
   <h1>Тести НМТ — <span class="accent">англійська + математика</span><span class="badge">Free</span></h1>
-  <p class="lede">Одинадцять тестів у точному форматі реального НМТ-2026: з таймером, оцінюванням і ключами. Нові тести додаємо щодня. Зроблено так, щоб тренуватись було не страшно.</p>
+  <p class="lede">Чотирнадцять тестів у точному форматі реального НМТ-2026: з таймером, оцінюванням і ключами. Підказки даються <b>крок за кроком</b> — щоб ти не просто бачив відповідь, а вчився думати. Нові тести додаємо щодня.</p>
   <a href="#form" class="hero-cta">Отримати доступ →</a>
 </header>
 
@@ -93,9 +113,9 @@
   <div class="why">
     <ul>
       <li><b>Формат реального НМТ-2026.</b> Структура й кількість завдань — як на справжньому іспиті (джерело: testportal.gov.ua / УЦОЯО).</li>
-      <li><b>Таймер 60 хвилин.</b> Відлік іде, як на іспиті: побачиш, скільки реально встигаєш.</li>
-      <li><b>Ключі та пояснення.</b> Після завершення показує правильні відповіді, тож можна розібрати кожне завдання.</li>
-      <li><b>Англійська рівнів B1+ / B2.</b> Reading, matching, gap-filling, часи, умовні, пасив, артиклі, квантифікатори, gerund/infinitive, word formation. Плюс математика: числа й відсотки, вирази, степені, рівняння й нерівності.</li>
+      <li><b>Підказки крок за кроком.</b> Спершу напрямок думки, потім правило, і лише потім — майже-відповідь. Так ти доходиш до розв'язку сам.</li>
+      <li><b>Ключі та пояснення.</b> Після завершення показує правильні відповіді й детальний розбір кожного завдання.</li>
+      <li><b>Англійська рівнів B1+ / B2.</b> Reading, matching, gap-filling, часи, умовні, пасив, артиклі, gerund/infinitive, ступені порівняння, сполучники. Плюс математика: числа й відсотки, алгебра, функції та графіки, показникові й логарифмічні.</li>
     </ul>
   </div>
 </section>
@@ -108,97 +128,198 @@
     <span>Кнопки «Почати тест» відкриються після <a href="#form">заповнення короткої форми ↓</a></span>
   </div>
 
-  <div class="tests" id="testsGrid">
+  <!-- ============================ АНГЛІЙСЬКА ============================ -->
+  <div class="subject">
+    <h3 class="subject-title en">📘 Англійська <span class="count">· 10 тестів</span></h3>
 
-    <article class="test">
-      <h3>Англійська · Day 1 — Advanced</h3>
-      <div class="meta">Поглиблений рівень · 32 завдання</div>
-      <p>Складніший варіант з акцентом на лексику, граматику й читання довших текстів. Підходить тим, хто цілиться на високий бал.</p>
-      <div class="tags"><span class="tag">B2</span><span class="tag red">advanced</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_advanced.html" data-test="advanced">🔒 Доступ після форми</a>
-    </article>
+    <details class="day fresh" open>
+      <summary><span class="fresh-badge">Нове</span> Day 7 — Порівняння + сполучники <span class="scount">2 тести</span></summary>
+      <div class="tests">
 
-    <article class="test">
-      <h3>Англійська · Day 2 — Focused</h3>
-      <div class="meta">Базовий рівень НМТ · 32 завдання</div>
-      <p>Збалансований варіант: matching, multiple choice, заповнення пропусків, relative pronouns. Гарна стартова точка.</p>
-      <div class="tags"><span class="tag">B1+</span><span class="tag">focused</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_focused_day2.html" data-test="day2">🔒 Доступ після форми</a>
-    </article>
+        <article class="test">
+          <h4>Day 7 — Ступені порівняння</h4>
+          <div class="meta">Прикметник, прислівник · ступені порівняння · 24 завдання</div>
+          <p>-er/-est чи more/most, неправильні форми (good→better→best), as…as, the more…the better, та різниця «прикметник vs прислівник» (good/well, hard/hardly).</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag gold">💡 підказки крок-за-кроком</span></div>
+          <a class="go locked" href="nmt_english_comparison_day7.html" data-test="day7comparison">🔒 Доступ після форми</a>
+        </article>
 
-    <article class="test">
-      <h3>Англійська · Day 3 — Real format</h3>
-      <div class="meta">Точний формат НМТ-2026 · 32 завдання · 60 хв</div>
-      <p>6 блоків: headings, opinions, MC, gapped text, cloze, word formation. Таймер на 60 хв із відліком — як на справжньому іспиті.</p>
-      <div class="tags"><span class="tag">B1+/B2</span><span class="tag red">timer 60 хв</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_day3_real.html" data-test="day3">🔒 Доступ після форми</a>
-    </article>
+        <article class="test">
+          <h4>Day 7 — Сполучники (linking words)</h4>
+          <div class="meta">Сполучники та слова-зв'язки · 24 завдання</div>
+          <p>Причина (because / because of), наслідок (so / therefore), контраст (but / however / although / despite), мета й умова. Усі класичні пастки НМТ.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag gold">💡 підказки крок-за-кроком</span></div>
+          <a class="go locked" href="nmt_english_linking_day7.html" data-test="day7linking">🔒 Доступ після форми</a>
+        </article>
 
-    <article class="test">
-      <h3>Англійська · Day 4 — Лексика</h3>
-      <div class="meta">Лексика і словотвір · 24 завдання</div>
-      <p>Окремий тренажер на словниковий запас: фразові дієслова, колокації, залежні прийменники, словотвір і «фальшиві друзі». Саме лексика часто й вирішує бал на НМТ.</p>
-      <div class="tags"><span class="tag">B1+/B2</span><span class="tag">vocabulary</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_vocab_day4.html" data-test="day4vocab">🔒 Доступ після форми</a>
-    </article>
+      </div>
+    </details>
 
-    <article class="test">
-      <h3>Англійська · Day 5 — Часи</h3>
-      <div class="meta">Часи та форми дієслова · 24 завдання</div>
-      <p>Тренажер на систему часів: Present / Past / Perfect / Future і послідовність часів. Фундамент граматичних завдань Use of English.</p>
-      <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_tenses_day5.html" data-test="day5tenses">🔒 Доступ після форми</a>
-    </article>
+    <details class="day">
+      <summary>Day 6 — Артиклі + Gerund/Infinitive <span class="scount">2 тести</span></summary>
+      <div class="tests">
 
-    <article class="test">
-      <h3>Англійська · Day 5 — Структури</h3>
-      <div class="meta">Умовні · модальні · пасив · непряма мова · 24 завдання</div>
-      <p>Чотири теми, де НМТ найчастіше ставить пастки: умовні речення (0–3 типи), модальні дієслова, пасивний стан і непряма мова.</p>
-      <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_structures_day5.html" data-test="day5structures">🔒 Доступ після форми</a>
-    </article>
+        <article class="test">
+          <h4>Day 6 — Артиклі</h4>
+          <div class="meta">Артиклі · квантифікатори · означники · 24 завдання</div>
+          <p>Дрібні, але дорогі деталі НМТ: коли a/an, коли the, а коли артикль не потрібен; much/many, few/little, some/any; every/each, both/either/neither.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_articles_day6.html" data-test="day6articles">🔒 Доступ після форми</a>
+        </article>
 
-    <article class="test">
-      <h3>Англійська · Day 6 — Артиклі</h3>
-      <div class="meta">Артиклі · квантифікатори · означники · 24 завдання</div>
-      <p>Дрібні, але дорогі деталі НМТ: коли a/an, коли the, а коли артикль не потрібен; much/many, few/little, some/any; every/each, both/either/neither.</p>
-      <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_articles_day6.html" data-test="day6articles">🔒 Доступ після форми</a>
-    </article>
+        <article class="test">
+          <h4>Day 6 — Gerund / Infinitive</h4>
+          <div class="meta">Герундій та інфінітив (verb patterns) · 24 завдання</div>
+          <p>Одна з найчастіших пасток: після одних дієслів -ing (enjoy doing), після інших — to (decide to do), а stop/remember/try міняють значення залежно від форми.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_gerinf_day6.html" data-test="day6gerinf">🔒 Доступ після форми</a>
+        </article>
 
-    <article class="test">
-      <h3>Англійська · Day 6 — Gerund / Infinitive</h3>
-      <div class="meta">Герундій та інфінітив (verb patterns) · 24 завдання</div>
-      <p>Одна з найчастіших пасток: після одних дієслів -ing (enjoy doing), після інших — to (decide to do), а stop/remember/try міняють значення залежно від форми.</p>
-      <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_english_gerinf_day6.html" data-test="day6gerinf">🔒 Доступ після форми</a>
-    </article>
+      </div>
+    </details>
 
-    <article class="test">
-      <h3>Математика — Real format</h3>
-      <div class="meta">Формат реального НМТ · з ключами</div>
-      <p>Завдання базового та підвищеного рівнів за програмою НМТ-2026: алгебра, геометрія, функції, тригонометрія, ймовірність.</p>
-      <div class="tags"><span class="tag">math</span><span class="tag red">real format</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_math_real.html" data-test="math">🔒 Доступ після форми</a>
-    </article>
+    <details class="day">
+      <summary>Day 5 — Часи + Структури <span class="scount">2 тести</span></summary>
+      <div class="tests">
 
-    <article class="test">
-      <h3>Математика · Day 5 — Числа і відсотки</h3>
-      <div class="meta">Числа, відсотки, відношення, пропорції · 18 завдань</div>
-      <p>Фундамент Частини 1 НМТ: відсотки, відношення, пряма й обернена пропорції, частини від цілого. Тут найшвидший приріст балів.</p>
-      <div class="tags"><span class="tag">math</span><span class="tag red">відсотки</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_math_numbers_day5.html" data-test="day5math">🔒 Доступ після форми</a>
-    </article>
+        <article class="test">
+          <h4>Day 5 — Часи</h4>
+          <div class="meta">Часи та форми дієслова · 24 завдання</div>
+          <p>Тренажер на систему часів: Present / Past / Perfect / Future і послідовність часів. Фундамент граматичних завдань Use of English.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_tenses_day5.html" data-test="day5tenses">🔒 Доступ після форми</a>
+        </article>
 
-    <article class="test">
-      <h3>Математика · Day 6 — Алгебра</h3>
-      <div class="meta">Вирази, степені, корені, рівняння й нерівності · 20 завдань</div>
-      <p>Алгебраїчний кістяк НМТ: властивості степенів, квадратні корені, формули скороченого множення, лінійні й квадратні рівняння, нерівності. Інструмент для половини задач Частини 1.</p>
-      <div class="tags"><span class="tag">math</span><span class="tag red">алгебра</span><span class="tag green">з ключами</span></div>
-      <a class="go locked" href="nmt_math_algebra_day6.html" data-test="day6algebra">🔒 Доступ після форми</a>
-    </article>
+        <article class="test">
+          <h4>Day 5 — Структури</h4>
+          <div class="meta">Умовні · модальні · пасив · непряма мова · 24 завдання</div>
+          <p>Чотири теми, де НМТ найчастіше ставить пастки: умовні речення (0–3 типи), модальні дієслова, пасивний стан і непряма мова.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">grammar</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_structures_day5.html" data-test="day5structures">🔒 Доступ після форми</a>
+        </article>
 
+      </div>
+    </details>
+
+    <details class="day">
+      <summary>Day 4 — Лексика <span class="scount">1 тест</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Day 4 — Лексика</h4>
+          <div class="meta">Лексика і словотвір · 24 завдання</div>
+          <p>Окремий тренажер на словниковий запас: фразові дієслова, колокації, залежні прийменники, словотвір і «фальшиві друзі». Саме лексика часто й вирішує бал на НМТ.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag">vocabulary</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_vocab_day4.html" data-test="day4vocab">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
+
+    <details class="day">
+      <summary>Day 3 — Real format (повний) <span class="scount">1 тест</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Day 3 — Real format</h4>
+          <div class="meta">Точний формат НМТ-2026 · 32 завдання · 60 хв</div>
+          <p>6 блоків: headings, opinions, MC, gapped text, cloze, word formation. Таймер на 60 хв із відліком — як на справжньому іспиті.</p>
+          <div class="tags"><span class="tag">B1+/B2</span><span class="tag red">timer 60 хв</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_day3_real.html" data-test="day3">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
+
+    <details class="day">
+      <summary>Day 1–2 — Стартові <span class="scount">2 тести</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Day 2 — Focused</h4>
+          <div class="meta">Базовий рівень НМТ · 32 завдання</div>
+          <p>Збалансований варіант: matching, multiple choice, заповнення пропусків, relative pronouns. Гарна стартова точка.</p>
+          <div class="tags"><span class="tag">B1+</span><span class="tag">focused</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_focused_day2.html" data-test="day2">🔒 Доступ після форми</a>
+        </article>
+
+        <article class="test">
+          <h4>Day 1 — Advanced</h4>
+          <div class="meta">Поглиблений рівень · 32 завдання</div>
+          <p>Складніший варіант з акцентом на лексику, граматику й читання довших текстів. Підходить тим, хто цілиться на високий бал.</p>
+          <div class="tags"><span class="tag">B2</span><span class="tag red">advanced</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_english_advanced.html" data-test="advanced">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
   </div>
+
+  <!-- ============================ МАТЕМАТИКА ============================ -->
+  <div class="subject">
+    <h3 class="subject-title math">📐 Математика <span class="count">· 4 тести</span></h3>
+
+    <details class="day fresh" open>
+      <summary><span class="fresh-badge">Нове</span> Day 7 — Функції та графіки <span class="scount">1 тест</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Day 7 — Функції · показникові · логарифми</h4>
+          <div class="meta">Функції та графіки + показникові й логарифмічні · 20 завдань</div>
+          <p>Обчислення f(x), область визначення, нахил прямої й гілки параболи, нулі функції; показникові рівняння (2ˣ = 8) та логарифми (log₂16). 12 з вибором + 8 з короткою відповіддю.</p>
+          <div class="tags"><span class="tag">math</span><span class="tag red">функції</span><span class="tag gold">💡 підказки крок-за-кроком</span></div>
+          <a class="go locked" href="nmt_math_functions_day7.html" data-test="day7functions">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
+
+    <details class="day">
+      <summary>Day 6 — Алгебра <span class="scount">1 тест</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Day 6 — Алгебра</h4>
+          <div class="meta">Вирази, степені, корені, рівняння й нерівності · 20 завдань</div>
+          <p>Алгебраїчний кістяк НМТ: властивості степенів, квадратні корені, формули скороченого множення, лінійні й квадратні рівняння, нерівності. Інструмент для половини задач Частини 1.</p>
+          <div class="tags"><span class="tag">math</span><span class="tag red">алгебра</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_math_algebra_day6.html" data-test="day6algebra">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
+
+    <details class="day">
+      <summary>Day 5 — Числа і відсотки <span class="scount">1 тест</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Day 5 — Числа і відсотки</h4>
+          <div class="meta">Числа, відсотки, відношення, пропорції · 18 завдань</div>
+          <p>Фундамент Частини 1 НМТ: відсотки, відношення, пряма й обернена пропорції, частини від цілого. Тут найшвидший приріст балів.</p>
+          <div class="tags"><span class="tag">math</span><span class="tag red">відсотки</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_math_numbers_day5.html" data-test="day5math">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
+
+    <details class="day">
+      <summary>Повний формат (mock) <span class="scount">1 тест</span></summary>
+      <div class="tests">
+
+        <article class="test">
+          <h4>Математика — Real format</h4>
+          <div class="meta">Формат реального НМТ · з ключами</div>
+          <p>Завдання базового та підвищеного рівнів за програмою НМТ-2026: алгебра, геометрія, функції, тригонометрія, ймовірність.</p>
+          <div class="tags"><span class="tag">math</span><span class="tag red">real format</span><span class="tag green">з ключами</span></div>
+          <a class="go locked" href="nmt_math_real.html" data-test="math">🔒 Доступ після форми</a>
+        </article>
+
+      </div>
+    </details>
+  </div>
+
 </section>
 
 <section id="form">

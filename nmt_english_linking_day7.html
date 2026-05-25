@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Сполучники та слова-зв'язки (Day 7)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a4d8c'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='40' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>L</text></svg>">
+<style>
+  :root{
+    --bg:#b6a574; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none;counter-reset:q}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select{font-size:20px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:140px}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  /* ===== Каскадні підказки (крок за кроком) ===== */
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 7 <span class="badge">linking words</span></h1>
+    <div class="sub">Сполучники та слова-зв'язки · 24 завдання · рівень B1+/B2 · ~25 хв</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>сполучники та слова-зв'язки</b> — те, що тримає текст докупи: причина (<i>because</i>), наслідок (<i>so, therefore</i>), контраст (<i>but, however, although</i>), мета (<i>to, so that</i>), умова (<i>unless, as long as</i>). Тут багато пасток: <i>because</i> vs <i>because of</i>, <i>although</i> vs <i>despite</i>, <i>so</i> vs <i>such</i>.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) Спершу спробуй сам. Застряг — натисни 💡: підказка дається <b>крок за кроком</b> (напрямок → правило → майже-відповідь). Бери стільки кроків, скільки треба.
+      <br>2) Головний прийом: подивись, що йде ПІСЛЯ пропуску — ціле речення (підмет+присудок) чи лише іменник? Це часто й вирішує (because + речення, but because of + іменник).
+      <br>3) Після завершення біля кожного питання з'явиться «📖 детальне рішення» — читай навіть там, де відповідь правильна.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 24</span><span id="timer">⏱ 00:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+
+  <!-- ================ PART 1: cause & result ================ -->
+  <section class="task">
+    <h2>Частина 1. Причина та наслідок</h2>
+    <p class="instr">because / so / because of / due to / therefore. Дивись: після пропуску речення чи іменник? (Q1–Q5)</p>
+    <ol class="qs">
+
+      <li data-correct="A" data-topic="cause-result" data-sol="sol1">
+        <span class="topic-tag">because</span>
+        <span class="qtext">We stayed at home _____ it was raining heavily.</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) because</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) so</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) but</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) although</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="cause-result" data-sol="sol2">
+        <span class="topic-tag">so (наслідок)</span>
+        <span class="qtext">It was raining heavily, _____ we stayed at home.</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) because</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) so</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) although</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) despite</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="cause-result" data-sol="sol3">
+        <span class="topic-tag weak-tag">because of + іменник</span>
+        <span class="qtext">The match was cancelled _____ the heavy rain.</span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) because</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) because of</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) so</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) although</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="cause-result" data-sol="sol4">
+        <span class="topic-tag weak-tag">due to + іменник</span>
+        <span class="qtext">Her success was largely _____ hard work and determination.</span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) due to</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) because</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) so that</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) therefore</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="cause-result" data-sol="sol5">
+        <span class="topic-tag weak-tag">therefore</span>
+        <span class="qtext">He didn't study at all; _____, he failed the exam.</span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) because</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) therefore</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) although</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) so that</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: contrast & concession ================ -->
+  <section class="task">
+    <h2>Частина 2. Контраст і поступка</h2>
+    <p class="instr">but / however / although / despite / whereas. Контраст ідей. (Q6–Q10)</p>
+    <ol class="qs" start="6">
+
+      <li data-correct="C" data-topic="contrast" data-sol="sol6">
+        <span class="topic-tag">but</span>
+        <span class="qtext">The film was long _____ very interesting.</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) so</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) because</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) but</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) therefore</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="contrast" data-sol="sol7">
+        <span class="topic-tag weak-tag">however (пунктуація)</span>
+        <span class="qtext">The plan looked perfect. _____, it failed completely.</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) But</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) However</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) Because</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) So</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="concession" data-sol="sol8">
+        <span class="topic-tag weak-tag">although + речення</span>
+        <span class="qtext">_____ it was expensive, we decided to buy it.</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) Despite</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) Although</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) However</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) Because</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="concession" data-sol="sol9">
+        <span class="topic-tag weak-tag">despite + іменник</span>
+        <span class="qtext">_____ the high price, we decided to buy it.</span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) Although</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) Despite</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) Because</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) So</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="C" data-topic="contrast" data-sol="sol10">
+        <span class="topic-tag weak-tag">whereas (тоді як)</span>
+        <span class="qtext">My sister loves coffee, _____ I prefer tea.</span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) because</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) so</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) whereas</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) despite</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: purpose & condition ================ -->
+  <section class="task">
+    <h2>Частина 3. Мета та умова</h2>
+    <p class="instr">to / in order to / so that + мета; unless / as long as — умова. (Q11–Q15)</p>
+    <ol class="qs" start="11">
+
+      <li data-correct="B" data-topic="purpose" data-sol="sol11">
+        <span class="topic-tag">to + V (мета)</span>
+        <span class="qtext">She went to the library _____ borrow some books.</span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) for</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) to</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) so</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) because</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="purpose" data-sol="sol12">
+        <span class="topic-tag weak-tag">in order to + V</span>
+        <span class="qtext">He woke up early _____ catch the first train.</span>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) in order to</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) for</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) so that</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) because of</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="purpose" data-sol="sol13">
+        <span class="topic-tag weak-tag">so that + речення</span>
+        <span class="qtext">Speak louder _____ everyone can hear you.</span>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="A"> A) so that</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> B) in order to</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> C) to</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> D) because</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="condition" data-sol="sol14">
+        <span class="topic-tag weak-tag">unless (якщо не)</span>
+        <span class="qtext">You won't pass the exam _____ you study hard.</span>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="A"> A) if</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> B) unless</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> C) so</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> D) because</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="condition" data-sol="sol15">
+        <span class="topic-tag weak-tag">as long as (за умови)</span>
+        <span class="qtext">You can borrow my car _____ you return it by tonight.</span>
+        <button class="hintbtn" data-q="15">💡 Підказка</button>
+        <div class="hintpanel" data-panel="15"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q15" value="A"> A) unless</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> B) as long as</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> C) despite</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> D) so that</label>
+        </div>
+        <button class="solbtn" data-sol="sol15">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 4: addition, time, correlatives ================ -->
+  <section class="task">
+    <h2>Частина 4. Додавання · час · парні сполучники</h2>
+    <p class="instr">moreover / as soon as / until / both…and / not only…but also. (Q16–Q20)</p>
+    <ol class="qs" start="16">
+
+      <li data-correct="B" data-topic="addition" data-sol="sol16">
+        <span class="topic-tag weak-tag">moreover (додавання)</span>
+        <span class="qtext">The hotel was cheap. _____, it was close to the beach.</span>
+        <button class="hintbtn" data-q="16">💡 Підказка</button>
+        <div class="hintpanel" data-panel="16"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q16" value="A"> A) However</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> B) Moreover</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> C) Because</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> D) Although</label>
+        </div>
+        <button class="solbtn" data-sol="sol16">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="time" data-sol="sol17">
+        <span class="topic-tag">as soon as (щойно)</span>
+        <span class="qtext">I'll call you _____ I arrive at the airport.</span>
+        <button class="hintbtn" data-q="17">💡 Підказка</button>
+        <div class="hintpanel" data-panel="17"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q17" value="A"> A) as soon as</label>
+          <label class="opt"><input type="radio" name="q17" value="B"> B) until</label>
+          <label class="opt"><input type="radio" name="q17" value="C"> C) despite</label>
+          <label class="opt"><input type="radio" name="q17" value="D"> D) so that</label>
+        </div>
+        <button class="solbtn" data-sol="sol17">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="time" data-sol="sol18">
+        <span class="topic-tag weak-tag">until (доки)</span>
+        <span class="qtext">Wait here _____ I come back.</span>
+        <button class="hintbtn" data-q="18">💡 Підказка</button>
+        <div class="hintpanel" data-panel="18"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q18" value="A"> A) since</label>
+          <label class="opt"><input type="radio" name="q18" value="B"> B) until</label>
+          <label class="opt"><input type="radio" name="q18" value="C"> C) as soon as</label>
+          <label class="opt"><input type="radio" name="q18" value="D"> D) while</label>
+        </div>
+        <button class="solbtn" data-sol="sol18">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="correlative" data-sol="sol19">
+        <span class="topic-tag weak-tag">both … and</span>
+        <span class="qtext">She speaks _____ French and German fluently.</span>
+        <button class="hintbtn" data-q="19">💡 Підказка</button>
+        <div class="hintpanel" data-panel="19"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q19" value="A"> A) both</label>
+          <label class="opt"><input type="radio" name="q19" value="B"> B) either</label>
+          <label class="opt"><input type="radio" name="q19" value="C"> C) neither</label>
+          <label class="opt"><input type="radio" name="q19" value="D"> D) so</label>
+        </div>
+        <button class="solbtn" data-sol="sol19">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="A" data-topic="correlative" data-sol="sol20">
+        <span class="topic-tag weak-tag">not only … but also</span>
+        <span class="qtext">He is _____ talented but also hard-working.</span>
+        <button class="hintbtn" data-q="20">💡 Підказка</button>
+        <div class="hintpanel" data-panel="20"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q20" value="A"> A) not only</label>
+          <label class="opt"><input type="radio" name="q20" value="B"> B) both</label>
+          <label class="opt"><input type="radio" name="q20" value="C"> C) either</label>
+          <label class="opt"><input type="radio" name="q20" value="D"> D) neither</label>
+        </div>
+        <button class="solbtn" data-sol="sol20">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 5: traps ================ -->
+  <section class="task">
+    <h2>Частина 5. Класичні пастки</h2>
+    <p class="instr">because vs because of · although vs despite · so vs such · however vs but. (Q21–Q24)</p>
+    <ol class="qs" start="21">
+
+      <li data-correct="B" data-topic="trap-because" data-sol="sol21">
+        <span class="topic-tag weak-tag">because vs because of</span>
+        <span class="qtext">We were late _____ the traffic was terrible.</span>
+        <button class="hintbtn" data-q="21">💡 Підказка</button>
+        <div class="hintpanel" data-panel="21"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q21" value="A"> A) because of</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> B) because</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> C) due to</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> D) despite</label>
+        </div>
+        <button class="solbtn" data-sol="sol21">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="trap-despite" data-sol="sol22">
+        <span class="topic-tag weak-tag">despite + -ing</span>
+        <span class="qtext">_____ working hard, he didn't get a promotion.</span>
+        <button class="hintbtn" data-q="22">💡 Підказка</button>
+        <div class="hintpanel" data-panel="22"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q22" value="A"> A) Although</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> B) Despite</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> C) Because</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> D) However</label>
+        </div>
+        <button class="solbtn" data-sol="sol22">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="trap-so-such" data-sol="sol23">
+        <span class="topic-tag weak-tag">so vs such</span>
+        <span class="qtext">It was _____ a boring lecture that half the students left.</span>
+        <button class="hintbtn" data-q="23">💡 Підказка</button>
+        <div class="hintpanel" data-panel="23"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q23" value="A"> A) so</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> B) such</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> C) too</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> D) very</label>
+        </div>
+        <button class="solbtn" data-sol="sol23">📖 детальне рішення</button>
+      </li>
+
+      <li data-correct="B" data-topic="trap-however" data-sol="sol24">
+        <span class="topic-tag weak-tag">however vs but (пунктуація)</span>
+        <span class="qtext">I wanted to help; _____, I had no time.</span>
+        <button class="hintbtn" data-q="24">💡 Підказка</button>
+        <div class="hintpanel" data-panel="24"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q24" value="A"> A) but</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> B) however</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> C) because</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> D) so</label>
+        </div>
+        <button class="solbtn" data-sol="sol24">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: сполучники та слова-зв'язки · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day7-linking"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+/* --- Персоналізація: ім'я з форми (звертання у кличному відмінку, best-effort) --- */
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";   // Марія→Маріє, Софія→Софіє, Дарія→Даріє
+  if(/я$/i.test(n))     return n;                     // Настя, Оля, Аня — лишаємо як є
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";     // Анна→Анно, Олена→Олено, Микита→Микито
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";     // Андрій→Андрію, Сергій→Сергію
+  return n;                                           // приголосний (Максим, Олег) — як є
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+/* Кожне питання: 3 рівні підказок + відповідь.
+   h1 — напрямок думки, h2 — правило/паттерн, h3 — майже-відповідь, ans — варіант + коротке чому. */
+let __hintsUsedCount = 0;
+const qHints = {
+  1:{ h1:"Дві частини: «лишились удома» і «йшов дощ». Яка з них — причина (чому)?",
+      h2:"Причину вводить <b>because</b> + ЦІЛЕ речення (підмет + присудок: <i>it was raining</i>).",
+      h3:"«it was raining» — причина того, що лишились удома → because. «so» вводить наслідок; although — контраст.",
+      ans:"A) because. We stayed home <b>because</b> it was raining." },
+  2:{ h1:"Тут порядок зворотний: спочатку причина (дощ), потім результат (лишились). Що вводить РЕЗУЛЬТАТ?",
+      h2:"Наслідок («тому/отже») вводить <b>so</b>.",
+      h3:"rain → so → stayed home. «because» вводило б причину (а вона вже названа); despite + іменник.",
+      ans:"B) so." },
+  3:{ h1:"Подивись, що стоїть ПІСЛЯ пропуску — ціле речення чи лише іменник (<i>the heavy rain</i>)?",
+      h2:"Перед ІМЕННИКОМ — <b>because of</b> / due to. Перед цілим реченням — because.",
+      h3:"«the heavy rain» — іменникова фраза (без присудка) → because of. «because» тут потребувало б «it rained».",
+      ans:"B) because of." },
+  4:{ h1:"Після <i>was</i> і перед іменником (<i>hard work</i>). Потрібен зворот «завдяки/через» + іменник.",
+      h2:"<b>due to</b> + іменник = «через/завдяки», часто після дієслова be.",
+      h3:"«hard work and determination» — іменники → due to. because потребувало б речення; therefore — прислівник.",
+      ans:"A) due to." },
+  5:{ h1:"Після крапки з комою, перед комою — потрібне слово-наслідок як вставка («отже/тому»).",
+      h2:"<b>therefore</b> / as a result — прислівникові зв'язки наслідку, відокремлюються комами/крапкою з комою.",
+      h3:"«не вчився → отже завалив» = наслідок → therefore. so that — мета; although — контраст.",
+      ans:"B) therefore." },
+  6:{ h1:"«довгий» і «дуже цікавий» — це очікувано разом чи несподіваний контраст?",
+      h2:"Протиставлення двох ідей у простому реченні вводить <b>but</b>.",
+      h3:"long ↔ interesting — легкий контраст → but. so/because — наслідок/причина.",
+      ans:"C) but." },
+  7:{ h1:"Зверни увагу на пунктуацію: слово на ПОЧАТКУ речення і після нього — КОМА. Це підказує тип зв'язки.",
+      h2:"Прислівникові зв'язки (<b>however</b>, therefore, moreover) пишуться з комою після них. Сполучник <i>but</i> коми після себе не бере.",
+      h3:"«…, it failed» з комою після пропуску → However. «But,» так не вживають.",
+      ans:"B) However." },
+  8:{ h1:"Після пропуску йде ЦІЛЕ речення «it was expensive» (підмет + присудок). Це контраст із «вирішили купити».",
+      h2:"<b>Although</b>/though + ЦІЛЕ речення = «хоча». Despite + іменник/-ing.",
+      h3:"«it was expensive» — речення → Although. Despite потребувало б «the high price».",
+      ans:"B) Although." },
+  9:{ h1:"Після пропуску — лише іменникова фраза «the high price» (без присудка).",
+      h2:"<b>Despite</b> / In spite of + іменник або -ing. Although + ціле речення.",
+      h3:"«the high price» — іменник → Despite. Although потребувало б «it was expensive».",
+      ans:"B) Despite." },
+  10:{ h1:"Дві протилежні вподобання двох людей. Потрібне слово «тоді як / натомість».",
+       h2:"<b>whereas</b> / while = протиставлення двох фактів («тоді як»).",
+       h3:"«вона — каву, натомість я — чай» → whereas. because/so — причина/наслідок.",
+       ans:"C) whereas." },
+  11:{ h1:"Навіщо вона пішла? Мета з дієсловом (<i>borrow</i>).",
+       h2:"Мета + дієслово = <b>to + V</b> (= in order to). «for» + дієслово не вживають.",
+       h3:"«to borrow books» = щоб узяти книги. «for borrow» ❌.",
+       ans:"B) to." },
+  12:{ h1:"Мета (навіщо встав рано) перед дієсловом <i>catch</i>. Який формальніший зворот мети + дієслово?",
+       h2:"<b>in order to</b> + V = «щоб» (формальніше за просте to). so that бере ціле речення.",
+       h3:"«in order to catch» = щоб устигнути. «so that» потребувало б «he could catch»; because of + іменник.",
+       ans:"A) in order to." },
+  13:{ h1:"Після пропуску — ЦІЛЕ речення «everyone can hear» (підмет everyone + can). Який зворот мети бере ціле речення?",
+       h2:"<b>so that</b> + ціле речення (з can/could/will/would). <i>to / in order to</i> беруть лише дієслово.",
+       h3:"«so that everyone can hear» = щоб усі чули. «to everyone can hear» ❌.",
+       ans:"A) so that." },
+  14:{ h1:"«не складеш іспит ____ багато вчитимешся» — це умова «якщо НЕ».",
+       h2:"<b>unless</b> = if not (якщо не). Єдина умова, за якої можливий позитив.",
+       h3:"«won't pass unless you study» = не складеш, якщо НЕ вчитимешся. «if you study» дало б протилежний зміст.",
+       ans:"B) unless." },
+  15:{ h1:"«можеш узяти авто ____ повернеш до вечора» — умова-обмеження («за умови, що»).",
+       h2:"<b>as long as</b> / provided that = «за умови, що».",
+       h3:"«as long as you return it» = за умови, що повернеш. unless = «якщо не» (змінив би зміст).",
+       ans:"B) as long as." },
+  16:{ h1:"Друге речення ДОДАЄ ще один плюс (близько до пляжу). Це додавання чи контраст?",
+       h2:"<b>Moreover</b> / In addition / Furthermore = додавання інформації того ж напрямку.",
+       h3:"дешевий + ще й близько → Moreover. However було б контрастом (а тут обидва плюси).",
+       ans:"B) Moreover." },
+  17:{ h1:"Коли подзвониш? У момент прибуття. Потрібен часовий зв'язок «щойно / як тільки».",
+       h2:"<b>as soon as</b> = «щойно/як тільки» (одразу після події).",
+       h3:"«as soon as I arrive» = щойно прибуду. until = «доки не» (інший зміст).",
+       ans:"A) as soon as." },
+  18:{ h1:"«чекай тут ____ я повернусь» — до якого моменту чекати?",
+       h2:"<b>until</b> = «доти, доки (не)» — дія триває до певного моменту.",
+       h3:"«wait until I come back» = чекай, доки повернусь. as soon as = «щойно» (не за змістом).",
+       ans:"B) until." },
+  19:{ h1:"Далі в реченні є «<i>and</i>». «____ French AND German» — що утворює пару з and?",
+       h2:"<b>both … and</b> = «і…, і…». (either … or; neither … nor).",
+       h3:"«both French and German» = і французькою, і німецькою. either робить пару з or, neither — з nor.",
+       ans:"A) both." },
+  20:{ h1:"Далі в реченні є «<i>but also</i>». Яка частина пари стоїть на початку?",
+       h2:"<b>not only … but also</b> = «не лише…, а й…». Пара до «but also» — «not only».",
+       h3:"«not only talented but also hard-working». both бере and; either — or.",
+       ans:"A) not only." },
+  21:{ h1:"Після пропуску — ЦІЛЕ речення «the traffic was terrible» (підмет + присудок).",
+       h2:"<b>because</b> + ЦІЛЕ речення. because of / due to + лише іменник.",
+       h3:"«the traffic was terrible» — речення → because. because of потребувало б «the terrible traffic».",
+       ans:"B) because." },
+  22:{ h1:"Після пропуску — «working» (форма -ing), а не ціле речення з підметом.",
+       h2:"<b>Despite</b> / In spite of + іменник або -ing. Although + ціле речення (he worked).",
+       h3:"«Despite working hard» = попри наполегливу працю. Although потребувало б «Although he worked hard».",
+       ans:"B) Despite." },
+  23:{ h1:"Подивись, що йде далі: «a boring lecture» — це іменникова фраза (a + прикметник + ІМЕННИК).",
+       h2:"<b>such</b> + (a) + прикметник + ІМЕННИК. <i>so</i> + лише прикметник/прислівник (so boring).",
+       h3:"«such a boring lecture» (з іменником lecture). «so» вимагало б «so boring» без іменника.",
+       ans:"B) such." },
+  24:{ h1:"Зверни увагу на пунктуацію: крапка з комою (;) перед пропуском і кома після. Це місце для прислівникової зв'язки.",
+       h2:"<b>however</b> ставиться між двох речень: «; however,». <i>but</i> — звичайний сполучник, такої пунктуації не бере.",
+       h3:"«; however, I had no time» — стандарт. «; but, …» так не пишуть.",
+       ans:"B) however." }
+};
+
+/* ============== SOLUTIONS (детальні розбори після сдачі) ============== */
+const sols = {
+  "sol1":{title:"Q1 → because",body:`<p>Друга частина — причина того, що лишились удома. <b>because</b> + ЦІЛЕ речення.</p><p>We stayed at home <b>because</b> it was raining.</p><p><b>Відповідь: A) because.</b></p>`},
+  "sol2":{title:"Q2 → so",body:`<p>Спочатку причина (дощ), потім наслідок. Наслідок вводить <b>so</b>.</p><p>It was raining, <b>so</b> we stayed at home.</p><p><b>Відповідь: B) so.</b></p>`},
+  "sol3":{title:"Q3 → because of",body:`<p>Після пропуску — іменникова фраза «the heavy rain» (без присудка). Перед іменником — <b>because of</b>.</p><p>cancelled <b>because of</b> the heavy rain. (because потребувало б «because it rained»)</p><p><b>Відповідь: B) because of.</b></p>`},
+  "sol4":{title:"Q4 → due to",body:`<p>Після be та перед іменником (hard work) — <b>due to</b> (= через/завдяки).</p><p>was largely <b>due to</b> hard work. (because потребувало б речення)</p><p><b>Відповідь: A) due to.</b></p>`},
+  "sol5":{title:"Q5 → therefore",body:`<p>Наслідок як вставка між двох речень (; …, ). <b>therefore</b> = отже/тому.</p><p>He didn't study; <b>therefore</b>, he failed.</p><p><b>Відповідь: B) therefore.</b></p>`},
+  "sol6":{title:"Q6 → but",body:`<p>Контраст двох ідей (long ↔ interesting) → <b>but</b>.</p><p>long <b>but</b> very interesting.</p><p><b>Відповідь: C) but.</b></p>`},
+  "sol7":{title:"Q7 → However",body:`<p>Слово на початку речення + кома після → прислівникова зв'язка. <b>However</b> бере кому; <i>but</i> — ні.</p><p>… perfect. <b>However</b>, it failed.</p><p><b>Відповідь: B) However.</b></p>`},
+  "sol8":{title:"Q8 → Although",body:`<p>Після пропуску — ціле речення «it was expensive». <b>Although</b> + речення.</p><p><b>Although</b> it was expensive, we bought it. (Despite потребувало б іменник)</p><p><b>Відповідь: B) Although.</b></p>`},
+  "sol9":{title:"Q9 → Despite",body:`<p>Після пропуску — іменник «the high price». <b>Despite</b> + іменник/-ing.</p><p><b>Despite</b> the high price, we bought it.</p><p><b>Відповідь: B) Despite.</b></p>`},
+  "sol10":{title:"Q10 → whereas",body:`<p>Протиставлення двох фактів про двох людей. <b>whereas</b> = «тоді як».</p><p>She loves coffee, <b>whereas</b> I prefer tea.</p><p><b>Відповідь: C) whereas.</b></p>`},
+  "sol11":{title:"Q11 → to",body:`<p>Мета + дієслово = <b>to + V</b>. «for borrow» ❌.</p><p>went to the library <b>to</b> borrow books.</p><p><b>Відповідь: B) to.</b></p>`},
+  "sol12":{title:"Q12 → in order to",body:`<p>Мета + дієслово (catch), формальніший варіант — <b>in order to</b> + V.</p><p>woke up early <b>in order to</b> catch the train.</p><p><b>Відповідь: A) in order to.</b></p>`},
+  "sol13":{title:"Q13 → so that",body:`<p>Після пропуску — ЦІЛЕ речення (everyone can hear). Мета з реченням = <b>so that</b>.</p><p>Speak louder <b>so that</b> everyone can hear.</p><p><b>Відповідь: A) so that.</b></p>`},
+  "sol14":{title:"Q14 → unless",body:`<p><b>unless</b> = if not (якщо не).</p><p>You won't pass <b>unless</b> you study = не складеш, якщо НЕ вчитимешся.</p><p><b>Відповідь: B) unless.</b></p>`},
+  "sol15":{title:"Q15 → as long as",body:`<p><b>as long as</b> = «за умови, що».</p><p>borrow my car <b>as long as</b> you return it tonight.</p><p><b>Відповідь: B) as long as.</b></p>`},
+  "sol16":{title:"Q16 → Moreover",body:`<p>Друге речення додає ще один плюс. <b>Moreover</b> = «до того ж».</p><p>cheap. <b>Moreover</b>, close to the beach.</p><p><b>Відповідь: B) Moreover.</b></p>`},
+  "sol17":{title:"Q17 → as soon as",body:`<p><b>as soon as</b> = «щойно/як тільки».</p><p>I'll call you <b>as soon as</b> I arrive.</p><p><b>Відповідь: A) as soon as.</b></p>`},
+  "sol18":{title:"Q18 → until",body:`<p><b>until</b> = «доки (не)» — дія триває до моменту.</p><p>Wait here <b>until</b> I come back.</p><p><b>Відповідь: B) until.</b></p>`},
+  "sol19":{title:"Q19 → both",body:`<p>Пара до <i>and</i> — це <b>both</b>: both … and.</p><p>speaks <b>both</b> French and German.</p><p><b>Відповідь: A) both.</b></p>`},
+  "sol20":{title:"Q20 → not only",body:`<p>Пара до «but also» — це <b>not only</b>: not only … but also.</p><p><b>not only</b> talented but also hard-working.</p><p><b>Відповідь: A) not only.</b></p>`},
+  "sol21":{title:"Q21 → because",body:`<p>Після пропуску — ціле речення «the traffic was terrible». <b>because</b> + речення.</p><p>late <b>because</b> the traffic was terrible. (because of потребувало б «the terrible traffic»)</p><p><b>Відповідь: B) because.</b></p>`},
+  "sol22":{title:"Q22 → Despite",body:`<p>Після пропуску — форма -ing (working). <b>Despite</b> + -ing/іменник.</p><p><b>Despite</b> working hard, he didn't get a promotion. (Although потребувало б «Although he worked hard»)</p><p><b>Відповідь: B) Despite.</b></p>`},
+  "sol23":{title:"Q23 → such",body:`<p>Далі — іменникова фраза «a boring lecture». <b>such</b> + (a) + прикм. + ІМЕННИК.</p><p><b>such</b> a boring lecture. (so вимагало б «so boring» без іменника)</p><p><b>Відповідь: B) such.</b></p>`},
+  "sol24":{title:"Q24 → however",body:`<p>Пунктуація «; ____,» — місце для прислівникової зв'язки. <b>however</b> бере таку пунктуацію; <i>but</i> — ні.</p><p>I wanted to help; <b>however</b>, I had no time.</p><p><b>Відповідь: B) however.</b></p>`}
+};
+
+/* ============== Modal (для детальних рішень) ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього питання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Правило',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress + Timer ============== */
+const TOTAL = 24;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function countAnswered(){
+  let c=0; const seen=new Set();
+  document.querySelectorAll('ol.qs > li input[type=radio]:checked').forEach(r=>{ if(!seen.has(r.name)){ seen.add(r.name); c++; } });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = (c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+
+let t0 = Date.now();
+const timerEl = document.getElementById('timer');
+setInterval(()=>{
+  const s = Math.floor((Date.now()-t0)/1000);
+  const m = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  timerEl.textContent = `⏱ ${m}:${ss}`;
+}, 1000);
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on');
+  res.innerHTML='';
+  __hintsUsedCount = 0;
+  t0 = Date.now();
+  updateProgress();
+}
+freshState();
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+document.getElementById('submitBtn').onclick = () => {
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('ol.qs > li').forEach(li=>{
+    const lab = li.querySelector('input[type=radio]');
+    if(!lab) return;
+    const n = parseInt(lab.name.replace('q',''),10);
+    const correct = li.dataset.correct;
+    const topic = li.dataset.topic;
+    const chk = li.querySelector('input[type=radio]:checked');
+    const given = chk ? chk.value : '';
+    const ok = given === correct;
+    record(n, topic, correct, given, ok);
+    li.querySelectorAll('.opt').forEach(opt=>{
+      const v = opt.querySelector('input').value;
+      if(v === correct) opt.classList.add('correct');
+      if(v === given && !ok) opt.classList.add('wrong');
+    });
+    li.querySelector('.solbtn')?.classList.add('on');
+  });
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict (linking words) — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('сполучники та слова-зв\'язки — твоя сильна сторона! Ти впевнено бачиш різницю because/because of, although/despite і не плутаєш so/such. Чудово.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне відчуття зв\'язків у тексті. На НМТ та в письмі (есе) це дуже допоможе. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база. Найшвидший приріст — чотири пастки: because vs because of, although vs despite, so vs such, however vs but. Дивись розбори нижче.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Запам\'ятай ключ: дивись, що йде ПІСЛЯ зв\'язки — ціле речення (because/although) чи іменник (because of/despite).'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Почни з трьох пар: because/so, but/although, if/unless. По одному блоку на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Опори: because = причина, so = наслідок, but = контраст, to = мета. Потім повертайся до цього тесту.'; }
+
+  // Block stats
+  const blocks = {
+    'Причина та наслідок': ['cause-result'],
+    'Контраст і поступка': ['contrast','concession'],
+    'Мета та умова': ['purpose','condition'],
+    'Додавання · час · парні': ['addition','time','correlative'],
+    'Пастки': ['trap-because','trap-despite','trap-so-such','trap-however']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  // Wrong details
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 7 (сполучники та слова-зв'язки) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const dt = Math.floor((Date.now()-t0)/1000);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище — там покроковий розбір.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> переглянь усі детальні рішення. Запам'ятай чотири пастки (because/because of, although/despite, so/such, however/but).</li>
+      <li><b>Цього тижня:</b> у власному есе свідомо вживай linking words — by topic: причина, контраст, мета.</li>
+      <li><b>Через 5–7 днів:</b> пройди цей тест ще раз. Ціль — 20/24 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  // === TRACKING: result + survey ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus();
+      fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+};
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>
