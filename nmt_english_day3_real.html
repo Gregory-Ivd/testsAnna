@@ -99,6 +99,7 @@
   .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
   .info-banner{background:#e9f3ec;border:1px solid #9ec3a7;padding:12px 16px;border-radius:8px;margin-top:14px;font-size:18px}
 </style>
+<link rel="stylesheet" href="assets/nmt-mode.css">
 </head>
 <body>
 <div class="wrap">
@@ -1112,5 +1113,17 @@ ${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · �
 
 function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 </script>
+
+<!-- Опційний «Режим іспиту (НМТ)» — презентаційний шар поверх цього ж тесту -->
+<script>
+window.NMT_EXAM_CONFIG = {
+  subject: "Англійська мова",
+  screenSelector: "section.task",
+  timerMinutes: 60,
+  submitSelector: "#submitBtn",
+  resultSelector: "#result"
+};
+</script>
+<script src="assets/nmt-mode.js" defer></script>
 </body>
 </html>

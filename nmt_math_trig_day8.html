@@ -100,6 +100,7 @@
   .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
   .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
 </style>
+<link rel="stylesheet" href="assets/nmt-mode.css">
 </head>
 <body>
 <div class="wrap">
@@ -751,7 +752,7 @@ function tick(){
     timerEl.textContent = '⏱ 00:00';
     timerEl.className = 'danger';
     clearInterval(timerInt);
-    if(!submitted) doSubmit(true);
+    if(!submitted && !window.__nmtExamActive) doSubmit(true);
     return;
   }
   timerEl.textContent = '⏱ ' + fmt(rem);
@@ -991,5 +992,17 @@ function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','
 /* init */
 freshState();
 </script>
+
+<!-- Опційний «Режим іспиту (НМТ)» — презентаційний шар поверх цього ж тесту -->
+<script>
+window.NMT_EXAM_CONFIG = {
+  subject: "Математика",
+  screenSelector: "section.task",
+  timerMinutes: 50,
+  submitSelector: "#submitBtn",
+  resultSelector: "#result"
+};
+</script>
+<script src="assets/nmt-mode.js" defer></script>
 </body>
 </html>

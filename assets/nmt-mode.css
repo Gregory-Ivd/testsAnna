@@ -1,0 +1,158 @@
+/* ============================================================
+   nmt-mode.css — опційний «Режим іспиту (НМТ)»
+   Скин у стилі реального інтерфейсу УЦОЯО (testportal.gov.ua):
+   вкладка предмета, таймер Г:ХХ:СС, бокова панель завдань,
+   одне завдання за раз, фінальна таблиця-зведення.
+   Шар поверх наявних тестів — НЕ змінює навчальний режим.
+   Кольори беруться зі змінних тесту (:root) з запасними значеннями.
+   ============================================================ */
+
+/* --- Лаунчер (банер «Почати в режимі іспиту») --- */
+.exam-launch{
+  background:#fff; border:1px solid var(--line,#d9d4c7); border-left:5px solid var(--accent-2,#c8102e);
+  border-radius:10px; padding:16px 20px; margin:0 0 18px;
+  font-family:"Trebuchet MS",Verdana,sans-serif; font-size:17px; line-height:1.5;
+}
+.exam-launch b{color:var(--accent-2,#c8102e)}
+.exam-launch .el-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:10px}
+.exam-launch button{
+  background:var(--accent-2,#c8102e); color:#fff; border:0; padding:11px 20px;
+  font-size:16px; border-radius:8px; cursor:pointer; font-family:inherit; font-weight:700;
+}
+.exam-launch button:hover{filter:brightness(1.08)}
+.exam-launch small{color:var(--muted,#5a5a5e);font-size:14px}
+
+/* коли режим активний — ховаємо лаунчер і весь навчальний layout */
+body.exam-mode .exam-launch{display:none}
+body.exam-mode > .wrap > header,
+body.exam-mode .progress,
+body.exam-mode > .wrap > footer,
+body.exam-mode .controls{display:none !important}
+body:not(.exam-mode) .exam-chrome{display:none !important}
+
+/* --- Контейнер під час іспиту: лишаємо місце під фіксовані бари --- */
+body.exam-mode{background:#eef0f3}
+body.exam-mode .wrap{
+  max-width:none; margin:0; padding:78px 232px 92px 28px;
+}
+@media (max-width:860px){
+  body.exam-mode .wrap{padding:128px 16px 96px}
+}
+
+/* показуємо лише поточне завдання (екран) */
+body.exam-mode [data-exam-screen]{display:none}
+body.exam-mode [data-exam-screen].exam-current{display:block}
+body.exam-mode #result{display:none !important}
+
+/* ============ ВЕРХНІЙ БАР (шапка УЦОЯО) ============ */
+.exam-bar{
+  position:fixed; top:0; left:0; right:0; height:58px; z-index:1000;
+  background:#fff; border-bottom:3px solid var(--accent-2,#c8102e);
+  display:flex; align-items:center; gap:18px; padding:0 18px;
+  font-family:"Trebuchet MS",Verdana,sans-serif;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.exam-bar .eb-brand{font-weight:700;color:#2a2a2e;font-size:15px;letter-spacing:.3px;white-space:nowrap}
+.exam-bar .eb-brand small{display:block;font-weight:400;color:var(--muted,#5a5a5e);font-size:11px;letter-spacing:0}
+.exam-bar .eb-tab{
+  background:#f4f1ea; border:1px solid var(--line,#d9d4c7); border-bottom:3px solid var(--accent-2,#c8102e);
+  padding:7px 16px; border-radius:6px 6px 0 0; font-size:15px; font-weight:700; color:#2a2a2e; white-space:nowrap;
+}
+.exam-bar .eb-spacer{flex:1}
+.exam-bar .eb-timer{
+  font-family:Consolas,"Courier New",monospace; font-size:24px; font-weight:700; color:#1c1c1e;
+  letter-spacing:1px; display:flex; align-items:center; gap:8px;
+}
+.exam-bar .eb-timer .eb-mute{font-size:18px;opacity:.5}
+.exam-bar .eb-timer.warn{color:var(--warn,#b3651a)}
+.exam-bar .eb-timer.danger{color:var(--bad,#a51a1a)}
+.exam-bar .eb-btn{
+  font-family:inherit;font-size:14px;border-radius:6px;cursor:pointer;padding:8px 14px;border:1px solid var(--line,#d9d4c7);
+  background:#f4f1ea;color:#2a2a2e;white-space:nowrap;
+}
+.exam-bar .eb-btn:hover{background:#e9e4d8}
+.exam-bar .eb-finish{background:var(--accent-2,#c8102e);color:#fff;border-color:var(--accent-2,#c8102e);font-weight:700}
+.exam-bar .eb-finish:hover{filter:brightness(1.08)}
+@media (max-width:860px){
+  .exam-bar{height:auto;flex-wrap:wrap;padding:8px 12px;gap:8px 12px}
+  .exam-bar .eb-timer{font-size:20px}
+  .exam-bar .eb-brand small{display:none}
+}
+
+/* ============ БОКОВА ПАНЕЛЬ ЗАВДАНЬ ============ */
+.exam-grid{
+  position:fixed; top:58px; right:0; bottom:0; width:212px; z-index:999;
+  background:#fff; border-left:1px solid var(--line,#d9d4c7);
+  padding:14px 14px 20px; overflow-y:auto;
+  font-family:"Trebuchet MS",Verdana,sans-serif;
+}
+.exam-grid h4{margin:0 0 10px;font-size:14px;color:var(--muted,#5a5a5e);text-transform:uppercase;letter-spacing:.6px}
+.exam-grid .eg-cells{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.exam-grid .eg-cell{
+  aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+  border:1px solid #cfd2d8; border-radius:5px; background:#fff; color:#33373d;
+  font-size:14px; font-weight:700; cursor:pointer; user-select:none; transition:all .12s;
+}
+.exam-grid .eg-cell:hover{background:#f0f2f5}
+.exam-grid .eg-cell.answered{background:#e3f3e6;border-color:#97c9a5;color:#1f7a3a}
+.exam-grid .eg-cell.current{border:2px solid var(--accent-2,#c8102e);color:var(--accent-2,#c8102e)}
+.exam-grid .eg-cell.answered.current{background:#e3f3e6;color:#1f7a3a}
+.exam-grid .eg-legend{margin-top:16px;font-size:12px;color:var(--muted,#5a5a5e);line-height:1.9}
+.exam-grid .eg-legend span{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid #cfd2d8}
+.exam-grid .eg-legend .lg-ans{background:#e3f3e6;border-color:#97c9a5}
+.exam-grid .eg-legend .lg-cur{border:2px solid var(--accent-2,#c8102e)}
+@media (max-width:860px){
+  .exam-grid{top:auto;left:0;right:0;bottom:auto;width:auto;height:64px;
+    border-left:0;border-bottom:1px solid var(--line,#d9d4c7);padding:8px 12px;
+    position:fixed; }
+  body.exam-mode .exam-bar{position:relative}
+  .exam-grid h4,.exam-grid .eg-legend{display:none}
+  .exam-grid .eg-cells{grid-template-columns:repeat(16,minmax(34px,1fr));gap:6px;overflow-x:auto}
+}
+
+/* ============ НИЖНЯ ПАНЕЛЬ НАВІГАЦІЇ ============ */
+.exam-foot{
+  position:fixed; left:0; right:212px; bottom:0; height:72px; z-index:999;
+  background:#fff; border-top:1px solid var(--line,#d9d4c7);
+  display:flex; align-items:center; justify-content:space-between; gap:14px; padding:0 22px;
+  font-family:"Trebuchet MS",Verdana,sans-serif;
+}
+.exam-foot .ef-pos{color:var(--muted,#5a5a5e);font-size:15px;text-align:center;flex:1}
+.exam-foot button{font-family:inherit;font-size:16px;border-radius:8px;cursor:pointer;padding:11px 22px}
+.exam-foot .ef-prev{background:#fff;color:var(--accent,#0a4d8c);border:2px solid var(--accent,#0a4d8c)}
+.exam-foot .ef-prev:disabled{opacity:.4;cursor:default}
+.exam-foot .ef-next{background:var(--accent,#0a4d8c);color:#fff;border:0;font-weight:700}
+.exam-foot .ef-next:hover{filter:brightness(1.08)}
+.exam-foot .ef-next.finish{background:var(--accent-2,#c8102e)}
+@media (max-width:860px){
+  .exam-foot{right:0;padding:0 12px;height:64px}
+  .exam-foot button{padding:10px 14px;font-size:15px}
+  .exam-foot .ef-pos{font-size:13px}
+}
+
+/* ============ ДІАЛОГ (підтвердження + зведення) ============ */
+.exam-dialog-back{
+  position:fixed; inset:0; z-index:1100; background:rgba(20,20,25,.55);
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.exam-dialog-back.on{display:flex}
+.exam-dialog{
+  background:#fff; max-width:680px; width:100%; max-height:88vh; overflow-y:auto;
+  border-radius:14px; padding:28px 32px; box-shadow:0 18px 60px rgba(0,0,0,.3);
+  font-family:Georgia,serif; font-size:19px; line-height:1.6;
+}
+.exam-dialog h3{margin:0 0 12px;color:var(--accent-2,#c8102e);font-family:"Trebuchet MS",Verdana,sans-serif;font-size:23px}
+.exam-dialog .ed-warn{
+  background:#fbe3e3; border:1px solid #d49a9a; border-radius:8px; padding:12px 16px; margin:14px 0;
+  font-size:17px; color:#7a1a1a;
+}
+.exam-dialog table{width:100%;border-collapse:collapse;margin:16px 0;font-size:17px}
+.exam-dialog th,.exam-dialog td{border:1px solid var(--line,#d9d4c7);padding:10px 12px;text-align:left}
+.exam-dialog th{background:#f4f1ea;font-family:"Trebuchet MS",Verdana,sans-serif;font-size:15px;color:#2a2a2e}
+.exam-dialog td.num{text-align:center;font-weight:700}
+.exam-dialog .ed-score{font-size:30px;font-weight:700;color:var(--accent,#0a4d8c);font-family:"Trebuchet MS",Verdana,sans-serif}
+.exam-dialog .ed-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.exam-dialog .ed-actions button{font-family:"Trebuchet MS",sans-serif;font-size:16px;border-radius:8px;cursor:pointer;padding:11px 20px;border:0}
+.exam-dialog .ed-yes{background:var(--accent-2,#c8102e);color:#fff;font-weight:700}
+.exam-dialog .ed-no{background:#fff;color:var(--accent,#0a4d8c);border:2px solid var(--accent,#0a4d8c)}
+.exam-dialog .ed-review{background:var(--accent,#0a4d8c);color:#fff;font-weight:700}
