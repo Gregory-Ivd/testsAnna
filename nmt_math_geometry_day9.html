@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Математика — Планіметрія та стереометрія (Day 9)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23c8102e'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='38' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>%E2%96%B3</text></svg>">
+<style>
+  :root{
+    --bg:#b1a06c; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#c8102e; --accent-2:#0a4d8c; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px;counter-reset:q}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#fdecee;border:1px solid #e3a3ab;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#fdecee;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#e7eefb;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"№" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select.gap{font-size:20px;padding:5px 9px;border:1px solid #b7935a;border-radius:6px;background:#fffef9;min-width:90px;font-family:inherit;color:var(--ink)}
+  select.gap.correct{background:#e3f3e6;border-color:#5ba370;color:#0e5723}
+  select.gap.wrong{background:#fbe3e3;border-color:#cf7a7a;color:#8a1a1a}
+  .numin{font-size:20px;padding:6px 10px;border:1px solid #b7935a;border-radius:6px;width:180px;font-family:inherit;background:#fffef9;color:var(--ink)}
+  .numin.correct{background:#e3f3e6;border-color:#5ba370;color:#0e5723}
+  .numin.wrong{background:#fbe3e3;border-color:#cf7a7a;color:#8a1a1a}
+  .fix{color:var(--ok);font-weight:700;font-size:17px;margin-left:8px;font-family:"Trebuchet MS",sans-serif}
+  .match-legend{background:#f4f1e6;border:1px dashed #b7935a;border-radius:8px;padding:12px 16px;margin:8px 0 16px;font-size:20px;line-height:1.9}
+  .match-legend b{color:var(--accent-2);font-family:"Trebuchet MS",sans-serif}
+  .matchrow{margin-top:10px;font-size:21px}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#fdecee}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#a50d26}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#083b6e}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#a50d26}
+  button.primary:disabled{background:#9aa3ad;cursor:default}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .step{background:#fdf0f2;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  #timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+  #timer.warn{color:var(--warn)}
+  #timer.danger{color:var(--bad);animation:blink 1s steps(2,start) infinite}
+  @keyframes blink{50%{opacity:.45}}
+  #timeup{display:none;background:#fbe3e3;border:1px solid #cf7a7a;color:#8a1a1a;border-radius:8px;padding:10px 16px;margin-top:12px;font-size:18px;font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+<link rel="stylesheet" href="assets/nmt-mode.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Математика · Day 9 <span class="badge">планіметрія + стереометрія</span></h1>
+    <div class="sub">Планіметрія та стереометрія · 23 завдання · ⏱ 50 хв (зворотний відлік)</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>планіметрію</b> (кути трикутника, теорема Піфагора, площі фігур, коло, подібність, вписані/центральні кути) та <b>стереометрію</b> (об'єми й площі поверхонь куба, призми, циліндра, піраміди). Формат <b>як на реальному НМТ</b>: вибір з <b>п'яти</b> варіантів, встановлення відповідності та завдання з короткою відповіддю.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) <b>Частина 1</b> — обери одну відповідь із <b>п'яти</b> (А–Д). <b>Частина 2</b> — <i>встановлення відповідності</i> (фігура ↔ формула). <b>Частина 3</b> — <i>коротка відповідь</i>: впиши число (дробове — через кому або крапку).
+      <br>2) ⏱ <b>Таймер на зменшення (50 хв), як на іспиті.</b> За 5 хв пожовтіє, за 1 хв — почервоніє. Час вийде — здача <b>автоматична</b>.
+      <br>3) Застряг(-ла) — 💡 підкаже <b>крок за кроком</b> (напрямок → формула → майже-відповідь → відповідь). Після здачі — «📖 детальне рішення» з повним розв'язком.
+      <br>4) Де у завданні є коло/циліндр — <b>значення π вказане прямо в умові</b> (зазвичай π≈3); підставляй саме його.
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 23</span><span id="timer">⏱ 50:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+    <div id="timeup">⏰ Час вийшов — тест здано автоматично. Дивись результат нижче.</div>
+  </div>
+
+  <!-- ================ PART 1: MC (1 з 5) ================ -->
+  <section class="task">
+    <h2>Частина 1. Вибір однієї відповіді з п'яти (А–Д)</h2>
+    <p class="instr">Планіметрія та стереометрія. Опорне: сума кутів трикутника = 180°; теорема Піфагора c²=a²+b²; вписаний кут = ½ центрального. (№1–№14)</p>
+    <ol class="qs">
+
+      <li data-type="mc" data-n="1" data-correct="В" data-topic="tri-angles" data-sol="sol1">
+        <span class="topic-tag">кути трикутника</span>
+        <span class="qtext">Два кути трикутника дорівнюють 50° і 60°. Знайди третій кут.</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="А"> А) 50°</label>
+          <label class="opt"><input type="radio" name="q1" value="Б"> Б) 110°</label>
+          <label class="opt"><input type="radio" name="q1" value="В"> В) 70°</label>
+          <label class="opt"><input type="radio" name="q1" value="Г"> Г) 80°</label>
+          <label class="opt"><input type="radio" name="q1" value="Д"> Д) 60°</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="2" data-correct="Г" data-topic="pythagoras" data-sol="sol2">
+        <span class="topic-tag weak-tag">теорема Піфагора</span>
+        <span class="qtext">Катети прямокутного трикутника дорівнюють 6 і 8. Знайди гіпотенузу.</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="А"> А) 14</label>
+          <label class="opt"><input type="radio" name="q2" value="Б"> Б) 12</label>
+          <label class="opt"><input type="radio" name="q2" value="В"> В) 48</label>
+          <label class="opt"><input type="radio" name="q2" value="Г"> Г) 10</label>
+          <label class="opt"><input type="radio" name="q2" value="Д"> Д) 7</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="3" data-correct="Б" data-topic="area-tri" data-sol="sol3">
+        <span class="topic-tag">площа трикутника</span>
+        <span class="qtext">Основа трикутника дорівнює 10, висота до неї — 6. Знайди площу.</span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="А"> А) 60</label>
+          <label class="opt"><input type="radio" name="q3" value="Б"> Б) 30</label>
+          <label class="opt"><input type="radio" name="q3" value="В"> В) 16</label>
+          <label class="opt"><input type="radio" name="q3" value="Г"> Г) 32</label>
+          <label class="opt"><input type="radio" name="q3" value="Д"> Д) 15</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="4" data-correct="А" data-topic="area-rect" data-sol="sol4">
+        <span class="topic-tag">площа прямокутника</span>
+        <span class="qtext">Знайди площу прямокутника зі сторонами 7 і 4.</span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="А"> А) 28</label>
+          <label class="opt"><input type="radio" name="q4" value="Б"> Б) 22</label>
+          <label class="opt"><input type="radio" name="q4" value="В"> В) 11</label>
+          <label class="opt"><input type="radio" name="q4" value="Г"> Г) 14</label>
+          <label class="opt"><input type="radio" name="q4" value="Д"> Д) 49</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="5" data-correct="Д" data-topic="area-parallelogram" data-sol="sol5">
+        <span class="topic-tag weak-tag">площа паралелограма</span>
+        <span class="qtext">Знайди площу паралелограма, де основа = 9, а висота до неї = 5.</span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="А"> А) 14</label>
+          <label class="opt"><input type="radio" name="q5" value="Б"> Б) 28</label>
+          <label class="opt"><input type="radio" name="q5" value="В"> В) 90</label>
+          <label class="opt"><input type="radio" name="q5" value="Г"> Г) 22,5</label>
+          <label class="opt"><input type="radio" name="q5" value="Д"> Д) 45</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="6" data-correct="В" data-topic="area-trapezoid" data-sol="sol6">
+        <span class="topic-tag weak-tag">площа трапеції</span>
+        <span class="qtext">Основи трапеції дорівнюють 6 і 10, висота — 4. Знайди площу.</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="А"> А) 60</label>
+          <label class="opt"><input type="radio" name="q6" value="Б"> Б) 64</label>
+          <label class="opt"><input type="radio" name="q6" value="В"> В) 32</label>
+          <label class="opt"><input type="radio" name="q6" value="Г"> Г) 40</label>
+          <label class="opt"><input type="radio" name="q6" value="Д"> Д) 20</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="7" data-correct="Г" data-topic="circle-circumference" data-sol="sol7">
+        <span class="topic-tag weak-tag">довжина кола</span>
+        <span class="qtext">Знайди довжину кола радіуса 5. Візьми π ≈ 3.</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="А"> А) 15</label>
+          <label class="opt"><input type="radio" name="q7" value="Б"> Б) 75</label>
+          <label class="opt"><input type="radio" name="q7" value="В"> В) 25</label>
+          <label class="opt"><input type="radio" name="q7" value="Г"> Г) 30</label>
+          <label class="opt"><input type="radio" name="q7" value="Д"> Д) 10</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="8" data-correct="Б" data-topic="circle-angle" data-sol="sol8">
+        <span class="topic-tag weak-tag">вписаний кут</span>
+        <span class="qtext">Вписаний у коло кут спирається на діаметр. Чому він дорівнює?</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="А"> А) 45°</label>
+          <label class="opt"><input type="radio" name="q8" value="Б"> Б) 90°</label>
+          <label class="opt"><input type="radio" name="q8" value="В"> В) 60°</label>
+          <label class="opt"><input type="radio" name="q8" value="Г"> Г) 180°</label>
+          <label class="opt"><input type="radio" name="q8" value="Д"> Д) 30°</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="9" data-correct="В" data-topic="circle-angle" data-sol="sol9">
+        <span class="topic-tag weak-tag">центральний vs вписаний</span>
+        <span class="qtext">Вписаний кут дорівнює 40° і спирається на ту саму дугу, що й центральний. Знайди центральний кут.</span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="А"> А) 20°</label>
+          <label class="opt"><input type="radio" name="q9" value="Б"> Б) 40°</label>
+          <label class="opt"><input type="radio" name="q9" value="В"> В) 80°</label>
+          <label class="opt"><input type="radio" name="q9" value="Г"> Г) 140°</label>
+          <label class="opt"><input type="radio" name="q9" value="Д"> Д) 160°</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="10" data-correct="Г" data-topic="tri-isosceles" data-sol="sol10">
+        <span class="topic-tag">рівнобедрений трикутник</span>
+        <span class="qtext">У рівнобедреному трикутнику кут при вершині дорівнює 40°. Знайди кут при основі.</span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="А"> А) 40°</label>
+          <label class="opt"><input type="radio" name="q10" value="Б"> Б) 100°</label>
+          <label class="opt"><input type="radio" name="q10" value="В"> В) 50°</label>
+          <label class="opt"><input type="radio" name="q10" value="Г"> Г) 70°</label>
+          <label class="opt"><input type="radio" name="q10" value="Д"> Д) 140°</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="11" data-correct="А" data-topic="tri-equilateral" data-sol="sol11">
+        <span class="topic-tag">рівносторонній трикутник</span>
+        <span class="qtext">Чому дорівнює кожен кут рівностороннього трикутника?</span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="А"> А) 60°</label>
+          <label class="opt"><input type="radio" name="q11" value="Б"> Б) 90°</label>
+          <label class="opt"><input type="radio" name="q11" value="В"> В) 45°</label>
+          <label class="opt"><input type="radio" name="q11" value="Г"> Г) 30°</label>
+          <label class="opt"><input type="radio" name="q11" value="Д"> Д) 180°</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="12" data-correct="Д" data-topic="similar" data-sol="sol12">
+        <span class="topic-tag weak-tag">подібні трикутники</span>
+        <span class="qtext">Трикутники подібні. Сторона 3 одного відповідає стороні 9 іншого. Якій стороні більшого трикутника відповідає сторона 4 меншого?</span>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="А"> А) 4</label>
+          <label class="opt"><input type="radio" name="q12" value="Б"> Б) 36</label>
+          <label class="opt"><input type="radio" name="q12" value="В"> В) 9</label>
+          <label class="opt"><input type="radio" name="q12" value="Г"> Г) 7</label>
+          <label class="opt"><input type="radio" name="q12" value="Д"> Д) 12</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="13" data-correct="Г" data-topic="area-circle" data-sol="sol13">
+        <span class="topic-tag weak-tag">площа круга</span>
+        <span class="qtext">Знайди площу круга радіуса 2. Візьми π ≈ 3.</span>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="А"> А) 6</label>
+          <label class="opt"><input type="radio" name="q13" value="Б"> Б) 24</label>
+          <label class="opt"><input type="radio" name="q13" value="В"> В) 4</label>
+          <label class="opt"><input type="radio" name="q13" value="Г"> Г) 12</label>
+          <label class="opt"><input type="radio" name="q13" value="Д"> Д) 18</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="14" data-correct="В" data-topic="solid-concept" data-sol="sol14">
+        <span class="topic-tag weak-tag">стереометрія · куб</span>
+        <span class="qtext">Скільки граней має куб?</span>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="А"> А) 4</label>
+          <label class="opt"><input type="radio" name="q14" value="Б"> Б) 8</label>
+          <label class="opt"><input type="radio" name="q14" value="В"> В) 6</label>
+          <label class="opt"><input type="radio" name="q14" value="Г"> Г) 12</label>
+          <label class="opt"><input type="radio" name="q14" value="Д"> Д) 5</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: MATCHING ================ -->
+  <section class="task">
+    <h2>Частина 2. Встановлення відповідності: фігура ↔ формула</h2>
+    <p class="instr">До кожної фігури (№15–№18) добери формулу її площі або об'єму (А–Д). Одна формула — зайва.</p>
+    <div class="match-legend">
+      <b>А</b> — a² &nbsp;&nbsp; <b>Б</b> — a³ &nbsp;&nbsp; <b>В</b> — πr² &nbsp;&nbsp; <b>Г</b> — ½·a·h &nbsp;&nbsp; <b>Д</b> — a·b
+    </div>
+    <ol class="qs">
+
+      <li data-type="match" data-n="15" data-correct="А" data-topic="figure-match" data-sol="sol15">
+        <span class="qtext">Площа квадрата зі стороною a</span>
+        <button class="hintbtn" data-q="15">💡 Підказка</button>
+        <div class="hintpanel" data-panel="15"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="№15"><option value="">—</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select>
+        </div>
+        <button class="solbtn" data-sol="sol15">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="16" data-correct="Б" data-topic="figure-match" data-sol="sol16">
+        <span class="qtext">Об'єм куба з ребром a</span>
+        <button class="hintbtn" data-q="16">💡 Підказка</button>
+        <div class="hintpanel" data-panel="16"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="№16"><option value="">—</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select>
+        </div>
+        <button class="solbtn" data-sol="sol16">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="17" data-correct="В" data-topic="figure-match" data-sol="sol17">
+        <span class="qtext">Площа круга радіуса r</span>
+        <button class="hintbtn" data-q="17">💡 Підказка</button>
+        <div class="hintpanel" data-panel="17"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="№17"><option value="">—</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select>
+        </div>
+        <button class="solbtn" data-sol="sol17">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="18" data-correct="Г" data-topic="figure-match" data-sol="sol18">
+        <span class="qtext">Площа трикутника з основою a та висотою h</span>
+        <button class="hintbtn" data-q="18">💡 Підказка</button>
+        <div class="hintpanel" data-panel="18"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="№18"><option value="">—</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select>
+        </div>
+        <button class="solbtn" data-sol="sol18">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: SHORT ANSWER ================ -->
+  <section class="task">
+    <h2>Частина 3. Завдання з короткою відповіддю</h2>
+    <p class="instr">Розв'яжи й упиши число у поле. Дробове — через кому або крапку. Де є циліндр/коло — π вказане в умові. (№19–№23)</p>
+    <ol class="qs">
+
+      <li data-type="short" data-n="19" data-correct="27" data-topic="vol-cube" data-sol="sol19">
+        <span class="topic-tag weak-tag">об'єм куба</span>
+        <span class="qtext">Знайди об'єм куба з ребром 3.</span>
+        <button class="hintbtn" data-q="19">💡 Підказка</button>
+        <div class="hintpanel" data-panel="19"></div>
+        <div style="margin-top:10px"><b>V =</b> <input type="text" inputmode="decimal" class="numin" name="q19" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol19">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="short" data-n="20" data-correct="24" data-topic="vol-prism" data-sol="sol20">
+        <span class="topic-tag weak-tag">об'єм паралелепіпеда</span>
+        <span class="qtext">Знайди об'єм прямокутного паралелепіпеда з вимірами 2, 3 і 4.</span>
+        <button class="hintbtn" data-q="20">💡 Підказка</button>
+        <div class="hintpanel" data-panel="20"></div>
+        <div style="margin-top:10px"><b>V =</b> <input type="text" inputmode="decimal" class="numin" name="q20" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol20">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="short" data-n="21" data-correct="60" data-topic="vol-cylinder" data-sol="sol21">
+        <span class="topic-tag weak-tag">об'єм циліндра</span>
+        <span class="qtext">Знайди об'єм циліндра, де радіус основи = 2, висота = 5. Візьми π ≈ 3.</span>
+        <button class="hintbtn" data-q="21">💡 Підказка</button>
+        <div class="hintpanel" data-panel="21"></div>
+        <div style="margin-top:10px"><b>V =</b> <input type="text" inputmode="decimal" class="numin" name="q21" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol21">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="short" data-n="22" data-correct="20" data-topic="vol-pyramid" data-sol="sol22">
+        <span class="topic-tag weak-tag">об'єм піраміди</span>
+        <span class="qtext">Площа основи піраміди дорівнює 12, висота — 5. Знайди об'єм піраміди.</span>
+        <button class="hintbtn" data-q="22">💡 Підказка</button>
+        <div class="hintpanel" data-panel="22"></div>
+        <div style="margin-top:10px"><b>V =</b> <input type="text" inputmode="decimal" class="numin" name="q22" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol22">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="short" data-n="23" data-correct="96" data-topic="surface-cube" data-sol="sol23">
+        <span class="topic-tag weak-tag">площа поверхні куба</span>
+        <span class="qtext">Знайди площу повної поверхні куба з ребром 4.</span>
+        <button class="hintbtn" data-q="23">💡 Підказка</button>
+        <div class="hintpanel" data-panel="23"></div>
+        <div style="margin-top:10px"><b>S =</b> <input type="text" inputmode="decimal" class="numin" name="q23" placeholder="число"></div>
+        <button class="solbtn" data-sol="sol23">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: планіметрія + стереометрія · формат НМТ-2026 (вибір з 5 · matching · коротка відповідь · таймер). <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "math-day9-geometry"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";
+  if(/я$/i.test(n))     return n;
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";
+  return n;
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#c8102e;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#c8102e;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+let __hintsUsedCount = 0;
+const qHints = {
+  1:{ h1:"Згадай головну властивість будь-якого трикутника: сума всіх трьох його кутів стала.",
+      h2:"<b>Сума кутів трикутника = 180°.</b> Третій кут = 180° − (відомі два).",
+      h3:"180° − 50° − 60° = 180° − 110°.",
+      ans:"В) 70°." },
+  2:{ h1:"Прямокутний трикутник + два катети → теорема Піфагора.",
+      h2:"<b>c² = a² + b²</b> → c = √(6² + 8²) = √(36 + 64).",
+      h3:"√100 = ?",
+      ans:"Г) 10. (Це класичний трикутник 6-8-10.)" },
+  3:{ h1:"Площа трикутника через основу й висоту до неї.",
+      h2:"<b>S = ½·a·h</b> = ½·10·6.",
+      h3:"½·60 = 30.",
+      ans:"Б) 30." },
+  4:{ h1:"Площа прямокутника — це добуток двох сусідніх сторін.",
+      h2:"<b>S = a·b</b> = 7·4.",
+      h3:"7·4 = 28.",
+      ans:"А) 28." },
+  5:{ h1:"Площа паралелограма — це основа на висоту (а не на бічну сторону).",
+      h2:"<b>S = a·h</b> = 9·5.",
+      h3:"9·5 = 45.",
+      ans:"Д) 45." },
+  6:{ h1:"Площа трапеції бере півсуму основ і множить на висоту.",
+      h2:"<b>S = ½·(a + b)·h</b> = ½·(6 + 10)·4.",
+      h3:"½·16·4 = 8·4 = 32.",
+      ans:"В) 32." },
+  7:{ h1:"Довжина кола залежить від радіуса. Згадай формулу з π.",
+      h2:"<b>C = 2πr</b> = 2·3·5 (бо π≈3).",
+      h3:"2·3·5 = 30.",
+      ans:"Г) 30." },
+  8:{ h1:"Особливий випадок вписаного кута: він спирається на діаметр (дуга — півколо).",
+      h2:"Вписаний кут = ½ дуги. Діаметр стягує дугу 180°, тож кут = ½·180°.",
+      h3:"½·180° = 90° (кут завжди прямий).",
+      ans:"Б) 90°." },
+  9:{ h1:"Є правило, що пов'язує центральний і вписаний кути на одній дузі.",
+      h2:"<b>Центральний = 2 × вписаний</b> = 2·40°.",
+      h3:"2·40° = 80°.",
+      ans:"В) 80°." },
+  10:{ h1:"У рівнобедреному трикутнику два кути при основі рівні. Сума всіх трьох = 180°.",
+       h2:"Кути при основі = (180° − кут при вершині)/2 = (180° − 40°)/2.",
+       h3:"140°/2 = 70°.",
+       ans:"Г) 70°." },
+  11:{ h1:"Рівносторонній трикутник має три рівні сторони, отже й три рівні кути.",
+       h2:"Сума кутів 180°, усі рівні → кожен = 180°/3.",
+       h3:"180°/3 = 60°.",
+       ans:"А) 60°." },
+  12:{ h1:"У подібних трикутниках відповідні сторони пропорційні. Знайди коефіцієнт.",
+       h2:"Коефіцієнт k = 9/3 = 3. Сторона більшого = сторона меншого × k = 4·3.",
+       h3:"4·3 = 12.",
+       ans:"Д) 12." },
+  13:{ h1:"Площа круга залежить від квадрата радіуса. Згадай формулу з π.",
+       h2:"<b>S = πr²</b> = 3·2² (бо π≈3).",
+       h3:"3·4 = 12.",
+       ans:"Г) 12." },
+  14:{ h1:"Уяви гральний кубик — порахуй його сторони (грані).",
+       h2:"Куб має <b>6 граней</b> (квадратів), 8 вершин і 12 ребер.",
+       h3:"Граней — рівно 6.",
+       ans:"В) 6." },
+  15:{ h1:"Квадрат — це чотирикутник з рівними сторонами a. Як знайти його площу?",
+       h2:"Площа квадрата = сторона в квадраті = <b>a²</b>.",
+       h3:"Шукай у легенді a².",
+       ans:"А — a²." },
+  16:{ h1:"Куб — об'ємна фігура з ребром a. Тобі потрібен саме об'єм.",
+       h2:"Об'єм куба = ребро в кубі = <b>a³</b>.",
+       h3:"Шукай a³.",
+       ans:"Б — a³." },
+  17:{ h1:"Круг — плоска фігура з радіусом r. Формула площі містить π.",
+       h2:"Площа круга = <b>πr²</b>.",
+       h3:"Шукай πr².",
+       ans:"В — πr²." },
+  18:{ h1:"Трикутник з основою a та висотою h. Згадай його площу.",
+       h2:"Площа трикутника = <b>½·a·h</b>.",
+       h3:"Шукай ½·a·h. (Зайвою лишиться a·b — площа прямокутника.)",
+       ans:"Г — ½·a·h." },
+  19:{ h1:"Об'єм куба — через ребро. Куб однаковий у всіх трьох напрямках.",
+       h2:"<b>V = a³</b> = 3³.",
+       h3:"3·3·3 = ?",
+       ans:"V = 27." },
+  20:{ h1:"Об'єм прямокутного паралелепіпеда (коробки) — добуток трьох вимірів.",
+       h2:"<b>V = a·b·c</b> = 2·3·4.",
+       h3:"2·3·4 = ?",
+       ans:"V = 24." },
+  21:{ h1:"Об'єм циліндра = площа основи × висота. Основа — круг.",
+       h2:"<b>V = πr²·h</b> = 3·2²·5 (бо π≈3).",
+       h3:"3·4·5 = ?",
+       ans:"V = 60." },
+  22:{ h1:"Об'єм піраміди втричі менший за «коробку» з тією ж основою й висотою.",
+       h2:"<b>V = ⅓·Sосн·h</b> = ⅓·12·5.",
+       h3:"⅓·60 = ?",
+       ans:"V = 20." },
+  23:{ h1:"Поверхня куба складається з 6 однакових квадратних граней.",
+       h2:"<b>S = 6·a²</b> = 6·4².",
+       h3:"6·16 = ?",
+       ans:"S = 96." }
+};
+
+/* ============== SOLUTIONS ============== */
+const sols = {
+  "sol1":{title:"№1 → 70°",body:`<p>Сума кутів трикутника = 180°.</p><p class="step">третій = 180° − 50° − 60° = 180° − 110° = <b>70°</b>.</p><p><b>Відповідь: В) 70°.</b></p>`},
+  "sol2":{title:"№2 → 10",body:`<p>Теорема Піфагора: c² = a² + b².</p><p class="step">c = √(6² + 8²) = √(36 + 64) = √100 = <b>10</b>. (Трикутник 6-8-10.)</p><p><b>Відповідь: Г) 10.</b></p>`},
+  "sol3":{title:"№3 → 30",body:`<p>S = ½·a·h = ½·10·6 = <b>30</b>.</p><p><b>Відповідь: Б) 30.</b></p>`},
+  "sol4":{title:"№4 → 28",body:`<p>S = a·b = 7·4 = <b>28</b>.</p><p><b>Відповідь: А) 28.</b></p>`},
+  "sol5":{title:"№5 → 45",body:`<p>Площа паралелограма = основа × висота: S = 9·5 = <b>45</b>. (Бічна сторона тут не потрібна.)</p><p><b>Відповідь: Д) 45.</b></p>`},
+  "sol6":{title:"№6 → 32",body:`<p>S = ½·(a + b)·h = ½·(6 + 10)·4 = ½·16·4 = 8·4 = <b>32</b>.</p><p><b>Відповідь: В) 32.</b></p>`},
+  "sol7":{title:"№7 → 30",body:`<p>Довжина кола C = 2πr. Беремо π ≈ 3: C = 2·3·5 = <b>30</b>.</p><p><b>Відповідь: Г) 30.</b></p>`},
+  "sol8":{title:"№8 → 90°",body:`<p>Вписаний кут дорівнює половині дуги, на яку спирається. Діаметр стягує дугу 180°, тож кут = ½·180° = <b>90°</b> (завжди прямий).</p><p><b>Відповідь: Б) 90°.</b></p>`},
+  "sol9":{title:"№9 → 80°",body:`<p>Центральний кут удвічі більший за вписаний на тій самій дузі: 2·40° = <b>80°</b>.</p><p><b>Відповідь: В) 80°.</b></p>`},
+  "sol10":{title:"№10 → 70°",body:`<p>Кути при основі рівнобедреного трикутника рівні. (180° − 40°)/2 = 140°/2 = <b>70°</b>.</p><p><b>Відповідь: Г) 70°.</b></p>`},
+  "sol11":{title:"№11 → 60°",body:`<p>Усі три кути рівні, сума = 180°, тож кожен = 180°/3 = <b>60°</b>.</p><p><b>Відповідь: А) 60°.</b></p>`},
+  "sol12":{title:"№12 → 12",body:`<p>Коефіцієнт подібності k = 9/3 = 3. Сторона більшого = 4·3 = <b>12</b>.</p><p><b>Відповідь: Д) 12.</b></p>`},
+  "sol13":{title:"№13 → 12",body:`<p>Площа круга S = πr². Беремо π ≈ 3: S = 3·2² = 3·4 = <b>12</b>.</p><p><b>Відповідь: Г) 12.</b></p>`},
+  "sol14":{title:"№14 → 6",body:`<p>Куб має <b>6</b> граней (квадратів), 8 вершин і 12 ребер.</p><p><b>Відповідь: В) 6.</b></p>`},
+  "sol15":{title:"№15 → А (a²)",body:`<p>Площа квадрата зі стороною a дорівнює <b>a²</b>.</p><p><b>Відповідь: А.</b></p>`},
+  "sol16":{title:"№16 → Б (a³)",body:`<p>Об'єм куба з ребром a дорівнює <b>a³</b>.</p><p><b>Відповідь: Б.</b></p>`},
+  "sol17":{title:"№17 → В (πr²)",body:`<p>Площа круга радіуса r дорівнює <b>πr²</b>.</p><p><b>Відповідь: В.</b></p>`},
+  "sol18":{title:"№18 → Г (½·a·h)",body:`<p>Площа трикутника = <b>½·a·h</b>. Зайва формула — Д (a·b — площа прямокутника).</p><p><b>Відповідь: Г.</b></p>`},
+  "sol19":{title:"№19 → 27",body:`<p>Об'єм куба V = a³ = 3³ = 3·3·3 = <b>27</b>.</p>`},
+  "sol20":{title:"№20 → 24",body:`<p>Об'єм паралелепіпеда V = a·b·c = 2·3·4 = <b>24</b>.</p>`},
+  "sol21":{title:"№21 → 60",body:`<p>Об'єм циліндра V = πr²·h. Беремо π ≈ 3: V = 3·2²·5 = 3·4·5 = <b>60</b>.</p>`},
+  "sol22":{title:"№22 → 20",body:`<p>Об'єм піраміди V = ⅓·Sосн·h = ⅓·12·5 = ⅓·60 = <b>20</b>.</p>`},
+  "sol23":{title:"№23 → 96",body:`<p>Повна поверхня куба S = 6·a² = 6·4² = 6·16 = <b>96</b>.</p>`}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього завдання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Формула',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress ============== */
+const TOTAL = 23;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function unitGiven(unit){
+  const type = unit.dataset.type;
+  if(type==='mc'){ const c=unit.querySelector('input[type=radio]:checked'); return c?c.value:''; }
+  if(type==='short'){ const t=unit.querySelector('input[type=text]'); return t?t.value.trim():''; }
+  const sel = unit.matches('select') ? unit : unit.querySelector('select');
+  return sel ? sel.value : '';
+}
+function countAnswered(){
+  let c=0;
+  document.querySelectorAll('[data-correct]').forEach(u=>{ if(unitGiven(u)!=='') c++; });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = Math.min(100, c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+/* ============== Numeric compare ============== */
+function normalizeNum(s){
+  if(s==null) return '';
+  return String(s).trim().replace(',', '.').replace(/\s+/g,'');
+}
+function numEqual(given, correct){
+  const g = parseFloat(normalizeNum(given));
+  const c = parseFloat(normalizeNum(correct));
+  if(isNaN(g) || isNaN(c)) return false;
+  return Math.abs(g - c) < 1e-6;
+}
+
+/* ============== Countdown timer (як на НМТ) ============== */
+const LIMIT_SEC = 50*60;
+const timerEl = document.getElementById('timer');
+let t0 = Date.now();
+let timerInt = null;
+let submitted = false;
+function fmt(s){ const m=String(Math.floor(s/60)).padStart(2,'0'); const ss=String(s%60).padStart(2,'0'); return m+':'+ss; }
+function tick(){
+  const elapsed = Math.floor((Date.now()-t0)/1000);
+  let rem = LIMIT_SEC - elapsed;
+  if(rem <= 0){
+    timerEl.textContent = '⏱ 00:00';
+    timerEl.className = 'danger';
+    clearInterval(timerInt);
+    if(!submitted && !window.__nmtExamActive) doSubmit(true);
+    return;
+  }
+  timerEl.textContent = '⏱ ' + fmt(rem);
+  timerEl.className = rem<=60 ? 'danger' : (rem<=300 ? 'warn' : '');
+}
+function startTimer(){ clearInterval(timerInt); tick(); timerInt = setInterval(tick, 1000); }
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>{ r.checked=false; r.disabled=false; });
+  document.querySelectorAll('input[type=text]').forEach(t=>{ t.value=''; t.disabled=false; t.classList.remove('correct','wrong'); });
+  document.querySelectorAll('select.gap').forEach(s=>{ s.value=''; s.disabled=false; s.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.fix').forEach(f=>f.remove());
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on'); res.innerHTML='';
+  __hintsUsedCount = 0; submitted = false;
+  const tu = document.getElementById('timeup'); if(tu) tu.style.display='none';
+  const sb = document.getElementById('submitBtn'); sb.disabled=false; sb.textContent='Завершити тест і отримати оцінку';
+  t0 = Date.now();
+  startTimer();
+  updateProgress();
+}
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+function doSubmit(auto){
+  if(submitted) return;
+  submitted = true;
+  clearInterval(timerInt);
+  if(auto){ const tu=document.getElementById('timeup'); if(tu) tu.style.display='block'; }
+
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('[data-correct]').forEach(unit=>{
+    const type = unit.dataset.type;
+    const n = parseInt(unit.dataset.n,10);
+    const correct = unit.dataset.correct;
+    const topic = unit.dataset.topic;
+    let given='', ok=false;
+
+    if(type==='mc'){
+      const chk = unit.querySelector('input[type=radio]:checked');
+      given = chk ? chk.value : '';
+      ok = given === correct;
+      unit.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      unit.querySelector('.solbtn')?.classList.add('on');
+    } else if(type==='short'){
+      const inp = unit.querySelector('input[type=text]');
+      given = inp ? inp.value : '';
+      ok = numEqual(given, correct);
+      if(inp){
+        inp.classList.remove('correct','wrong');
+        inp.classList.add(ok ? 'correct' : 'wrong');
+        inp.disabled = true;
+        if(!ok){
+          const span = document.createElement('span');
+          span.className = 'fix';
+          span.innerHTML = '✓ ' + escapeHTML(correct);
+          inp.insertAdjacentElement('afterend', span);
+        }
+      }
+      unit.querySelector('.solbtn')?.classList.add('on');
+    } else { // match (select)
+      const sel = unit.matches('select') ? unit : unit.querySelector('select');
+      given = sel ? sel.value : '';
+      ok = given === correct;
+      if(sel){
+        sel.classList.remove('correct','wrong');
+        sel.classList.add(ok ? 'correct' : 'wrong');
+        sel.disabled = true;
+        if(!ok){
+          const span = document.createElement('span');
+          span.className = 'fix';
+          span.innerHTML = '✓ ' + escapeHTML(correct);
+          sel.insertAdjacentElement('afterend', span);
+        }
+      }
+      unit.querySelector?.('.solbtn')?.classList.add('on');
+    }
+    record(n, topic, correct, given, ok);
+  });
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.95) * 100);
+
+  const blocks = {
+    'Трикутники · Піфагор': ['tri-angles','pythagoras','tri-isosceles','tri-equilateral','similar'],
+    'Площі фігур': ['area-tri','area-rect','area-parallelogram','area-trapezoid','area-circle','figure-match'],
+    'Коло': ['circle-circumference','circle-angle'],
+    'Стереометрія: об\'єми': ['solid-concept','vol-cube','vol-prism','vol-cylinder','vol-pyramid'],
+    'Стереометрія: площі поверхонь': ['surface-cube']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='Впевнений рівень'; verdictColor='ok'; verdictText=taHey('планіметрія і стереометрія — твоя сильна сторона! Ти впевнено застосовуєш теорему Піфагора, формули площ та об\'ємів. Це стабільні бали на НМТ.'); }
+  else if(pct >= 75){ level='Добрий'; verdictColor='ok'; verdictText='Сильна база з геометрії. На НМТ ці завдання даватимуть надійні бали. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='Середній+'; verdictColor='ok'; verdictText='Непогано. Закрий одну слабку тему (часто це площа трапеції/паралелограма або об\'єм піраміди) — і розділ стане опорою.'; }
+  else if(pct >= 40){ level='Середній'; verdictColor='warn'; verdictText='База є. Вивчи напам\'ять три речі: c²=a²+b², площі (трикутника ½ah, прямокутника ab, круга πr²) та об\'єми (куба a³, циліндра πr²h).'; }
+  else if(pct >= 20){ level='Слабкий старт'; verdictColor='warn'; verdictText='Старт є. Почни з найпростішого: сума кутів трикутника 180°, площа прямокутника й трикутника, об\'єм куба. По кілька прикладів на день.'; }
+  else { level='Майже з нуля'; verdictColor='bad'; verdictText='Поки рано, але геометрія — окрема велика тема НМТ. Розберись із 💡-кроками, випиши формули площ і об\'ємів на картку й повертайся.'; }
+
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">№${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const dt = Math.min(Math.floor((Date.now()-t0)/1000), LIMIT_SEC);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Математика · Day 9 (планіметрія + стереометрія) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень: ${level}
+Шкала НМТ (орієнтовно): ${nmt}/200
+Час: ${mm}:${ss}${auto?' (час вийшов — авто-здача)':''}
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`№${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% правильних · час: ${mm}:${ss}${auto?' ⏰':''}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень</h4><div class="v" style="font-size:20px">${level}</div></div>
+      <div class="card"><h4>Орієнтовний бал НМТ</h4><div class="v">${nmt} / 200</div></div>
+      <div class="card"><h4>Час (з 50:00)</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Готовність (ця тема)</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=45?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище — там покроковий розв'язок.</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> випиши на картку: сума кутів трикутника = 180°, c²=a²+b², S(трикутника)=½ah, S(прямокутника)=ab, S(паралелограма)=ah, S(трапеції)=½(a+b)h, S(круга)=πr², C=2πr, V(куба)=a³, V(паралелепіпеда)=abc, V(циліндра)=πr²h, V(піраміди)=⅓Sh, S(поверхні куба)=6a².</li>
+      <li><b>Цього тижня:</b> по кілька прикладів на день на найслабшу тему (дивись блоки вище).</li>
+      <li><b>Через 5–7 днів:</b> пройди ще раз, уклавшись у <b>50 хвилин</b>. Ціль — 19/23 (83%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  const sb = document.getElementById('submitBtn'); sb.disabled=true; sb.textContent='Тест завершено';
+
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level, auto_submitted: !!auto
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus(); fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+}
+document.getElementById('submitBtn').onclick = () => doSubmit(false);
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* init */
+freshState();
+</script>
+
+<!-- Опційний «Режим іспиту (НМТ)» — презентаційний шар поверх цього ж тесту -->
+<script>
+window.NMT_EXAM_CONFIG = {
+  subject: "Математика",
+  screenSelector: "section.task",
+  timerMinutes: 50,
+  submitSelector: "#submitBtn",
+  resultSelector: "#result"
+};
+</script>
+<script src="assets/nmt-mode.js" defer></script>
+</body>
+</html>

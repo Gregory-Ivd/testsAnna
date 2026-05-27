@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Reading mock (Day 9)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a4d8c'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>M</text></svg>">
+<style>
+  :root{
+    --bg:#b1a06c; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px;counter-reset:q}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select.gap{font-size:20px;padding:5px 9px;border:1px solid #b7935a;border-radius:6px;background:#fffef9;min-width:120px;font-family:inherit;color:var(--ink)}
+  select.gap.correct{background:#e3f3e6;border-color:#5ba370;color:#0e5723}
+  select.gap.wrong{background:#fbe3e3;border-color:#cf7a7a;color:#8a1a1a}
+  .fix{color:var(--ok);font-weight:700;font-size:17px;margin-left:6px;font-family:"Trebuchet MS",sans-serif}
+  /* matching */
+  .match-legend{background:#f4f1e6;border:1px dashed #b7935a;border-radius:8px;padding:12px 16px;margin:8px 0 16px;font-size:19px;line-height:1.7}
+  .match-legend b{color:var(--accent-2);font-family:"Trebuchet MS",sans-serif}
+  .matchrow{margin-top:10px;font-size:21px}
+  /* cloze / passage */
+  .passage{background:#fbf8ee;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:16px 22px;font-size:21px;line-height:1.7;margin-bottom:6px}
+  .passage p{margin:0 0 12px}
+  .passage p:last-child{margin-bottom:0}
+  .cloze-text{background:#fbf8ee;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:16px 20px;font-size:21px;line-height:2.2}
+  .cloze-text .gapno{font-size:14px;color:var(--accent-2);font-family:"Trebuchet MS",sans-serif;vertical-align:super}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  /* ===== Каскадні підказки (крок за кроком) ===== */
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.primary:disabled{background:#9aa3ad;cursor:default}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .gaprow{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px;font-size:19px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  #timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+  #timer.warn{color:var(--warn)}
+  #timer.danger{color:var(--bad);animation:blink 1s steps(2,start) infinite}
+  @keyframes blink{50%{opacity:.45}}
+  #timeup{display:none;background:#fbe3e3;border:1px solid #cf7a7a;color:#8a1a1a;border-radius:8px;padding:10px 16px;margin-top:12px;font-size:18px;font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+<link rel="stylesheet" href="assets/nmt-mode.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 9 <span class="badge">reading mock</span></h1>
+    <div class="sub">Підсумковий тест на читання · 22 завдання · рівень B1+/B2 · ⏱ 45 хв (зворотний відлік)</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це <b>підсумковий тренажер на читання</b> у форматі НМТ: три типи завдань на роботу з текстом. Тут <b>немає окремих граматичних речень</b> — усе перевіряється через розуміння написаного, як на реальному іспиті.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) <b>Частина 1</b> — <i>добір заголовків</i> (matching headings): прочитай шість абзаців і підбери заголовок до кожного. <b>Частина 2</b> — <i>розуміння тексту</i>: прочитай довгий текст і обери одну відповідь на кожне запитання. <b>Частина 3</b> — <i>текст із пропусками</i> (cloze): обери слово у кожному випадному списку.
+      <br>2) ⏱ <b>Таймер іде на зменшення (45 хв), як на іспиті.</b> За 5 хв до кінця він стане жовтим, за 1 хв — червоним. Коли час вийде — тест здасться <b>автоматично</b>. Вчися розподіляти час між частинами.
+      <br>3) Застряг(-ла) — натисни 💡: підказка вчить <b>стратегії читання</b> крок за кроком (знайди ключові слова → перефразуй → відсій хибні варіанти → відповідь), а не одразу видає ключ. Після здачі біля кожного завдання буде «📖 детальне рішення».
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 22</span><span id="timer">⏱ 45:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+    <div id="timeup">⏰ Час вийшов — тест здано автоматично. Дивись результат нижче.</div>
+  </div>
+
+  <!-- ================ PART 1: MATCHING HEADINGS ================ -->
+  <section class="task">
+    <h2>Частина 1. Добір заголовків (matching headings)</h2>
+    <p class="instr">Прочитай шість абзаців про мову та спілкування. Добери до кожного абзацу (Q1–Q6) заголовок зі списку (А–Ж). Один заголовок — зайвий.</p>
+    <div class="match-legend">
+      <b>А</b> — How children pick up language so quickly<br>
+      <b>Б</b> — Words that exist in only one language<br>
+      <b>В</b> — Why some languages are disappearing<br>
+      <b>Г</b> — The surprising benefits of speaking two languages<br>
+      <b>Д</b> — How writing systems were first invented<br>
+      <b>Е</b> — Gestures that mean different things abroad<br>
+      <b>Ж</b> — Why English borrows so many foreign words
+    </div>
+    <ol class="qs">
+
+      <li data-type="match" data-n="1" data-correct="Г" data-topic="match-headings" data-sol="sol1">
+        <span class="qtext">Researchers who study the brain have found that people who regularly use two languages tend to be better at switching between tasks and ignoring distractions. The constant effort of choosing the right language appears to train the mind, and some studies even suggest that it can delay the onset of memory problems in old age.</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q1">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="2" data-correct="Е" data-topic="match-headings" data-sol="sol2">
+        <span class="qtext">A simple movement of the hand can carry opposite meanings in different countries. The "thumbs-up" sign that means "well done" to many Europeans can be deeply rude in parts of the Middle East. Travellers are often advised to learn which everyday gestures might accidentally offend the people they meet.</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q2">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="3" data-correct="Б" data-topic="match-headings" data-sol="sol3">
+        <span class="qtext">Some terms are almost impossible to translate in a single word. Portuguese "saudade" describes a warm, sad longing for something that is gone, while Japanese "komorebi" names the light that filters through the leaves of trees. Such words remind us that every language sees the world in its own way.</span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q3">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="4" data-correct="В" data-topic="match-headings" data-sol="sol4">
+        <span class="qtext">Around the world, a language dies roughly every two weeks, usually when its last elderly speakers pass away and younger people switch to a more dominant tongue for school and work. Linguists race to record these languages, because each one that vanishes takes with it unique stories, songs and knowledge of nature.</span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q4">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="5" data-correct="А" data-topic="match-headings" data-sol="sol5">
+        <span class="qtext">Long before they can tie their shoes, most children master the basic grammar of their native tongue without any formal lessons. Simply by listening to the adults around them, toddlers work out complicated rules and begin producing sentences they have never heard before, a feat that still amazes scientists.</span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q5">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="6" data-correct="Ж" data-topic="match-headings" data-sol="sol6">
+        <span class="qtext">Over the centuries, English speakers have happily adopted vocabulary from dozens of other languages: "ballet" from French, "piano" from Italian, "yoghurt" from Turkish. Because the language has so often welcomed these newcomers instead of inventing native equivalents, its dictionary is one of the largest in the world.</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q6">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: READING COMPREHENSION ================ -->
+  <section class="task">
+    <h2>Частина 2. Розуміння тексту (вибір однієї відповіді)</h2>
+    <p class="instr">Прочитай текст і обери правильну відповідь (A–D) на кожне з восьми запитань (Q7–Q14).
+      <button class="hintbtn" data-q="91">💡 Підказка до тексту</button>
+    </p>
+    <div class="hintpanel" data-panel="91"></div>
+    <div class="passage">
+      <p>For most of his childhood, Daniel Ortega assumed he would become a doctor like both of his parents. He grew up in a small coastal town in Chile, and the family home was always full of medical journals and quiet talk of patients. Yet the thing that truly held his attention was not in any of those journals. It was the night sky, which in his town was astonishingly clear, far from the glow of big cities.</p>
+      <p>When Daniel was eleven, an uncle gave him a small, second-hand telescope that no longer focused properly. Rather than putting it aside, the boy spent an entire winter learning how to repair it, reading whatever he could find and ruining several lenses along the way. By spring the instrument worked again, and Daniel had discovered that he enjoyed fixing it almost as much as using it. That winter, he later said, taught him more about patience than any school subject ever had.</p>
+      <p>His parents were supportive but cautious. They worried that astronomy offered few stable jobs, and they gently steered him towards medicine whenever the subject came up. The turning point arrived when a visiting astronomer gave a talk at Daniel's school. Afterwards, instead of going home, Daniel stayed for two hours asking questions. The astronomer, impressed, invited him to spend a summer helping at a mountain observatory several hundred kilometres away.</p>
+      <p>That summer changed everything. The observatory was understaffed, and although Daniel was only sixteen, he was trusted with real responsibilities: cleaning the delicate mirrors, logging measurements through the night, and even noticing an error in a data file that two senior researchers had missed. The director told him, only half joking, that the place would struggle to manage without him. Daniel returned home certain of what he wanted to do, and equally certain that he would have to convince his parents.</p>
+      <p>Today, Daniel runs an education programme that brings portable telescopes to rural schools across the country, many of them as small and remote as his own had been. He says he is not trying to turn every child into an astronomer. He simply wants them to look up, the way he once did, and to discover that curiosity is a skill which can be practised. His parents, he adds with a smile, now proudly tell their patients about their son the scientist.</p>
+    </div>
+
+    <ol class="qs">
+      <li data-type="mc" data-n="7" data-correct="C" data-topic="reading-mainidea" data-sol="sol7">
+        <span class="topic-tag">main idea</span>
+        <span class="qtext">What is the text mainly about?</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) The difficulty of repairing old telescopes</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) Why coastal towns have the clearest skies</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) How one person followed his passion into a career</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) The shortage of staff at mountain observatories</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="8" data-correct="B" data-topic="reading-detail" data-sol="sol8">
+        <span class="topic-tag">detail</span>
+        <span class="qtext">Why did Daniel originally think he would become a doctor?</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) Because his town had no astronomers</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) Because both of his parents were doctors</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) Because he was afraid of unstable jobs</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) Because his uncle was a doctor</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="9" data-correct="D" data-topic="reading-detail" data-sol="sol9">
+        <span class="topic-tag">detail</span>
+        <span class="qtext">What did Daniel do with the broken telescope his uncle gave him?</span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q9" value="A"> A) He gave it back because it could not be fixed</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> B) He sold it and bought a new one</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> C) He used it without ever repairing it</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> D) He spent a winter learning to repair it himself</label>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="10" data-correct="A" data-topic="reading-detail" data-sol="sol10">
+        <span class="topic-tag">detail</span>
+        <span class="qtext">How did Daniel react after the visiting astronomer's talk?</span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q10" value="A"> A) He stayed behind to ask questions for two hours</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> B) He immediately told his parents he would quit medicine</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> C) He went straight home to read journals</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> D) He applied to study astronomy abroad</label>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="11" data-correct="B" data-topic="reading-inference" data-sol="sol11">
+        <span class="topic-tag weak-tag">inference</span>
+        <span class="qtext">What can we infer about Daniel's work at the observatory?</span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q11" value="A"> A) He was given only simple tasks because of his age</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> B) He proved more capable than his age might suggest</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> C) He made a serious mistake that others had to fix</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> D) He found the night shifts too difficult to manage</label>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="12" data-correct="C" data-topic="reading-vocab" data-sol="sol12">
+        <span class="topic-tag weak-tag">vocab in context</span>
+        <span class="qtext">In paragraph 3, the phrase "steered him towards medicine" is closest in meaning to</span>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q12" value="A"> A) forced him to study medicine</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> B) forbade him from studying medicine</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> C) gently encouraged him to choose medicine</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> D) paid for his medical studies</label>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="13" data-correct="A" data-topic="reading-reference" data-sol="sol13">
+        <span class="topic-tag weak-tag">reference</span>
+        <span class="qtext">In the last paragraph, the words "as small and remote as his own had been" refer to</span>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q13" value="A"> A) the schools Daniel now visits</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> B) the telescopes the programme uses</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> C) the observatory where he worked</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> D) the cities far from his town</label>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="14" data-correct="D" data-topic="reading-inference" data-sol="sol14">
+        <span class="topic-tag weak-tag">inference</span>
+        <span class="qtext">What is Daniel's main goal with his education programme today?</span>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q14" value="A"> A) To make every child become an astronomer</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> B) To sell telescopes to rural schools</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> C) To prove his parents were wrong about science</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> D) To encourage children to be curious and look up</label>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: CLOZE ================ -->
+  <section class="task">
+    <h2>Частина 3. Текст із пропусками (cloze)</h2>
+    <p class="instr">Прочитай текст про публічну бібліотеку й обери у кожному випадному списку слово, що підходить за змістом і граматикою. (Q15–Q22)
+      <button class="hintbtn" data-q="90">💡 Підказка до тексту</button>
+    </p>
+    <div class="hintpanel" data-panel="90"></div>
+    <div class="cloze-text">
+      The public library in our neighbourhood has changed a great
+      <span class="gapno">(15)</span><select class="gap" data-type="cloze" data-n="15" data-correct="deal" data-topic="cloze-lex" aria-label="Gap 15"><option value="">— ?</option><option value="deal">deal</option><option value="lot of">lot of</option><option value="many">many</option><option value="number">number</option></select>
+      over the past ten years. It is no longer
+      <span class="gapno">(16)</span><select class="gap" data-type="cloze" data-n="16" data-correct="just" data-topic="cloze-lex" aria-label="Gap 16"><option value="">— ?</option><option value="ever">ever</option><option value="just">just</option><option value="hardly">hardly</option><option value="quite">quite</option></select>
+      a quiet room full of books. These days you
+      <span class="gapno">(17)</span><select class="gap" data-type="cloze" data-n="17" data-correct="can" data-topic="cloze-gram" aria-label="Gap 17"><option value="">— ?</option><option value="can">can</option><option value="must">must</option><option value="should">should</option><option value="need">need</option></select>
+      borrow tools, attend free workshops, or simply use the fast internet. As a result, far
+      <span class="gapno">(18)</span><select class="gap" data-type="cloze" data-n="18" data-correct="more" data-topic="cloze-gram" aria-label="Gap 18"><option value="">— ?</option><option value="much">much</option><option value="more">more</option><option value="most">most</option><option value="many">many</option></select>
+      people visit it than before. The staff are always happy to
+      <span class="gapno">(19)</span><select class="gap" data-type="cloze" data-n="19" data-correct="help" data-topic="cloze-lex" aria-label="Gap 19"><option value="">— ?</option><option value="serve">serve</option><option value="help">help</option><option value="teach">teach</option><option value="lend">lend</option></select>
+      you find what you are looking
+      <span class="gapno">(20)</span><select class="gap" data-type="cloze" data-n="20" data-correct="for" data-topic="cloze-gram" aria-label="Gap 20"><option value="">— ?</option><option value="at">at</option><option value="after">after</option><option value="for">for</option><option value="up">up</option></select>,
+      and they organise reading clubs for both children and adults. Last month I
+      <span class="gapno">(21)</span><select class="gap" data-type="cloze" data-n="21" data-correct="took" data-topic="cloze-lex" aria-label="Gap 21"><option value="">— ?</option><option value="took">took</option><option value="made">made</option><option value="did">did</option><option value="had">had</option></select>
+      part in a photography course there, and it was completely free. Honestly, I cannot
+      <span class="gapno">(22)</span><select class="gap" data-type="cloze" data-n="22" data-correct="imagine" data-topic="cloze-lex" aria-label="Gap 22"><option value="">— ?</option><option value="imagine">imagine</option><option value="remember">remember</option><option value="afford">afford</option><option value="manage">manage</option></select>
+      our town without it.
+    </div>
+    <button class="solbtn" data-sol="solCloze" style="margin-top:14px">📖 детальний розбір усіх пропусків</button>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: підсумкове читання (reading mock) · формат НМТ-2026 (matching headings + reading comprehension + cloze + таймер). <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day9-readingmock"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";
+  if(/я$/i.test(n))     return n;
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";
+  return n;
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+let __hintsUsedCount = 0;
+const qHints = {
+  /* ===== Part 1: matching headings ===== */
+  1:{ h1:"Не читай заголовки першими — спершу знайди в абзаці слова, що повторюються чи є ключовими (тут: «two languages», «switching between tasks»).",
+      h2:"Заголовок має покривати <b>весь</b> абзац, а не одне слово. Про що головна думка: про користь? про зникнення? про дітей?",
+      h3:"Абзац хвалить переваги володіння двома мовами (тренує мозок, відкладає проблеми з пам'яттю). Шукай заголовок зі словом «benefits» + «two languages».",
+      ans:"Г — The surprising benefits of speaking two languages." },
+  2:{ h1:"Ключові слова абзацу: «movement of the hand», «thumbs-up», «gesture». Про що мова?",
+      h2:"Йдеться про жести, що означають різне в різних країнах. Відсій заголовки про слова чи мови — тут саме про <b>жести</b>.",
+      h3:"«thumbs-up» ввічливий в одних країнах і грубий в інших → заголовок про жести за кордоном.",
+      ans:"Е — Gestures that mean different things abroad." },
+  3:{ h1:"Ключові приклади: «saudade», «komorebi» — слова, які важко перекласти одним словом.",
+      h2:"Абзац про слова, що існують лише в одній мові («almost impossible to translate»). Не плутай із запозиченнями в англійську (це інший абзац).",
+      h3:"Кожна мова має унікальні слова без точного перекладу → заголовок про слова, що є лише в одній мові.",
+      ans:"Б — Words that exist in only one language." },
+  4:{ h1:"Ключові слова: «a language dies», «vanishes», «last elderly speakers». Який це настрій — позитивний чи тривожний?",
+      h2:"Абзац про <b>зникнення</b> мов і чому це стається (молодь переходить на домінантну мову).",
+      h3:"Мова вмирає кожні два тижні, лінгвісти поспішають записати → заголовок про зникнення мов.",
+      ans:"В — Why some languages are disappearing." },
+  5:{ h1:"Ключові слова: «children», «toddlers», «without any formal lessons». Про кого абзац?",
+      h2:"Йдеться про те, <b>як</b> діти опановують мову — швидко й без уроків, лише слухаючи дорослих.",
+      h3:"Малюки засвоюють складну граматику самі, просто слухаючи → заголовок про те, як діти швидко вчать мову.",
+      ans:"А — How children pick up language so quickly." },
+  6:{ h1:"Ключові приклади: «ballet from French», «piano from Italian». Звідки в англійській ці слова?",
+      h2:"Абзац пояснює, чому англійська <b>запозичує</b> багато іноземних слів (замість вигадувати власні).",
+      h3:"Англійська бере слова з десятків мов, тому має величезний словник → заголовок про запозичення.",
+      ans:"Ж — Why English borrows so many foreign words. (Зайвий заголовок — Д про винайдення письма.)" },
+  /* ===== Part 2: reading comprehension ===== */
+  7:{ h1:"Питання про головну думку — не хапайся за деталь з одного абзацу. Про що ВЕСЬ текст від початку до кінця?",
+      h2:"Текст простежує шлях Деніела від дитинства до сьогоднішньої роботи. Це історія про вибір і захоплення, а не про телескопи чи обсерваторії як такі.",
+      h3:"Деніел мав стати лікарем, але пішов за любов'ю до астрономії й тепер працює в цій галузі → головна думка про шлях за покликанням.",
+      ans:"C) How one person followed his passion into a career." },
+  8:{ h1:"Знайди в тексті слово «doctor» на початку. Що поруч пояснює, чому він так думав?",
+      h2:"Абзац 1: «he would become a doctor like both of his parents». Причина — у самому реченні.",
+      h3:"Обоє батьків — лікарі, тому він припускав, що теж стане лікарем.",
+      ans:"B) Because both of his parents were doctors." },
+  9:{ h1:"Знайди в тексті фрагмент про телескоп від дядька (абзац 2). Що Деніел із ним зробив?",
+      h2:"«spent an entire winter learning how to repair it» — він не відклав і не повернув його.",
+      h3:"Він сам цілу зиму вчився ремонтувати телескоп → варіант про ремонт власноруч.",
+      ans:"D) He spent a winter learning to repair it himself." },
+  10:{ h1:"Знайди речення про виступ запрошеного астронома (абзац 3). Що зробив Деніел «afterwards»?",
+       h2:"«instead of going home, Daniel stayed for two hours asking questions» — порівняй із кожним варіантом.",
+       h3:"Він залишився і дві години ставив запитання → саме цей варіант, а не «пішов додому» чи «кинув медицину».",
+       ans:"A) He stayed behind to ask questions for two hours." },
+  11:{ h1:"Inference = висновок із фактів, прямо не написаний. Збери факти про роботу в обсерваторії (абзац 4).",
+       h2:"Йому було лише 16, але йому довірили серйозні справи, і він навіть помітив помилку, яку пропустили двоє старших дослідників.",
+       h3:"Це показує, що він був здібнішим, ніж можна очікувати від його віку. Варіант про «лише прості завдання» суперечить тексту; помилку він <b>знайшов</b>, а не зробив.",
+       ans:"B) He proved more capable than his age might suggest." },
+  12:{ h1:"Vocab-in-context: не бери словникове значення, дивись на речення навколо. Як саме батьки спрямовували його?",
+       h2:"Поруч стоять слова «supportive but cautious» і «gently». Отже, дія м'яка, не примусова.",
+       h3:"«gently steered him towards medicine» = м'яко підштовхували до медицини, а не змушували чи забороняли.",
+       ans:"C) gently encouraged him to choose medicine." },
+  13:{ h1:"Reference: на що вказує фраза? Подивись, що стоїть прямо перед нею в реченні.",
+       h2:"«rural schools across the country, many of them as small and remote as his own had been» — «them» і «his own» вказують на школи.",
+       h3:"«his own» = його власна школа; отже фраза описує школи, які Деніел тепер відвідує.",
+       ans:"A) the schools Daniel now visits." },
+  14:{ h1:"Знайди, де Деніел прямо каже про свою мету (останній абзац). Він заперечує одну ціль і називає іншу.",
+       h2:"«not trying to turn every child into an astronomer» — це він відкидає. «simply wants them to look up… curiosity is a skill».",
+       h3:"Його мета — щоб діти були допитливими й «дивилися вгору», а не щоб усі стали астрономами.",
+       ans:"D) To encourage children to be curious and look up." },
+  91:{ h1:"Стратегія для тексту: спершу швидко прочитай ВЕСЬ текст, щоб зрозуміти загальну історію, і лише потім берись за запитання.",
+       h2:"Запитання здебільшого йдуть <b>по порядку</b> тексту. Для detail-питань знаходь ключове слово з питання в тексті; для inference — збери 2–3 факти й зроби висновок; для vocab — читай сусідні слова.",
+       h3:"Пастки: варіанти, що беруть слово з тексту, але спотворюють зміст (напр. «зробив помилку» замість «знайшов помилку»). Завжди звіряйся з текстом, а не з пам'яттю.",
+       ans:"Розбирай кожне питання за його типом. Повні рішення (Q7–Q14) — у кнопках «📖 детальне рішення» після здачі." },
+  /* ===== Part 3: cloze ===== */
+  90:{ h1:"Стратегія cloze: читай усе речення цілком, а не лише слово біля пропуску. Звертай увагу і на зміст, і на сталі вирази (collocations).",
+       h2:"Алгоритм: (1) Це частина сталого виразу? (a great deal, take part, look for). (2) Граматика: який артикль/прийменник/ступінь порівняння поряд? (3) Зміст: чи логічне слово в цьому реченні?",
+       h3:"Пастки тут: «a great ___» вимагає «deal» (не «lot of»/«many» — там інша конструкція); «look ___» = look for; «far ___ people» з лічильним іменником у множині → more (не much).",
+       ans:"Перевір кожен пропуск за алгоритмом. Повний розбір усіх 8 пропусків — у кнопці «📖 детальний розбір» після здачі." }
+};
+
+/* ============== SOLUTIONS ============== */
+const sols = {
+  "sol1":{title:"Q1 → Г",body:`<p>Абзац про <b>користь двомовності</b>: краще перемикання між задачами, ігнорування відволікань, відкладені проблеми з пам'яттю. Це переваги, а не зникнення чи діти.</p><p><b>Г — The surprising benefits of speaking two languages.</b></p>`},
+  "sol2":{title:"Q2 → Е",body:`<p>Йдеться про <b>жести</b>: «thumbs-up» означає «молодець» для європейців і є грубим на Близькому Сході. Це різне значення жестів за кордоном.</p><p><b>Е — Gestures that mean different things abroad.</b></p>`},
+  "sol3":{title:"Q3 → Б",body:`<p>Приклади «saudade» і «komorebi» — слова, які «almost impossible to translate in a single word», тобто існують лише в одній мові.</p><p><b>Б — Words that exist in only one language.</b></p>`},
+  "sol4":{title:"Q4 → В",body:`<p>«a language dies… every two weeks», мова «vanishes» разом із піснями й знаннями. Це про <b>зникнення</b> мов.</p><p><b>В — Why some languages are disappearing.</b></p>`},
+  "sol5":{title:"Q5 → А",body:`<p>«most children master the basic grammar… without any formal lessons», просто слухаючи дорослих. Це про те, <b>як діти швидко вчать мову</b>.</p><p><b>А — How children pick up language so quickly.</b></p>`},
+  "sol6":{title:"Q6 → Ж",body:`<p>«English speakers have happily adopted vocabulary from dozens of other languages» (ballet, piano, yoghurt) замість вигадувати власні слова. Це про <b>запозичення</b>.</p><p>Зайвий заголовок — <b>Д</b> (How writing systems were first invented): про винайдення письма в тексті нічого немає.</p><p><b>Ж — Why English borrows so many foreign words.</b></p>`},
+  "sol7":{title:"Q7 → C (головна думка)",body:`<p>Текст від початку до кінця простежує, як Деніел від дитячої мрії про медицину пішов за захопленням астрономією й тепер працює в цій сфері. Інші варіанти — лише окремі деталі (ремонт телескопа, чисте небо, нестача персоналу), а не головна думка.</p><p><b>Відповідь: C) How one person followed his passion into a career.</b></p>`},
+  "sol8":{title:"Q8 → B (деталь)",body:`<p>Абзац 1: «he assumed he would become a doctor <b>like both of his parents</b>». Причина прямо названа — обоє батьків лікарі.</p><p><b>Відповідь: B) Because both of his parents were doctors.</b></p>`},
+  "sol9":{title:"Q9 → D (деталь)",body:`<p>Абзац 2: «Rather than putting it aside, the boy <b>spent an entire winter learning how to repair it</b>». Він не повернув і не продав телескоп — ремонтував його сам.</p><p><b>Відповідь: D) He spent a winter learning to repair it himself.</b></p>`},
+  "sol10":{title:"Q10 → A (деталь)",body:`<p>Абзац 3: «instead of going home, Daniel <b>stayed for two hours asking questions</b>». Саме це він зробив після виступу — не пішов додому й не кинув медицину одразу.</p><p><b>Відповідь: A) He stayed behind to ask questions for two hours.</b></p>`},
+  "sol11":{title:"Q11 → B (висновок)",body:`<p>Абзац 4: попри 16 років йому довірили «real responsibilities» і він «notic[ed] an error… that two senior researchers had missed». Звідси висновок: він виявився здібнішим, ніж очікують від такого віку. Варіант A суперечить тексту (завдання були серйозні); у C перекручено — помилку він <b>знайшов</b>, а не зробив.</p><p><b>Відповідь: B) He proved more capable than his age might suggest.</b></p>`},
+  "sol12":{title:"Q12 → C (лексика в контексті)",body:`<p>Поряд: батьки «supportive but cautious» і «<b>gently</b> steered him». «Steer towards» тут = м'яко спрямовувати/заохочувати, а не «forced» (змусили) чи «forbade» (заборонили).</p><p><b>Відповідь: C) gently encouraged him to choose medicine.</b></p>`},
+  "sol13":{title:"Q13 → A (відсилання)",body:`<p>Останній абзац: «rural schools across the country, many of them <b>as small and remote as his own had been</b>». «his own» = його власна школа, тож фраза описує школи, які він тепер відвідує.</p><p><b>Відповідь: A) the schools Daniel now visits.</b></p>`},
+  "sol14":{title:"Q14 → D (висновок)",body:`<p>Останній абзац: «He is <b>not</b> trying to turn every child into an astronomer. He simply wants them to <b>look up</b>… that curiosity is a skill which can be practised». Отже мета — допитливість, а не зробити всіх астрономами (A) чи продати телескопи (B).</p><p><b>Відповідь: D) To encourage children to be curious and look up.</b></p>`},
+  "solCloze":{title:"Текст із пропусками — повний розбір (Q15–Q22)",body:`
+    <div class="gaprow"><b>(15) deal</b> — сталий вираз «a great <u>deal</u>» = дуже багато; «a great lot of/many» не вживають.</div>
+    <div class="gaprow"><b>(16) just</b> — «no longer <u>just</u> a quiet room» = вже не просто тиха кімната. За змістом підходить лише «just».</div>
+    <div class="gaprow"><b>(17) can</b> — «you <u>can</u> borrow tools, attend workshops» = можеш (наявна можливість). «must/should/need» спотворюють зміст.</div>
+    <div class="gaprow"><b>(18) more</b> — «far <u>more</u> people… than before»: «people» лічильне у множині → more (не much); порівняння «than» виключає «most».</div>
+    <div class="gaprow"><b>(19) help</b> — «happy to <u>help</u> you find» — конструкція help (sb) do sth. «teach you find»/«serve you find» граматично хибні.</div>
+    <div class="gaprow"><b>(20) for</b> — «what you are looking <u>for</u>» — сталий фразовий дієслово look for (шукати).</div>
+    <div class="gaprow"><b>(21) took</b> — «I <u>took</u> part in a course» — сталий вираз take part in (брати участь).</div>
+    <div class="gaprow"><b>(22) imagine</b> — «cannot <u>imagine</u> our town without it» = не можу уявити. За змістом лише «imagine».</div>
+  `}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього завдання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Правило',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress ============== */
+const TOTAL = 22;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function unitGiven(unit){
+  const type = unit.dataset.type;
+  if(type==='mc'){ const c=unit.querySelector('input[type=radio]:checked'); return c?c.value:''; }
+  if(type==='short'){ const t=unit.querySelector('input[type=text]'); return t?t.value.trim():''; }
+  const sel = unit.matches('select') ? unit : unit.querySelector('select');
+  return sel ? sel.value : '';
+}
+function countAnswered(){
+  let c=0;
+  document.querySelectorAll('[data-correct]').forEach(u=>{ if(unitGiven(u)!=='') c++; });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = Math.min(100, c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+/* ============== Countdown timer (як на НМТ) ============== */
+const LIMIT_SEC = 45*60;
+const timerEl = document.getElementById('timer');
+let t0 = Date.now();
+let timerInt = null;
+let submitted = false;
+function fmt(s){ const m=String(Math.floor(s/60)).padStart(2,'0'); const ss=String(s%60).padStart(2,'0'); return m+':'+ss; }
+function tick(){
+  const elapsed = Math.floor((Date.now()-t0)/1000);
+  let rem = LIMIT_SEC - elapsed;
+  if(rem <= 0){
+    timerEl.textContent = '⏱ 00:00';
+    timerEl.className = 'danger';
+    clearInterval(timerInt);
+    if(!submitted && !window.__nmtExamActive) doSubmit(true);
+    return;
+  }
+  timerEl.textContent = '⏱ ' + fmt(rem);
+  timerEl.className = rem<=60 ? 'danger' : (rem<=300 ? 'warn' : '');
+}
+function startTimer(){ clearInterval(timerInt); tick(); timerInt = setInterval(tick, 1000); }
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>{ r.checked=false; r.disabled=false; });
+  document.querySelectorAll('select.gap').forEach(s=>{ s.value=''; s.disabled=false; s.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.fix').forEach(f=>f.remove());
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on'); res.innerHTML='';
+  __hintsUsedCount = 0; submitted = false;
+  const tu = document.getElementById('timeup'); if(tu) tu.style.display='none';
+  const sb = document.getElementById('submitBtn'); sb.disabled=false; sb.textContent='Завершити тест і отримати оцінку';
+  t0 = Date.now();
+  startTimer();
+  updateProgress();
+}
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+function doSubmit(auto){
+  if(submitted) return;
+  submitted = true;
+  clearInterval(timerInt);
+  if(auto){ const tu=document.getElementById('timeup'); if(tu) tu.style.display='block'; }
+
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('[data-correct]').forEach(unit=>{
+    const type = unit.dataset.type;
+    const n = parseInt(unit.dataset.n,10);
+    const correct = unit.dataset.correct;
+    const topic = unit.dataset.topic;
+    let given='', ok=false;
+
+    if(type==='mc'){
+      const chk = unit.querySelector('input[type=radio]:checked');
+      given = chk ? chk.value : '';
+      ok = given === correct;
+      unit.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      unit.querySelector('.solbtn')?.classList.add('on');
+    } else { // match | cloze (select-based)
+      const sel = unit.matches('select') ? unit : unit.querySelector('select');
+      given = sel ? sel.value : '';
+      ok = given === correct;
+      if(sel){
+        sel.classList.remove('correct','wrong');
+        sel.classList.add(ok ? 'correct' : 'wrong');
+        sel.disabled = true;
+        if(!ok){
+          const span = document.createElement('span');
+          span.className = 'fix';
+          span.innerHTML = '✓ ' + escapeHTML(correct);
+          sel.insertAdjacentElement('afterend', span);
+        }
+      }
+      unit.querySelector?.('.solbtn')?.classList.add('on');
+    }
+    record(n, topic, correct, given, ok);
+  });
+  // cloze має один спільний розбір
+  document.querySelector('.solbtn[data-sol="solCloze"]')?.classList.add('on');
+  // блокуємо подальше редагування
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict — гендерно-нейтрально, про читання
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('читання — твоя сильна сторона! Ти впевнено добираєш заголовки, знаходиш деталі, робиш висновки й розумієш слова з контексту. Така робота з текстом дасть високий бал на НМТ.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне читання. І matching headings, і comprehension робитимеш упевнено. Повтори лише той тип завдань, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база читання. Найшвидший приріст — питання на висновок (inference) і слово в контексті: не вір першому варіанту зі знайомим словом, звіряйся з текстом.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Головні точки зростання — добір заголовків (читай абзац цілком, а не одне слово) і пошук конкретних деталей у тексті.'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Тренуй опору: спершу швидко прочитай увесь текст, потім шукай у ньому ключові слова з кожного питання. По одній частині на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Почни з коротких текстів: знаходь головну думку абзацу й підкреслюй ключові слова. Потім повертайся до повного reading mock.'; }
+
+  // Block stats
+  const blocks = {
+    'Matching headings': ['match-headings'],
+    'Reading comprehension': ['reading-mainidea','reading-detail','reading-inference','reading-vocab','reading-reference'],
+    'Cloze (лексика/граматика)': ['cloze-lex','cloze-gram']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const dt = Math.min(Math.floor((Date.now()-t0)/1000), LIMIT_SEC);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 9 (підсумкове читання / reading mock) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+Час: ${mm}:${ss}${auto?' (час вийшов — авто-здача)':''}
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}${auto?' ⏰':''}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час (з 45:00)</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище (а для тексту з пропусками — «📖 детальний розбір усіх пропусків»).</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> розбери всі рішення. Випиши для себе три стратегії: matching — читай абзац цілком; comprehension — знаходь ключове слово з питання в тексті; inference — роби висновок із 2–3 фактів.</li>
+      <li><b>Цього тижня:</b> читай по одному короткому тексту англійською на день і знаходь головну думку кожного абзацу одним реченням.</li>
+      <li><b>Через 5–7 днів:</b> пройди ще раз, уклавшись у <b>45 хвилин</b>. Ціль — 19/22 (85%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  const sb = document.getElementById('submitBtn'); sb.disabled=true; sb.textContent='Тест завершено';
+
+  // === TRACKING ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level, auto_submitted: !!auto
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus(); fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+}
+document.getElementById('submitBtn').onclick = () => doSubmit(false);
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* init */
+freshState();
+</script>
+
+<!-- Опційний «Режим іспиту (НМТ)» — презентаційний шар поверх цього ж тесту -->
+<script>
+window.NMT_EXAM_CONFIG = {
+  subject: "Англійська мова",
+  screenSelector: "section.task",
+  timerMinutes: 45,
+  submitSelector: "#submitBtn",
+  resultSelector: "#result"
+};
+</script>
+<script src="assets/nmt-mode.js" defer></script>
+</body>
+</html>
