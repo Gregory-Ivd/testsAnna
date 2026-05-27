@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Відносні підрядні (relative clauses) (Day 8)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a4d8c'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>W</text></svg>">
+<style>
+  :root{
+    --bg:#b3a16f; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px;counter-reset:q}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select.gap{font-size:20px;padding:5px 9px;border:1px solid #b7935a;border-radius:6px;background:#fffef9;min-width:120px;font-family:inherit;color:var(--ink)}
+  select.gap.correct{background:#e3f3e6;border-color:#5ba370;color:#0e5723}
+  select.gap.wrong{background:#fbe3e3;border-color:#cf7a7a;color:#8a1a1a}
+  .fix{color:var(--ok);font-weight:700;font-size:17px;margin-left:6px;font-family:"Trebuchet MS",sans-serif}
+  /* matching */
+  .match-legend{background:#f4f1e6;border:1px dashed #b7935a;border-radius:8px;padding:12px 16px;margin:8px 0 16px;font-size:19px;line-height:1.7}
+  .match-legend b{color:var(--accent-2);font-family:"Trebuchet MS",sans-serif}
+  .matchrow{margin-top:10px;font-size:21px}
+  /* cloze */
+  .cloze-text{background:#fbf8ee;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:16px 20px;font-size:21px;line-height:2.2}
+  .cloze-text .gapno{font-size:14px;color:var(--accent-2);font-family:"Trebuchet MS",sans-serif;vertical-align:super}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  /* ===== Каскадні підказки (крок за кроком) ===== */
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.primary:disabled{background:#9aa3ad;cursor:default}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .gaprow{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px;font-size:19px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  #timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+  #timer.warn{color:var(--warn)}
+  #timer.danger{color:var(--bad);animation:blink 1s steps(2,start) infinite}
+  @keyframes blink{50%{opacity:.45}}
+  #timeup{display:none;background:#fbe3e3;border:1px solid #cf7a7a;color:#8a1a1a;border-radius:8px;padding:10px 16px;margin-top:12px;font-size:18px;font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 8 <span class="badge">relative clauses</span></h1>
+    <div class="sub">Відносні підрядні речення · 21 завдання · рівень B1+/B2 · ⏱ 40 хв (зворотний відлік)</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>відносні підрядні</b> — хто/що/чий/де/коли/чому (who, which, that, whose, where, when, why) та означальні vs неозначальні речення (коми!). Формат <b>максимально наближений до реального НМТ</b>: тут є три типи завдань, як у справжньому тесті.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) <b>Частина 1</b> — вибір однієї відповіді. <b>Частина 2</b> — <i>встановлення відповідності</i> (matching): добери закінчення до кожного початку. <b>Частина 3</b> — <i>текст із пропусками</i> (cloze): обери слово у кожному випадному списку.
+      <br>2) ⏱ <b>Таймер іде на зменшення (40 хв), як на іспиті.</b> За 5 хв до кінця він стане жовтим, за 1 хв — червоним. Коли час вийде — тест здасться <b>автоматично</b>. Тренуйся вкладатися.
+      <br>3) Застряг(-ла) — натисни 💡: підказка дається <b>крок за кроком</b> (напрямок → правило → майже-відповідь → відповідь). Після здачі біля кожного завдання буде «📖 детальне рішення».
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 21</span><span id="timer">⏱ 40:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+    <div id="timeup">⏰ Час вийшов — тест здано автоматично. Дивись результат нижче.</div>
+  </div>
+
+  <!-- ================ PART 1: MC — relative pronouns / clauses ================ -->
+  <section class="task">
+    <h2>Частина 1. Відносні займенники та речення (вибір однієї відповіді)</h2>
+    <p class="instr">who/which/that для людей і речей · whose (чий) · where/when/why · кома = неозначальне речення (там <b>не</b> можна «that»). (Q1–Q6)</p>
+    <ol class="qs">
+
+      <li data-type="mc" data-n="1" data-correct="B" data-topic="rel-pronoun" data-sol="sol1">
+        <span class="topic-tag">person · subject</span>
+        <span class="qtext">The scientist _____ discovered penicillin was Alexander Fleming.</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) which</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) who</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) whom</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) what</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="2" data-correct="C" data-topic="rel-nondefining" data-sol="sol2">
+        <span class="topic-tag weak-tag">non-defining (коми) · thing</span>
+        <span class="qtext">My old laptop, _____ I bought five years ago, has finally stopped working.</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) that</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) what</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) which</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) it</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="3" data-correct="C" data-topic="rel-whose" data-sol="sol3">
+        <span class="topic-tag weak-tag">whose vs who's</span>
+        <span class="qtext">She's the author _____ first novel became a bestseller.</span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) who</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) who's</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) whose</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) which</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="4" data-correct="C" data-topic="rel-adverb" data-sol="sol4">
+        <span class="topic-tag weak-tag">where (місце) + повне речення</span>
+        <span class="qtext">We finally found a café _____ they serve real Italian coffee.</span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) which</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) that</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) where</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) what</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="5" data-correct="B" data-topic="rel-object" data-sol="sol5">
+        <span class="topic-tag weak-tag">підмет НЕ можна пропустити</span>
+        <span class="qtext">The students _____ finished the test early were allowed to leave.</span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) — (без займенника)</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) who</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) which</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) whom</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="6" data-correct="C" data-topic="rel-preposition" data-sol="sol6">
+        <span class="topic-tag weak-tag">прийменник + whom</span>
+        <span class="qtext">He's the colleague with _____ I share an office.</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) who</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) which</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) whom</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) that</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: MATCHING ================ -->
+  <section class="task">
+    <h2>Частина 2. Встановлення відповідності (matching)</h2>
+    <p class="instr">Добери до кожного початку (Q7–Q11) правильне закінчення (А–Е). Одне закінчення — зайве.</p>
+    <div class="match-legend">
+      <b>А</b> — where they got married.<br>
+      <b>Б</b> — when the new term begins.<br>
+      <b>В</b> — who won two Nobel Prizes.<br>
+      <b>Г</b> — why the flight was cancelled.<br>
+      <b>Д</b> — which I told you about.<br>
+      <b>Е</b> — whose paintings sell for millions.
+    </div>
+    <ol class="qs">
+
+      <li data-type="match" data-n="7" data-correct="А" data-topic="rel-match" data-sol="sol7">
+        <span class="qtext">Spain is the country …</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q7">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="8" data-correct="Б" data-topic="rel-match" data-sol="sol8">
+        <span class="qtext">Monday is the day …</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q8">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="9" data-correct="В" data-topic="rel-match" data-sol="sol9">
+        <span class="qtext">Marie Curie is the scientist …</span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q9">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="10" data-correct="Г" data-topic="rel-match" data-sol="sol10">
+        <span class="qtext">Nobody understood the reason …</span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q10">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="11" data-correct="Д" data-topic="rel-match" data-sol="sol11">
+        <span class="qtext">This is the camera …</span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q11">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: CLOZE ================ -->
+  <section class="task">
+    <h2>Частина 3. Текст із пропусками (cloze)</h2>
+    <p class="instr">Прочитай текст і обери у кожному випадному списку слово, що підходить за змістом і граматикою. (Q12–Q21)
+      <button class="hintbtn" data-q="90">💡 Підказка до тексту</button>
+    </p>
+    <div class="hintpanel" data-panel="90"></div>
+    <div class="cloze-text">
+      Last summer I visited the town
+      <span class="gapno">(12)</span><select class="gap" data-type="cloze" data-n="12" data-correct="where" data-topic="rel-cloze" aria-label="Gap 12"><option value="">— ?</option><option value="where">where</option><option value="which">which</option><option value="that">that</option><option value="who">who</option></select>
+      my grandmother was born. We went to the old house
+      <span class="gapno">(13)</span><select class="gap" data-type="cloze" data-n="13" data-correct="which" data-topic="rel-cloze" aria-label="Gap 13"><option value="">— ?</option><option value="where">where</option><option value="which">which</option><option value="who">who</option><option value="what">what</option></select>
+      she grew up in — the place
+      <span class="gapno">(14)</span><select class="gap" data-type="cloze" data-n="14" data-correct="which" data-topic="rel-cloze" aria-label="Gap 14"><option value="">— ?</option><option value="who">who</option><option value="which">which</option><option value="where">where</option><option value="whose">whose</option></select>
+      holds all her childhood memories. Our guide,
+      <span class="gapno">(15)</span><select class="gap" data-type="cloze" data-n="15" data-correct="who" data-topic="rel-cloze" aria-label="Gap 15"><option value="">— ?</option><option value="which">which</option><option value="who">who</option><option value="whom">whom</option><option value="that">that</option></select>
+      had known her for years, told us about the teacher
+      <span class="gapno">(16)</span><select class="gap" data-type="cloze" data-n="16" data-correct="whose" data-topic="rel-cloze" aria-label="Gap 16"><option value="">— ?</option><option value="who">who</option><option value="whose">whose</option><option value="which">which</option><option value="that">that</option></select>
+      lessons inspired her. He explained the reason
+      <span class="gapno">(17)</span><select class="gap" data-type="cloze" data-n="17" data-correct="why" data-topic="rel-cloze" aria-label="Gap 17"><option value="">— ?</option><option value="which">which</option><option value="that">that</option><option value="why">why</option><option value="where">where</option></select>
+      she later became a writer, and described the day
+      <span class="gapno">(18)</span><select class="gap" data-type="cloze" data-n="18" data-correct="when" data-topic="rel-cloze" aria-label="Gap 18"><option value="">— ?</option><option value="which">which</option><option value="when">when</option><option value="where">where</option><option value="that">that</option></select>
+      she published her first book. He even showed us the very pen with
+      <span class="gapno">(19)</span><select class="gap" data-type="cloze" data-n="19" data-correct="which" data-topic="rel-cloze" aria-label="Gap 19"><option value="">— ?</option><option value="which">which</option><option value="who">who</option><option value="whom">whom</option><option value="that">that</option></select>
+      she wrote it. The novel,
+      <span class="gapno">(20)</span><select class="gap" data-type="cloze" data-n="20" data-correct="which" data-topic="rel-cloze" aria-label="Gap 20"><option value="">— ?</option><option value="that">that</option><option value="which">which</option><option value="what">what</option><option value="who">who</option></select>
+      made her famous, is still in print today — and the readers for
+      <span class="gapno">(21)</span><select class="gap" data-type="cloze" data-n="21" data-correct="whom" data-topic="rel-cloze" aria-label="Gap 21"><option value="">— ?</option><option value="who">who</option><option value="which">which</option><option value="whom">whom</option><option value="that">that</option></select>
+      it was written have never forgotten her.
+    </div>
+    <button class="solbtn" data-sol="solCloze" style="margin-top:14px">📖 детальний розбір усіх пропусків</button>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: відносні підрядні (relative clauses) · формат НМТ-2026 (matching + cloze + таймер). <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day8-relatives"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";
+  if(/я$/i.test(n))     return n;
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";
+  return n;
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+let __hintsUsedCount = 0;
+const qHints = {
+  1:{ h1:"Хто пропуск замінює — людину (the scientist) чи річ? Це вирішує who чи which.",
+      h2:"Для людини у ролі підмета → <b>who</b> (або that). <i>which</i> — лише для речей/тварин; <i>what</i> у відносних реченнях так не вживають.",
+      h3:"The scientist ___ discovered… — пропуск і є підметом дієслова discovered, мова про людину.",
+      ans:"B) who. The scientist <b>who</b> discovered penicillin…" },
+  2:{ h1:"Зверни увагу на <b>коми</b> навколо вставки. Що вони означають для вибору займенника?",
+      h2:"Коми → неозначальне (non-defining) речення. У ньому <b>не можна вживати that</b>; для речі → <b>which</b>.",
+      h3:"laptop — річ; вставка в комах → which (не that, не what, не it).",
+      ans:"C) which. My old laptop, <b>which</b> I bought…" },
+  3:{ h1:"«first novel» належить авторці. Який займенник передає <b>належність</b> (чий)?",
+      h2:"<b>whose</b> = чий (присвійний відносний). Не плутай із <b>who's</b> = who is. Тут потрібне саме чий.",
+      h3:"the author ___ first novel = чий перший роман → whose. «who's first novel» = «who is first novel» — нісенітниця.",
+      ans:"C) whose. the author <b>whose</b> first novel…" },
+  4:{ h1:"Після пропуску йде ПОВНЕ речення (they serve coffee) — підмет they вже є. Тоді who/which не потрібні.",
+      h2:"Коли мова про <b>місце</b> і далі повне речення без «дірки» для підмета/додатка → відносний прислівник <b>where</b>.",
+      h3:"a café ___ they serve coffee: «which» вимагало б «which serves», але тут вже є they. → where.",
+      ans:"C) where. a café <b>where</b> they serve real coffee." },
+  5:{ h1:"Пропуск — це підмет дієслова finished. Чи можна підмет-займенник просто викинути?",
+      h2:"Відносний займенник-<b>підмет НЕ можна пропустити</b>. Для людей → who (не which, не whom).",
+      h3:"The students ___ finished…: пропуск = підмет → потрібен who. «—» (пропуск) і «which» хибні; «whom» — це додаток.",
+      ans:"B) who. The students <b>who</b> finished early…" },
+  6:{ h1:"Перед пропуском стоїть прийменник <b>with</b>. Який займенник може йти одразу після прийменника?",
+      h2:"Після прийменника для людини → <b>whom</b> (формально). <b>that</b> і <b>who</b> одразу після прийменника не вживають.",
+      h3:"with ___ I share an office: «with that/who» ✗; річ (which) теж ні — це людина. → whom.",
+      ans:"C) whom. the colleague with <b>whom</b> I share an office." },
+  7:{ h1:"«Spain is the country …» — про що йдеться: місце, час, людину чи причину? Шукай закінчення цього ж типу.",
+      h2:"Країна — це <b>місце</b> → відносний прислівник <b>where</b>. Серед А–Е знайди те, що починається з where.",
+      h3:"Тільки варіант А починається з «where they got married». Інші (when/who/why/which/whose) не пасують до «country».",
+      ans:"А — where they got married." },
+  8:{ h1:"«Monday is the day …» — день це час. Який відносний прислівник про час?",
+      h2:"Час → <b>when</b>. Шукай закінчення з when.",
+      h3:"Варіант Б: «when the new term begins» — про день. «where» (А) — місце, не пасує.",
+      ans:"Б — when the new term begins." },
+  9:{ h1:"«Marie Curie is the scientist …» — це людина. Який займенник?",
+      h2:"Людина-підмет → <b>who</b>. Шукай закінчення, що починається з who + дієслово.",
+      h3:"Варіант В: «who won two Nobel Prizes». (Е «whose paintings…» — про художника, не про вченого.)",
+      ans:"В — who won two Nobel Prizes." },
+  10:{ h1:"«the reason …» — причина. Який відносний прислівник позначає причину?",
+       h2:"Причина → <b>why</b> (the reason why). Знайди закінчення з why.",
+       h3:"Варіант Г: «why the flight was cancelled».",
+       ans:"Г — why the flight was cancelled." },
+  11:{ h1:"«This is the camera …» — річ, до того ж далі буде «about it» (про неї). Лишилося закінчення з яким словом?",
+       h2:"Річ як додаток → <b>which/that</b>. Залишок А–Е без пари — це варіант Д.",
+       h3:"Варіант Д: «which I told you about» (= the camera I told you about). Усі інші вже зайняті або не пасують.",
+       ans:"Д — which I told you about." },
+  90:{ h1:"Стратегія cloze: читай <b>усе речення цілком</b>, а не лише слово біля пропуску. Спершу визнач — мова про людину, річ, місце, час чи причину.",
+       h2:"Алгоритм: (1) людина → who/whom/whose; річ → which/that. (2) Є кома перед пропуском? Тоді <b>не that</b>. (3) Перед пропуском прийменник (in/with/for)? → which (річ) / whom (людина). (4) Далі повне речення про місце/час/причину? → where/when/why.",
+       h3:"Особливі пастки тут: «house ___ she grew up <u>in</u>» — прийменник «in» уже стоїть у кінці, тож НЕ where, а which; «the place ___ <u>holds</u>…» — далі дієслово без підмета, тож потрібен підмет which, а не where.",
+       ans:"Перевір кожен пропуск за алгоритмом. Повний розбір усіх 10 пропусків — у кнопці «📖 детальний розбір» після здачі." }
+};
+
+/* ============== SOLUTIONS ============== */
+const sols = {
+  "sol1":{title:"Q1 → who",body:`<p>Пропуск замінює <b>людину</b> (the scientist) у ролі підмета дієслова <i>discovered</i> → <b>who</b> (або that). <i>which</i> — для речей; <i>what</i> у відносних реченнях не вживають.</p><p>The scientist <b>who</b> discovered penicillin was Alexander Fleming.</p><p><b>Відповідь: B) who.</b></p>`},
+  "sol2":{title:"Q2 → which",body:`<p><b>Коми</b> → неозначальне (non-defining) речення. У ньому <b>заборонено that</b>; для речі (laptop) → <b>which</b>.</p><p>My old laptop, <b>which</b> I bought five years ago, has stopped working.</p><p><b>Відповідь: C) which.</b></p>`},
+  "sol3":{title:"Q3 → whose",body:`<p><b>whose</b> = «чий» (присвійний). Тут «<i>___ first novel</i>» = чий перший роман. <b>who's</b> = «who is» — це інше слово.</p><p>She's the author <b>whose</b> first novel became a bestseller.</p><p><b>Відповідь: C) whose.</b></p>`},
+  "sol4":{title:"Q4 → where",body:`<p>Café — це <b>місце</b>, і далі йде повне речення «they serve coffee» (підмет they вже є). Тож потрібен прислівник <b>where</b>, а не which (бо «which» вимагало б «which serves…»).</p><p>a café <b>where</b> they serve real Italian coffee.</p><p><b>Відповідь: C) where.</b></p>`},
+  "sol5":{title:"Q5 → who",body:`<p>Пропуск — це <b>підмет</b> дієслова finished. Відносний займенник-підмет <b>не можна пропускати</b>, тому «—» хибно. Для людей → <b>who</b> (не which; whom — це додаток).</p><p>The students <b>who</b> finished the test early were allowed to leave.</p><p><b>Відповідь: B) who.</b></p>`},
+  "sol6":{title:"Q6 → whom",body:`<p>Одразу після прийменника (<b>with</b>) для людини вживають <b>whom</b>. Форми «with who/with that» у стандартній мові не вживають; which — лише для речей.</p><p>He's the colleague with <b>whom</b> I share an office. (= who I share an office with)</p><p><b>Відповідь: C) whom.</b></p>`},
+  "sol7":{title:"Q7 → А",body:`<p>«the country» = місце → потрібне закінчення з <b>where</b>.</p><p>Spain is the country <b>where they got married</b>.</p><p><b>Відповідь: А.</b></p>`},
+  "sol8":{title:"Q8 → Б",body:`<p>«the day» = час → <b>when</b>.</p><p>Monday is the day <b>when the new term begins</b>.</p><p><b>Відповідь: Б.</b></p>`},
+  "sol9":{title:"Q9 → В",body:`<p>«the scientist» = людина-підмет → <b>who</b> + дієслово.</p><p>Marie Curie is the scientist <b>who won two Nobel Prizes</b>.</p><p><b>Відповідь: В.</b></p>`},
+  "sol10":{title:"Q10 → Г",body:`<p>«the reason» = причина → <b>why</b>.</p><p>Nobody understood the reason <b>why the flight was cancelled</b>.</p><p><b>Відповідь: Г.</b></p>`},
+  "sol11":{title:"Q11 → Д",body:`<p>«the camera» = річ-додаток → <b>which</b> (the camera which I told you about).</p><p>This is the camera <b>which I told you about</b>.</p><p>Зайве закінчення — Е (whose paintings…), бо воно про художника.</p><p><b>Відповідь: Д.</b></p>`},
+  "solCloze":{title:"Текст із пропусками — повний розбір (Q12–Q21)",body:`
+    <div class="gaprow"><b>(12) where</b> — «the town ___ my grandmother was born»: місце + повне речення → where.</div>
+    <div class="gaprow"><b>(13) which</b> — «the house ___ she grew up <u>in</u>»: прийменник «in» уже в кінці, тож НЕ where; річ-додаток → which (= that).</div>
+    <div class="gaprow"><b>(14) which</b> — «the place ___ <u>holds</u> memories»: далі дієслово без підмета → потрібен підмет-займенник which (не where).</div>
+    <div class="gaprow"><b>(15) who</b> — «Our guide, ___ had known her»: людина-підмет у неозначальному реченні (коми) → who (that тут заборонено).</div>
+    <div class="gaprow"><b>(16) whose</b> — «the teacher ___ lessons inspired her»: чиї уроки → whose (належність).</div>
+    <div class="gaprow"><b>(17) why</b> — «the reason ___ she became a writer»: причина → why.</div>
+    <div class="gaprow"><b>(18) when</b> — «the day ___ she published»: час → when.</div>
+    <div class="gaprow"><b>(19) which</b> — «the pen <u>with</u> ___ she wrote it»: прийменник + річ → which (with which).</div>
+    <div class="gaprow"><b>(20) which</b> — «The novel, ___ made her famous»: неозначальне (коми), річ-підмет → which (не that).</div>
+    <div class="gaprow"><b>(21) whom</b> — «the readers <u>for</u> ___ it was written»: прийменник + люди → whom (for whom).</div>
+  `}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього завдання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Правило',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress ============== */
+const TOTAL = 21;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function unitGiven(unit){
+  const type = unit.dataset.type;
+  if(type==='mc'){ const c=unit.querySelector('input[type=radio]:checked'); return c?c.value:''; }
+  if(type==='short'){ const t=unit.querySelector('input[type=text]'); return t?t.value.trim():''; }
+  const sel = unit.matches('select') ? unit : unit.querySelector('select');
+  return sel ? sel.value : '';
+}
+function countAnswered(){
+  let c=0;
+  document.querySelectorAll('[data-correct]').forEach(u=>{ if(unitGiven(u)!=='') c++; });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = Math.min(100, c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+/* ============== Countdown timer (як на НМТ) ============== */
+const LIMIT_SEC = 40*60;
+const timerEl = document.getElementById('timer');
+let t0 = Date.now();
+let timerInt = null;
+let submitted = false;
+function fmt(s){ const m=String(Math.floor(s/60)).padStart(2,'0'); const ss=String(s%60).padStart(2,'0'); return m+':'+ss; }
+function tick(){
+  const elapsed = Math.floor((Date.now()-t0)/1000);
+  let rem = LIMIT_SEC - elapsed;
+  if(rem <= 0){
+    timerEl.textContent = '⏱ 00:00';
+    timerEl.className = 'danger';
+    clearInterval(timerInt);
+    if(!submitted) doSubmit(true);
+    return;
+  }
+  timerEl.textContent = '⏱ ' + fmt(rem);
+  timerEl.className = rem<=60 ? 'danger' : (rem<=300 ? 'warn' : '');
+}
+function startTimer(){ clearInterval(timerInt); tick(); timerInt = setInterval(tick, 1000); }
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>{ r.checked=false; r.disabled=false; });
+  document.querySelectorAll('select.gap').forEach(s=>{ s.value=''; s.disabled=false; s.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.fix').forEach(f=>f.remove());
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on'); res.innerHTML='';
+  __hintsUsedCount = 0; submitted = false;
+  const tu = document.getElementById('timeup'); if(tu) tu.style.display='none';
+  const sb = document.getElementById('submitBtn'); sb.disabled=false; sb.textContent='Завершити тест і отримати оцінку';
+  t0 = Date.now();
+  startTimer();
+  updateProgress();
+}
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+function doSubmit(auto){
+  if(submitted) return;
+  submitted = true;
+  clearInterval(timerInt);
+  if(auto){ const tu=document.getElementById('timeup'); if(tu) tu.style.display='block'; }
+
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('[data-correct]').forEach(unit=>{
+    const type = unit.dataset.type;
+    const n = parseInt(unit.dataset.n,10);
+    const correct = unit.dataset.correct;
+    const topic = unit.dataset.topic;
+    let given='', ok=false;
+
+    if(type==='mc'){
+      const chk = unit.querySelector('input[type=radio]:checked');
+      given = chk ? chk.value : '';
+      ok = given === correct;
+      unit.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      unit.querySelector('.solbtn')?.classList.add('on');
+    } else { // match | cloze (select-based)
+      const sel = unit.matches('select') ? unit : unit.querySelector('select');
+      given = sel ? sel.value : '';
+      ok = given === correct;
+      if(sel){
+        sel.classList.remove('correct','wrong');
+        sel.classList.add(ok ? 'correct' : 'wrong');
+        sel.disabled = true;
+        if(!ok){
+          const span = document.createElement('span');
+          span.className = 'fix';
+          span.innerHTML = '✓ ' + escapeHTML(correct);
+          sel.insertAdjacentElement('afterend', span);
+        }
+      }
+      unit.querySelector?.('.solbtn')?.classList.add('on');
+    }
+    record(n, topic, correct, given, ok);
+  });
+  // cloze має один спільний розбір
+  document.querySelector('.solbtn[data-sol="solCloze"]')?.classList.add('on');
+  // блокуємо подальше редагування
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('відносні підрядні — твоя сильна сторона! Ти впевнено добираєш who/which/whose, бачиш коми (означальне vs неозначальне) і не плутаєш where/when/why. Чудово.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне відчуття теми. На НМТ і matching, і cloze робитимеш упевнено. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база. Найшвидший приріст — правило ком (у неозначальному реченні немає that) і прийменник + whom/which. Дивись розбори нижче.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Головні точки зростання — where/when/why (повне речення після них) і «підмет не можна пропустити».'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Запам\'ятай опори: люди → who, речі → which/that, належність → whose, місце → where. По одному блоку на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Почни з трьох пар: people→who, things→which, possession→whose. Потім повертайся до matching і cloze.'; }
+
+  // Block stats
+  const blocks = {
+    'Займенники who/which · коми': ['rel-pronoun','rel-nondefining'],
+    'whose / where': ['rel-whose','rel-adverb'],
+    'Прийменник + whom/which · пропуск': ['rel-preposition','rel-object'],
+    'Зіставлення (matching)': ['rel-match'],
+    'Текст із пропусками (cloze)': ['rel-cloze']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const dt = Math.min(Math.floor((Date.now()-t0)/1000), LIMIT_SEC);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 8 (відносні підрядні / relative clauses) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+Час: ${mm}:${ss}${auto?' (час вийшов — авто-здача)':''}
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}${auto?' ⏰':''}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час (з 40:00)</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище (а для тексту — «📖 детальний розбір усіх пропусків»).</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> розбери всі рішення. Випиши правило ком (означальне vs неозначальне) і таблицю: люди→who/whom/whose, речі→which/that, місце→where, час→when, причина→why.</li>
+      <li><b>Цього тижня:</b> склади власні речення з each: defining/non-defining, prep + whom, reduced relative (the man standing…).</li>
+      <li><b>Через 5–7 днів:</b> пройди ще раз, уклавшись у <b>40 хвилин</b>. Ціль — 18/21 (85%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  const sb = document.getElementById('submitBtn'); sb.disabled=true; sb.textContent='Тест завершено';
+
+  // === TRACKING ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level, auto_submitted: !!auto
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus(); fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+}
+document.getElementById('submitBtn').onclick = () => doSubmit(false);
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* init */
+freshState();
+</script>
+</body>
+</html>
