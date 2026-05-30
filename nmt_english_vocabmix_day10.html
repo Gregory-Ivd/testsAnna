@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НМТ Англійська — Лексика: phrasal verbs, колокації, false friends (Day 10)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a4d8c'/><text x='32' y='32' font-family='Trebuchet MS,Verdana,sans-serif' font-size='34' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>X</text></svg>">
+<style>
+  :root{
+    --bg:#b1a06c; --paper:#ffffff; --ink:#1c1c1e; --muted:#5a5a5e;
+    --accent:#0a4d8c; --accent-2:#c8102e; --ok:#1f7a3a; --warn:#b3651a; --bad:#a51a1a;
+    --line:#d9d4c7; --hl:#fff4c2; --math-bg:#f7f2e0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Cambria","Times New Roman",serif}
+  body{font-size:22px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 96px;counter-reset:q}
+  header{border-bottom:3px double var(--ink);padding-bottom:18px;margin-bottom:18px}
+  h1{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:40px;margin:0 0 6px;letter-spacing:.3px}
+  .sub{color:var(--muted);font-size:20px}
+  .badge{display:inline-block;background:var(--ok);color:#fff;padding:4px 10px;border-radius:4px;font-size:16px;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+  .pep{background:#eaf3ff;border:1px solid #9ec0e2;padding:14px 18px;border-radius:8px;margin:14px 0 0;font-size:20px;line-height:1.55}
+  section.task{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:20px 0;box-shadow:0 1px 0 #e7e2d4}
+  section.task h2{font-family:"Trebuchet MS",Verdana,sans-serif;font-size:24px;margin:0 0 6px;color:var(--accent)}
+  .instr{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .topic-tag{display:inline-block;background:#eaf1f8;color:var(--accent);padding:2px 10px;border-radius:12px;font-size:14px;font-family:"Trebuchet MS",sans-serif;margin-left:6px;vertical-align:middle}
+  .weak-tag{background:#fde2e2;color:var(--accent-2)}
+  ol.qs{padding-left:0;list-style:none}
+  ol.qs > li{counter-increment:q;margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#fffdf7}
+  ol.qs > li::before{content:"Q" counter(q) ".";font-weight:700;color:var(--accent);margin-right:8px;display:inline-block}
+  .qtext{display:block;margin-top:6px;font-size:22px}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  @media (max-width:760px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:21px}
+  .opt:hover{background:#f1ecdb}
+  .opt input{margin-top:6px;transform:scale(1.25)}
+  .opt.correct{background:#e3f3e6;border:1px solid #97c9a5}
+  .opt.wrong{background:#fbe3e3;border:1px solid #d49a9a}
+  select.gap{font-size:20px;padding:5px 9px;border:1px solid #b7935a;border-radius:6px;background:#fffef9;min-width:120px;font-family:inherit;color:var(--ink)}
+  select.gap.correct{background:#e3f3e6;border-color:#5ba370;color:#0e5723}
+  select.gap.wrong{background:#fbe3e3;border-color:#cf7a7a;color:#8a1a1a}
+  .fix{color:var(--ok);font-weight:700;font-size:17px;margin-left:6px;font-family:"Trebuchet MS",sans-serif}
+  /* matching */
+  .match-legend{background:#f4f1e6;border:1px dashed #b7935a;border-radius:8px;padding:12px 16px;margin:8px 0 16px;font-size:19px;line-height:1.7}
+  .match-legend b{color:var(--accent-2);font-family:"Trebuchet MS",sans-serif}
+  .matchrow{margin-top:10px;font-size:21px}
+  /* cloze */
+  .cloze-text{background:#fbf8ee;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:16px 20px;font-size:21px;line-height:2.2}
+  .cloze-text .gapno{font-size:14px;color:var(--accent-2);font-family:"Trebuchet MS",sans-serif;vertical-align:super}
+  .hintbtn{display:inline-block;margin-left:10px;background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:inherit;font-size:15px;padding:3px 11px;border-radius:20px;cursor:pointer}
+  .hintbtn:hover{background:#eaf1f8}
+  .hintbtn.open{background:var(--accent);color:#fff}
+  /* ===== Каскадні підказки (крок за кроком) ===== */
+  .hintpanel{display:none;margin-top:10px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:6px;padding:12px 16px;font-size:18px;line-height:1.55;max-width:100%}
+  .hintpanel.on{display:block}
+  .hintpanel .hstep{margin:0 0 8px;padding:8px 12px;background:#fffdf7;border-left:3px solid var(--accent);border-radius:4px}
+  .hintpanel .hstep.ans{background:#e9f3ec;border-left-color:var(--ok)}
+  .hintpanel .hstep b.lvl{color:var(--accent);font-family:"Trebuchet MS",sans-serif;font-size:14px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .hintpanel .hstep.ans b.lvl{color:var(--ok)}
+  .hintpanel .hnext{margin-top:4px;background:var(--accent);color:#fff;border:0;padding:7px 16px;border-radius:5px;font-family:inherit;font-size:15px;cursor:pointer}
+  .hintpanel .hnext:hover{background:#0d5fa8}
+  .hintpanel .hnext.final{background:var(--accent-2)}
+  .hintpanel .hnext.final:hover{background:#d92340}
+  .solbtn{margin-top:10px;background:#fff4d6;border:1px solid #c9a55f;color:#7a5410;font-family:inherit;font-size:15px;padding:5px 12px;border-radius:6px;cursor:pointer;display:none}
+  .solbtn.on{display:inline-block}
+  .solbtn:hover{background:#ffe9a8}
+  .controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  button.primary{background:var(--accent);color:#fff;border:0;padding:14px 22px;font-size:20px;border-radius:8px;cursor:pointer;font-family:inherit}
+  button.primary:hover{background:#083b6e}
+  button.primary:disabled{background:#9aa3ad;cursor:default}
+  button.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:12px 20px;font-size:19px;border-radius:8px;cursor:pointer;font-family:inherit}
+  .modal-back{position:fixed;inset:0;background:rgba(20,20,25,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal-back.on{display:flex}
+  .modal{background:#fff;max-width:740px;width:100%;max-height:88vh;overflow-y:auto;border-radius:14px;padding:26px 28px;box-shadow:0 18px 60px rgba(0,0,0,.3);font-size:21px;line-height:1.65}
+  .modal h3{margin:0 0 10px;color:var(--accent);font-size:24px;font-family:"Trebuchet MS",Verdana,sans-serif}
+  .modal h4{margin:14px 0 4px;color:var(--accent-2);font-size:18px;font-family:"Trebuchet MS",sans-serif}
+  .modal .close{float:right;background:transparent;border:0;font-size:30px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal code{background:var(--math-bg);padding:2px 8px;border-radius:4px}
+  .modal .ex{background:var(--hl);padding:10px 14px;border-radius:6px;margin-top:10px}
+  .modal .gaprow{background:#f4f8fc;border-left:4px solid var(--accent);padding:8px 14px;margin:8px 0;border-radius:4px;font-size:19px}
+  #result{display:none;background:#fff;border:2px solid var(--accent);border-radius:14px;padding:28px;margin-top:30px}
+  #result.on{display:block}
+  .score-big{font-size:60px;font-weight:700;color:var(--accent);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1}
+  .scale{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .scale .card{padding:14px;border-radius:10px;background:#fbf8ee;border:1px solid var(--line)}
+  .scale .card.bad{background:#fbe3e3;border-color:#d49a9a}
+  .scale .card.warn{background:#fff2dc;border-color:#e2bf85}
+  .scale .card.ok{background:#e9f3ec;border-color:#9ec3a7}
+  .scale h4{margin:0 0 4px;font-size:16px;color:var(--muted)}
+  .scale .v{font-size:24px;font-weight:700;color:var(--accent)}
+  .verdict{margin-top:22px;padding:18px 22px;border-radius:10px;background:var(--hl);font-size:20px;line-height:1.6}
+  .progress{position:sticky;top:0;background:var(--bg);padding:8px 0 12px;z-index:20;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .progress .bar{height:10px;background:#e8e3d3;border-radius:6px;overflow:hidden}
+  .progress .bar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px}
+  #timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+  #timer.warn{color:var(--warn)}
+  #timer.danger{color:var(--bad);animation:blink 1s steps(2,start) infinite}
+  @keyframes blink{50%{opacity:.45}}
+  #timeup{display:none;background:#fbe3e3;border:1px solid #cf7a7a;color:#8a1a1a;border-radius:8px;padding:10px 16px;margin-top:12px;font-size:18px;font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:16px;text-align:center}
+  .qrow{padding:10px 14px;border-radius:6px;background:#fbf8ee;border:1px solid var(--line);margin:6px 0}
+  .qrow.bad{background:#fbe3e3;border-color:#d49a9a}
+</style>
+<link rel="stylesheet" href="assets/nmt-mode.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>НМТ Англійська · Day 10 <span class="badge">лексика mixed</span></h1>
+    <div class="sub">Фразові дієслова · колокації · «фальшиві друзі» · 21 завдання · ⏱ 40 хв (зворотний відлік)</div>
+    <div class="pep">
+      <b id="ta-hello">Привіт! 👋</b><br>
+      Це тренажер на <b>лексику</b> — <b>фразові дієслова</b> (take off, put up with, come up with…), <b>колокації</b> (make a decision, take a photo — правильна пара дієслово+іменник) та <b>«фальшиві друзі»</b> (false friends — слова, що схожі на українські, але значать інше: <i>actually</i> = насправді, а не «актуально»; <i>receipt</i> = чек, а не «рецепт»). Формат <b>максимально наближений до реального НМТ</b>: тут є три типи завдань, як у справжньому тесті.
+      <br><br>
+      <b>Як працювати:</b>
+      <br>1) <b>Частина 1</b> — вибір однієї відповіді. <b>Частина 2</b> — <i>встановлення відповідності</i> (matching): добери до кожного фразового дієслова його значення. <b>Частина 3</b> — <i>текст із пропусками</i> (cloze): обери слово у кожному випадному списку.
+      <br>2) ⏱ <b>Таймер іде на зменшення (40 хв), як на іспиті.</b> За 5 хв до кінця він стане жовтим, за 1 хв — червоним. Коли час вийде — тест здасться <b>автоматично</b>. Тренуйся вкладатися.
+      <br>3) Застряг(-ла) — натисни 💡: підказка дається <b>крок за кроком</b> (напрямок → правило → майже-відповідь → відповідь). Після здачі біля кожного завдання буде «📖 детальне рішення».
+    </div>
+  </header>
+
+  <div class="progress">
+    <div class="meta"><span id="progressLabel">Виконано: 0 / 21</span><span id="timer">⏱ 40:00</span></div>
+    <div class="bar"><div id="progressBar"></div></div>
+    <div id="timeup">⏰ Час вийшов — тест здано автоматично. Дивись результат нижче.</div>
+  </div>
+
+  <!-- ================ PART 1: MC — phrasal verbs / collocations / false friends ================ -->
+  <section class="task">
+    <h2>Частина 1. Фразові дієслова, колокації, фальшиві друзі (вибір однієї відповіді)</h2>
+    <p class="instr">Фразові дієслова (take off, put up with, come up with) · колокації (make/do/take) · «фальшиві друзі» (actually, receipt, miss). (Q1–Q8)</p>
+    <ol class="qs">
+
+      <li data-type="mc" data-n="1" data-correct="A" data-topic="ph-verb" data-sol="sol1">
+        <span class="topic-tag">phrasal verb</span>
+        <span class="qtext">Please _____ your shoes before you come in.</span>
+        <button class="hintbtn" data-q="1">💡 Підказка</button>
+        <div class="hintpanel" data-panel="1"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="A"> A) take off</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> B) take up</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> C) take after</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> D) take in</label>
+        </div>
+        <button class="solbtn" data-sol="sol1">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="2" data-correct="B" data-topic="ph-verb" data-sol="sol2">
+        <span class="topic-tag">phrasal verb</span>
+        <span class="qtext">I can't _____ this noise any longer.</span>
+        <button class="hintbtn" data-q="2">💡 Підказка</button>
+        <div class="hintpanel" data-panel="2"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="A"> A) put off</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> B) put up with</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> C) put down</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> D) put on</label>
+        </div>
+        <button class="solbtn" data-sol="sol2">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="3" data-correct="B" data-topic="ph-verb" data-sol="sol3">
+        <span class="topic-tag">phrasal verb</span>
+        <span class="qtext">The team needs to _____ a new idea for the project.</span>
+        <button class="hintbtn" data-q="3">💡 Підказка</button>
+        <div class="hintpanel" data-panel="3"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="A"> A) come across</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> B) come up with</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> C) come over</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> D) come down</label>
+        </div>
+        <button class="solbtn" data-sol="sol3">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="4" data-correct="B" data-topic="colloc" data-sol="sol4">
+        <span class="topic-tag weak-tag">колокація · make/do/take</span>
+        <span class="qtext">It is time to _____ a decision.</span>
+        <button class="hintbtn" data-q="4">💡 Підказка</button>
+        <div class="hintpanel" data-panel="4"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="A"> A) do</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> B) make</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> C) take</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> D) give</label>
+        </div>
+        <button class="solbtn" data-sol="sol4">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="5" data-correct="C" data-topic="colloc" data-sol="sol5">
+        <span class="topic-tag weak-tag">колокація · make/do/take</span>
+        <span class="qtext">Can you _____ a photo of us, please?</span>
+        <button class="hintbtn" data-q="5">💡 Підказка</button>
+        <div class="hintpanel" data-panel="5"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="A"> A) make</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> B) do</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> C) take</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> D) get</label>
+        </div>
+        <button class="solbtn" data-sol="sol5">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="6" data-correct="A" data-topic="false-friend" data-sol="sol6">
+        <span class="topic-tag weak-tag">false friend</span>
+        <span class="qtext">I am not angry at all. _____, I am glad it happened.</span>
+        <button class="hintbtn" data-q="6">💡 Підказка</button>
+        <div class="hintpanel" data-panel="6"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q6" value="A"> A) Actually</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> B) Currently</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> C) Lately</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> D) Nowadays</label>
+        </div>
+        <button class="solbtn" data-sol="sol6">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="7" data-correct="B" data-topic="false-friend" data-sol="sol7">
+        <span class="topic-tag weak-tag">false friend</span>
+        <span class="qtext">Keep the _____ so that you can return the jacket if it does not fit.</span>
+        <button class="hintbtn" data-q="7">💡 Підказка</button>
+        <div class="hintpanel" data-panel="7"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q7" value="A"> A) recipe</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> B) receipt</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> C) prescription</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> D) invoice</label>
+        </div>
+        <button class="solbtn" data-sol="sol7">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="mc" data-n="8" data-correct="B" data-topic="false-friend" data-sol="sol8">
+        <span class="topic-tag weak-tag">false friend</span>
+        <span class="qtext">Hurry up, or we will _____ the last bus home.</span>
+        <button class="hintbtn" data-q="8">💡 Підказка</button>
+        <div class="hintpanel" data-panel="8"></div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q8" value="A"> A) lose</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> B) miss</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> C) fail</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> D) drop</label>
+        </div>
+        <button class="solbtn" data-sol="sol8">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 2: MATCHING phrasal verb ↔ meaning ================ -->
+  <section class="task">
+    <h2>Частина 2. Встановлення відповідності: фразове дієслово ↔ значення</h2>
+    <p class="instr">Добери до кожного фразового дієслова (Q9–Q14) його значення (А–Ж). Одне значення — зайве.</p>
+    <div class="match-legend">
+      <b>А</b> — stop doing something<br>
+      <b>Б</b> — take care of someone<br>
+      <b>В</b> — discover a fact / information<br>
+      <b>Г</b> — reject or refuse<br>
+      <b>Д</b> — continue<br>
+      <b>Е</b> — have none left<br>
+      <b>Ж</b> — postpone to a later time
+    </div>
+    <ol class="qs">
+
+      <li data-type="match" data-n="9" data-correct="А" data-topic="ph-match" data-sol="sol9">
+        <span class="qtext">give up</span>
+        <button class="hintbtn" data-q="9">💡 Підказка</button>
+        <div class="hintpanel" data-panel="9"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q9">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol9">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="10" data-correct="Б" data-topic="ph-match" data-sol="sol10">
+        <span class="qtext">look after</span>
+        <button class="hintbtn" data-q="10">💡 Підказка</button>
+        <div class="hintpanel" data-panel="10"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q10">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol10">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="11" data-correct="В" data-topic="ph-match" data-sol="sol11">
+        <span class="qtext">find out</span>
+        <button class="hintbtn" data-q="11">💡 Підказка</button>
+        <div class="hintpanel" data-panel="11"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q11">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol11">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="12" data-correct="Г" data-topic="ph-match" data-sol="sol12">
+        <span class="qtext">turn down</span>
+        <button class="hintbtn" data-q="12">💡 Підказка</button>
+        <div class="hintpanel" data-panel="12"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q12">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol12">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="13" data-correct="Д" data-topic="ph-match" data-sol="sol13">
+        <span class="qtext">carry on</span>
+        <button class="hintbtn" data-q="13">💡 Підказка</button>
+        <div class="hintpanel" data-panel="13"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q13">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol13">📖 детальне рішення</button>
+      </li>
+
+      <li data-type="match" data-n="14" data-correct="Е" data-topic="ph-match" data-sol="sol14">
+        <span class="qtext">run out of</span>
+        <button class="hintbtn" data-q="14">💡 Підказка</button>
+        <div class="hintpanel" data-panel="14"></div>
+        <div class="matchrow">→
+          <select class="gap" aria-label="Q14">
+            <option value="">—</option>
+            <option value="А">А</option><option value="Б">Б</option><option value="В">В</option>
+            <option value="Г">Г</option><option value="Д">Д</option><option value="Е">Е</option><option value="Ж">Ж</option>
+          </select>
+        </div>
+        <button class="solbtn" data-sol="sol14">📖 детальне рішення</button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================ PART 3: CLOZE ================ -->
+  <section class="task">
+    <h2>Частина 3. Текст із пропусками (cloze)</h2>
+    <p class="instr">Прочитай текст і обери у кожному випадному списку слово, що підходить за змістом і граматикою. (Q15–Q21)
+      <button class="hintbtn" data-q="90">💡 Підказка до тексту</button>
+    </p>
+    <div class="hintpanel" data-panel="90"></div>
+    <div class="cloze-text">
+      Last weekend I decided to
+      <span class="gapno">(15)</span><select class="gap" data-type="cloze" data-n="15" data-correct="take" data-topic="ph-cloze" aria-label="Gap 15"><option value="">— ?</option><option value="take">take</option><option value="make">make</option><option value="do">do</option><option value="get">get</option></select>
+      up a new hobby — photography. At first I did not know how to
+      <span class="gapno">(16)</span><select class="gap" data-type="cloze" data-n="16" data-correct="take" data-topic="ph-cloze" aria-label="Gap 16"><option value="">— ?</option><option value="take">take</option><option value="make">make</option><option value="do">do</option><option value="catch">catch</option></select>
+      a good photo, so I looked
+      <span class="gapno">(17)</span><select class="gap" data-type="cloze" data-n="17" data-correct="for" data-topic="ph-cloze" aria-label="Gap 17"><option value="">— ?</option><option value="for">for</option><option value="after">after</option><option value="up">up</option><option value="into">into</option></select>
+      some tips online. I came
+      <span class="gapno">(18)</span><select class="gap" data-type="cloze" data-n="18" data-correct="across" data-topic="ph-cloze" aria-label="Gap 18"><option value="">— ?</option><option value="across">across</option><option value="after">after</option><option value="over">over</option><option value="off">off</option></select>
+      a wonderful website full of advice. I was so interested
+      <span class="gapno">(19)</span><select class="gap" data-type="cloze" data-n="19" data-correct="in" data-topic="ph-cloze" aria-label="Gap 19"><option value="">— ?</option><option value="in">in</option><option value="on">on</option><option value="at">at</option><option value="about">about</option></select>
+      it that I spent hours reading. By Sunday evening my camera had
+      <span class="gapno">(20)</span><select class="gap" data-type="cloze" data-n="20" data-correct="run" data-topic="ph-cloze" aria-label="Gap 20"><option value="">— ?</option><option value="run">run</option><option value="ran">ran</option><option value="running">running</option><option value="runs">runs</option></select>
+      out of battery, but I felt happy. Now I am really looking
+      <span class="gapno">(21)</span><select class="gap" data-type="cloze" data-n="21" data-correct="forward" data-topic="ph-cloze" aria-label="Gap 21"><option value="">— ?</option><option value="forward">forward</option><option value="after">after</option><option value="for">for</option><option value="up">up</option></select>
+      to my next photo walk.
+    </div>
+    <button class="solbtn" data-sol="solCloze" style="margin-top:14px">📖 детальний розбір усіх пропусків</button>
+  </section>
+
+  <div class="controls">
+    <button class="primary" id="submitBtn">Завершити тест і отримати оцінку</button>
+    <button class="ghost" id="resetBtn">Скинути відповіді</button>
+  </div>
+
+  <section id="result"></section>
+
+  <footer>Тренувальний тест: лексика (phrasal verbs · колокації · false friends) · формат НМТ-2026. <span id="ta-bye">Удачі!</span></footer>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose">×</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============== TESTSANNA TRACKING (Phase 1) ============== */
+const TA = {
+  endpoint: "https://script.google.com/macros/s/AKfycbxZbs0GYxb0_XG0PxhNEizm0K6ryaR3HyqhdJOtKnCw0xrEgrPHY12RLfDZA_VKiSj9/exec",
+  testId: "english-day10-vocabmix"
+};
+function taContact(){ try { return JSON.parse(localStorage.getItem("testsAnna.contact")||"{}"); } catch(e){ return {}; } }
+function taFullName(){ return (taContact().name||"").trim(); }
+function taFirstName(){ var n=taFullName(); return n ? n.split(/\s+/)[0] : ""; }
+function taVocative(n){
+  if(!n) return "";
+  if(/і[яї]$/i.test(n)) return n.slice(0,-2)+"іє";
+  if(/я$/i.test(n))     return n;
+  if(/а$/i.test(n))     return n.slice(0,-1)+"о";
+  if(/й$/i.test(n))     return n.slice(0,-1)+"ю";
+  return n;
+}
+function taVoc(){ return taVocative(taFirstName()); }
+function taHey(rest){ var v=taVoc(); return v ? (v+", "+rest) : (rest.charAt(0).toUpperCase()+rest.slice(1)); }
+document.addEventListener("DOMContentLoaded", function(){
+  var v=taVoc(), h=document.getElementById('ta-hello'), b=document.getElementById('ta-bye');
+  if(h) h.textContent = v ? ('Привіт, '+v+'! 👋') : 'Привіт! 👋';
+  if(b) b.textContent = v ? ('Удачі, '+v+'!') : 'Удачі!';
+});
+function taSend(action, payload){
+  if(!TA.endpoint) return;
+  try {
+    fetch(TA.endpoint, {
+      method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, ts:new Date().toISOString(), test_id:TA.testId, ...payload})
+    });
+  } catch(e){}
+}
+function taTrackResult(metrics){ taSend("result", {...taContact(), ...metrics}); }
+function taRenderSurvey(parentEl){
+  if(!parentEl || document.getElementById('ta-survey')) return;
+  const opts = ["Тести з української мови","Тести з історії України","Тести з біології / хімії / фізики","Більше тестів з англійської","Більше тестів з математики","Відеорозбори завдань","Структурований курс (теорія + тести)","Telegram-канал зі щоденною задачею"];
+  parentEl.insertAdjacentHTML('beforeend',
+    `<div id="ta-survey" style="margin-top:28px;padding:20px 24px;background:#fbf8ee;border:1px solid #c9a55f;border-left:4px solid #c9a55f;border-radius:8px">
+      <h3 style="margin:0 0 6px;color:#0a4d8c;font-family:'Trebuchet MS',sans-serif;font-size:22px">Допоможи зробити наступний тест краще</h3>
+      <p style="margin:0 0 12px;font-size:17px;color:#555">Що б ти хотів(-ла), щоб з'явилось наступним? (можна обрати кілька)</p>
+      ${opts.map(o=>`<label style="display:block;margin:6px 0;font-size:17px;cursor:pointer"><input type="checkbox" name="ta-survey" value="${o.replace(/"/g,'&quot;')}" style="margin-right:8px;transform:scale(1.2)">${o}</label>`).join('')}
+      <button id="ta-survey-submit" style="margin-top:14px;background:#0a4d8c;color:#fff;border:0;padding:11px 24px;border-radius:6px;font-family:inherit;font-size:16px;cursor:pointer">Надіслати</button>
+      <div id="ta-survey-thanks" style="display:none;margin-top:12px;padding:10px 14px;background:#e3f3e6;border-radius:6px;color:#0e5723;font-weight:bold">Дякую! Це допоможе зробити наступні тести краще 👍</div>
+    </div>`);
+  document.getElementById('ta-survey-submit').onclick = () => {
+    const checked = Array.from(document.querySelectorAll('input[name=ta-survey]:checked')).map(i=>i.value);
+    if(!checked.length){ alert("Обери принаймні один варіант"); return; }
+    const c = taContact();
+    taSend("survey", {name:c.name||'', telegram:c.telegram||'', wants: checked.join('; ')});
+    const btn = document.getElementById('ta-survey-submit');
+    btn.disabled = true; btn.style.background = '#a8a8a8';
+    document.getElementById('ta-survey-thanks').style.display = 'block';
+  };
+}
+
+/* ============== PER-QUESTION HINTS (cascade) ============== */
+let __hintsUsedCount = 0;
+const qHints = {
+  1:{ h1:"Що означає це дієслово в контексті: «зняти взуття перед входом»? Усі варіанти — take + прийменник.",
+      h2:"<b>take off</b> = знімати (одяг/взуття), а також «злітати» (літак). <i>take up</i> = почати хобі; <i>take after</i> = бути схожим на родича; <i>take in</i> = зрозуміти/прихистити.",
+      h3:"«___ your shoes» — знімати взуття → take off.",
+      ans:"A) take off. Please <b>take off</b> your shoes…" },
+  2:{ h1:"Шукай дієслово зі значенням «терпіти, миритися з чимось неприємним».",
+      h2:"<b>put up with</b> = терпіти, миритися. <i>put off</i> = відкладати; <i>put down</i> = покласти/принизити; <i>put on</i> = вдягати.",
+      h3:"«can't ___ this noise any longer» — не можу більше терпіти цей шум → put up with.",
+      ans:"B) put up with. I can't <b>put up with</b> this noise…" },
+  3:{ h1:"Що означає «придумати, вигадати нову ідею»? Усі варіанти — come + прийменник.",
+      h2:"<b>come up with</b> = придумати (ідею, план). <i>come across</i> = випадково натрапити; <i>come over</i> = зайти в гості; <i>come down</i> = спускатися/падати.",
+      h3:"«___ a new idea» — придумати ідею → come up with.",
+      ans:"B) come up with. The team needs to <b>come up with</b> a new idea…" },
+  4:{ h1:"Англійською рішення не «роблять» через do. Яке дієслово стоїть у парі з «decision»?",
+      h2:"Стійка колокація — <b>make a decision</b> (приймати рішення). <i>do</i>/<i>take</i>/<i>give</i> тут не вживають.",
+      h3:"«___ a decision» → make a decision.",
+      ans:"B) make. It is time to <b>make</b> a decision." },
+  5:{ h1:"Фото англійською не «роблять» через make чи do. Яке дієслово в парі з «photo»?",
+      h2:"Стійка колокація — <b>take a photo</b> (зробити фото). <i>make</i>/<i>do</i> тут хибні; <i>get</i> не передає «фотографувати».",
+      h3:"«___ a photo of us» → take a photo.",
+      ans:"C) take. Can you <b>take</b> a photo of us…" },
+  6:{ h1:"Увага: «actually» НЕ означає «актуально». Що означає речення: «Я зовсім не сердитий. ___ я радий»?",
+      h2:"<b>actually</b> = насправді, навпаки (а не «актуально»!). <i>currently/nowadays</i> = зараз/у наш час; <i>lately</i> = останнім часом.",
+      h3:"Потрібно «насправді/навпаки» → Actually (це false friend).",
+      ans:"A) Actually (actually = насправді, не «актуально»)." },
+  7:{ h1:"Увага: «recipe» — це рецепт страви, а не чек із магазину. Що дають у магазині для повернення товару?",
+      h2:"<b>receipt</b> = чек (документ про купівлю). <i>recipe</i> = рецепт страви; <i>prescription</i> = рецепт від лікаря; <i>invoice</i> = рахунок-фактура.",
+      h3:"«Keep the ___ … to return the jacket» — потрібен чек → receipt.",
+      ans:"B) receipt (receipt = чек; recipe = рецепт страви)." },
+  8:{ h1:"Увага: «втратити автобус» англійською НЕ через lose. Яке дієслово вживають із транспортом?",
+      h2:"<b>miss the bus/train</b> = не встигнути на автобус. <i>lose</i> = загубити (річ); <i>fail</i> = провалити; <i>drop</i> = впустити.",
+      h3:"«___ the last bus» — не встигнути на автобус → miss.",
+      ans:"B) miss (miss the bus; «втратити» ≠ lose тут)." },
+  9:{ h1:"«give up» — це коли ти перестаєш щось робити (кинути куріння, здатися). Знайди значення про «припинити».",
+      h2:"Шукай у легенді «stop doing something».",
+      h3:"give up = стоп робити щось → варіант А.",
+      ans:"А — stop doing something." },
+  10:{ h1:"«look after» — про турботу про когось (дитину, хворого).",
+       h2:"Шукай «take care of someone».",
+       h3:"look after = доглядати за кимось → варіант Б.",
+       ans:"Б — take care of someone." },
+  11:{ h1:"«find out» — про здобуття інформації, дізнатися факт.",
+       h2:"Шукай «discover a fact / information».",
+       h3:"find out = дізнатися (факт) → варіант В.",
+       ans:"В — discover a fact / information." },
+  12:{ h1:"«turn down» — про відмову (відхилити пропозицію, прохання).",
+       h2:"Шукай «reject or refuse».",
+       h3:"turn down = відхилити/відмовити → варіант Г.",
+       ans:"Г — reject or refuse." },
+  13:{ h1:"«carry on» — про продовження дії (продовжуй!).",
+       h2:"Шукай «continue».",
+       h3:"carry on = продовжувати → варіант Д.",
+       ans:"Д — continue." },
+  14:{ h1:"«run out of» — коли щось закінчилося (немає більше пального, часу).",
+       h2:"Шукай «have none left».",
+       h3:"run out of = вичерпати запас → варіант Е. (Зайве значення — Ж «postpone», бо це put off.)",
+       ans:"Е — have none left." },
+  90:{ h1:"Стратегія cloze: читай <b>усе речення цілком</b>. Тут перевіряють фразові дієслова (take up, look for, come across, look forward to), колокації (take a photo) і граматику (форма дієслова після had).",
+       h2:"Опори: <b>take up</b> a hobby = почати хобі; <b>take</b> a photo (не make/do); <b>look for</b> = шукати; <b>come across</b> = випадково натрапити; <b>interested in</b>; <b>look forward to</b> = з нетерпінням чекати.",
+       h3:"Пастка з граматикою: «my camera <u>had</u> ___ out of battery» — після had потрібен третій форм (past participle), а у run це <b>run</b> (run–ran–run), не «ran».",
+       ans:"Перевір кожен пропуск за опорами. Повний розбір усіх 7 пропусків — у кнопці «📖 детальний розбір» після здачі." }
+};
+
+/* ============== SOLUTIONS ============== */
+const sols = {
+  "sol1":{title:"Q1 → take off",body:`<p><b>take off</b> = знімати (одяг, взуття); також «злітати». Інші: <i>take up</i> = почати (хобі), <i>take after</i> = бути схожим на родича, <i>take in</i> = зрозуміти/прихистити.</p><p>Please <b>take off</b> your shoes before you come in.</p><p><b>Відповідь: A) take off.</b></p>`},
+  "sol2":{title:"Q2 → put up with",body:`<p><b>put up with</b> = терпіти, миритися з чимось неприємним. Інші: <i>put off</i> = відкладати, <i>put down</i> = покласти/принизити, <i>put on</i> = вдягати.</p><p>I can't <b>put up with</b> this noise any longer.</p><p><b>Відповідь: B) put up with.</b></p>`},
+  "sol3":{title:"Q3 → come up with",body:`<p><b>come up with</b> = придумати, вигадати (ідею, план). Інші: <i>come across</i> = випадково натрапити, <i>come over</i> = зайти в гості, <i>come down</i> = спускатися/падати.</p><p>The team needs to <b>come up with</b> a new idea for the project.</p><p><b>Відповідь: B) come up with.</b></p>`},
+  "sol4":{title:"Q4 → make",body:`<p>Стійка колокація — <b>make a decision</b> (приймати рішення). Англійською decision не «роблять» через do, не «беруть» через take.</p><p>It is time to <b>make</b> a decision.</p><p><b>Відповідь: B) make.</b></p>`},
+  "sol5":{title:"Q5 → take",body:`<p>Стійка колокація — <b>take a photo / take a picture</b> (зробити фото). Не make a photo і не do a photo.</p><p>Can you <b>take</b> a photo of us, please?</p><p><b>Відповідь: C) take.</b></p>`},
+  "sol6":{title:"Q6 → Actually",body:`<p><b>«Фальшивий друг»:</b> <b>actually</b> = насправді, навпаки — <u>не</u> «актуально». За змістом: «Я зовсім не сердитий. Навпаки, я радий». Інші: <i>currently/nowadays</i> = зараз/у наш час, <i>lately</i> = останнім часом.</p><p><b>Actually</b>, I am glad it happened.</p><p><b>Відповідь: A) Actually.</b></p>`},
+  "sol7":{title:"Q7 → receipt",body:`<p><b>«Фальшивий друг»:</b> <b>receipt</b> = чек (документ про купівлю), а <i>recipe</i> = рецепт страви. Щоб повернути товар, потрібен чек. <i>prescription</i> = рецепт від лікаря, <i>invoice</i> = рахунок-фактура.</p><p>Keep the <b>receipt</b> so that you can return the jacket.</p><p><b>Відповідь: B) receipt.</b></p>`},
+  "sol8":{title:"Q8 → miss",body:`<p><b>«Фальшивий друг»:</b> «не встигнути на автобус» — це <b>miss the bus</b>, а не «lose». <i>lose</i> = загубити (річ); <i>fail</i> = провалити; <i>drop</i> = впустити.</p><p>Hurry up, or we will <b>miss</b> the last bus home.</p><p><b>Відповідь: B) miss.</b></p>`},
+  "sol9":{title:"Q9 → А",body:`<p><b>give up</b> = здатися, кинути (припинити щось робити) → <b>stop doing something</b>.</p><p><b>Відповідь: А.</b></p>`},
+  "sol10":{title:"Q10 → Б",body:`<p><b>look after</b> = доглядати, піклуватися про когось → <b>take care of someone</b>.</p><p><b>Відповідь: Б.</b></p>`},
+  "sol11":{title:"Q11 → В",body:`<p><b>find out</b> = дізнатися, з'ясувати → <b>discover a fact / information</b>.</p><p><b>Відповідь: В.</b></p>`},
+  "sol12":{title:"Q12 → Г",body:`<p><b>turn down</b> = відхилити, відмовити → <b>reject or refuse</b>.</p><p><b>Відповідь: Г.</b></p>`},
+  "sol13":{title:"Q13 → Д",body:`<p><b>carry on</b> = продовжувати → <b>continue</b>.</p><p><b>Відповідь: Д.</b></p>`},
+  "sol14":{title:"Q14 → Е",body:`<p><b>run out of</b> = вичерпати запас, лишитися без чогось → <b>have none left</b>. Зайве значення — Ж «postpone to a later time» (це <i>put off</i>).</p><p><b>Відповідь: Е.</b></p>`},
+  "solCloze":{title:"Текст із пропусками — повний розбір (Q15–Q21)",body:`
+    <div class="gaprow"><b>(15) take</b> — «decided to ___ up a new hobby»: <b>take up</b> a hobby = почати хобі (не make/do/get).</div>
+    <div class="gaprow"><b>(16) take</b> — «how to ___ a good photo»: колокація <b>take a photo</b> (не make/do/catch).</div>
+    <div class="gaprow"><b>(17) for</b> — «I looked ___ some tips»: <b>look for</b> = шукати (look after = доглядати, look up = шукати у словнику).</div>
+    <div class="gaprow"><b>(18) across</b> — «I came ___ a website»: <b>come across</b> = випадково натрапити (come over/off/after тут не пасують).</div>
+    <div class="gaprow"><b>(19) in</b> — «interested ___ it»: стійка пара <b>interested in</b> (не on/at/about).</div>
+    <div class="gaprow"><b>(20) run</b> — «my camera <u>had</u> ___ out of battery»: після <i>had</i> потрібен past participle; run–ran–<b>run</b>, тож «run» (не ran/running/runs).</div>
+    <div class="gaprow"><b>(21) forward</b> — «I am looking ___ to my next walk»: <b>look forward to</b> = з нетерпінням чекати (after/for/up тут хибні).</div>
+  `}
+};
+
+/* ============== Modal ============== */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+document.getElementById('modalClose').onclick = () => modalBack.classList.remove('on');
+modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('on'); });
+function openModal(t,b){ modalTitle.textContent=t; modalBody.innerHTML=b; modalBack.classList.add('on'); }
+document.querySelectorAll('.solbtn').forEach(b=>b.addEventListener('click',()=>{const s=sols[b.dataset.sol]; if(s) openModal(s.title,s.body);}));
+
+/* ============== CASCADE HINT HANDLER ============== */
+function renderHintStep(panel, qNum, stepIdx){
+  const h = qHints[qNum];
+  if(!h){ panel.innerHTML = '<div class="hstep">Підказки для цього завдання поки нема.</div>'; return; }
+  const steps = [
+    {label:'Крок 1 · Напрямок', body:h.h1, nextLabel:'Не зрозуміло. Дай наступну підказку →'},
+    {label:'Крок 2 · Правило',  body:h.h2, nextLabel:'Все одно складно. Майже-відповідь →'},
+    {label:'Крок 3 · Майже-відповідь', body:h.h3, nextLabel:'Показати відповідь →', finalish:true},
+    {label:'Відповідь',         body:h.ans, isAns:true}
+  ];
+  let html = '';
+  for(let i=0; i<=stepIdx; i++){
+    const s = steps[i];
+    html += `<div class="hstep${s.isAns?' ans':''}"><b class="lvl">${s.label}</b>${s.body}</div>`;
+  }
+  if(stepIdx < steps.length - 1){
+    const nextStep = steps[stepIdx];
+    html += `<button class="hnext${nextStep.finalish?' final':''}" data-qn="${qNum}" data-next="${stepIdx+1}">${nextStep.nextLabel}</button>`;
+  }
+  panel.innerHTML = html;
+}
+document.querySelectorAll('.hintbtn').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const qNum = parseInt(btn.dataset.q, 10);
+    const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+    if(!panel) return;
+    if(panel.classList.contains('on')){
+      panel.classList.remove('on');
+      btn.classList.remove('open');
+    } else {
+      panel.classList.add('on');
+      btn.classList.add('open');
+      renderHintStep(panel, qNum, 0);
+      __hintsUsedCount++;
+    }
+  });
+});
+document.addEventListener('click', (ev) => {
+  const next = ev.target.closest('.hnext');
+  if(!next) return;
+  const qNum = parseInt(next.dataset.qn, 10);
+  const stepIdx = parseInt(next.dataset.next, 10);
+  const panel = document.querySelector(`.hintpanel[data-panel="${qNum}"]`);
+  if(!panel) return;
+  renderHintStep(panel, qNum, stepIdx);
+  __hintsUsedCount++;
+});
+
+/* ============== Progress ============== */
+const TOTAL = 21;
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+function unitGiven(unit){
+  const type = unit.dataset.type;
+  if(type==='mc'){ const c=unit.querySelector('input[type=radio]:checked'); return c?c.value:''; }
+  if(type==='short'){ const t=unit.querySelector('input[type=text]'); return t?t.value.trim():''; }
+  const sel = unit.matches('select') ? unit : unit.querySelector('select');
+  return sel ? sel.value : '';
+}
+function countAnswered(){
+  let c=0;
+  document.querySelectorAll('[data-correct]').forEach(u=>{ if(unitGiven(u)!=='') c++; });
+  return c;
+}
+function updateProgress(){
+  const c = countAnswered();
+  progressLabel.textContent = `Виконано: ${c} / ${TOTAL}`;
+  progressBar.style.width = Math.min(100, c/TOTAL*100)+'%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+/* ============== Countdown timer (як на НМТ) ============== */
+const LIMIT_SEC = 40*60;
+const timerEl = document.getElementById('timer');
+let t0 = Date.now();
+let timerInt = null;
+let submitted = false;
+function fmt(s){ const m=String(Math.floor(s/60)).padStart(2,'0'); const ss=String(s%60).padStart(2,'0'); return m+':'+ss; }
+function tick(){
+  const elapsed = Math.floor((Date.now()-t0)/1000);
+  let rem = LIMIT_SEC - elapsed;
+  if(rem <= 0){
+    timerEl.textContent = '⏱ 00:00';
+    timerEl.className = 'danger';
+    clearInterval(timerInt);
+    if(!submitted && !window.__nmtExamActive) doSubmit(true);
+    return;
+  }
+  timerEl.textContent = '⏱ ' + fmt(rem);
+  timerEl.className = rem<=60 ? 'danger' : (rem<=300 ? 'warn' : '');
+}
+function startTimer(){ clearInterval(timerInt); tick(); timerInt = setInterval(tick, 1000); }
+
+/* ============== Reset / Fresh ============== */
+function freshState(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>{ r.checked=false; r.disabled=false; });
+  document.querySelectorAll('select.gap').forEach(s=>{ s.value=''; s.disabled=false; s.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.fix').forEach(f=>f.remove());
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.solbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.hintpanel').forEach(p=>{ p.classList.remove('on'); p.innerHTML=''; });
+  document.querySelectorAll('.hintbtn').forEach(b=>b.classList.remove('open'));
+  const res = document.getElementById('result');
+  res.classList.remove('on'); res.innerHTML='';
+  __hintsUsedCount = 0; submitted = false;
+  const tu = document.getElementById('timeup'); if(tu) tu.style.display='none';
+  const sb = document.getElementById('submitBtn'); sb.disabled=false; sb.textContent='Завершити тест і отримати оцінку';
+  t0 = Date.now();
+  startTimer();
+  updateProgress();
+}
+window.addEventListener('pageshow', e=>{ if(e.persisted) freshState(); });
+document.getElementById('resetBtn').onclick = () => {
+  if(!confirm('Скинути всі відповіді?')) return;
+  freshState();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ============== Submit / Score ============== */
+function doSubmit(auto){
+  if(submitted) return;
+  submitted = true;
+  clearInterval(timerInt);
+  if(auto){ const tu=document.getElementById('timeup'); if(tu) tu.style.display='block'; }
+
+  const details = [];
+  const byTopic = {};
+  function record(n, topic, correct, given, ok){
+    details.push({n, topic, correct, given:given||'(порожньо)', ok});
+    if(!byTopic[topic]) byTopic[topic] = {ok:0,total:0};
+    byTopic[topic].total++;
+    if(ok) byTopic[topic].ok++;
+  }
+
+  document.querySelectorAll('[data-correct]').forEach(unit=>{
+    const type = unit.dataset.type;
+    const n = parseInt(unit.dataset.n,10);
+    const correct = unit.dataset.correct;
+    const topic = unit.dataset.topic;
+    let given='', ok=false;
+
+    if(type==='mc'){
+      const chk = unit.querySelector('input[type=radio]:checked');
+      given = chk ? chk.value : '';
+      ok = given === correct;
+      unit.querySelectorAll('.opt').forEach(opt=>{
+        const v = opt.querySelector('input').value;
+        opt.classList.remove('correct','wrong');
+        if(v === correct) opt.classList.add('correct');
+        if(v === given && !ok) opt.classList.add('wrong');
+      });
+      unit.querySelector('.solbtn')?.classList.add('on');
+    } else { // match | cloze (select-based)
+      const sel = unit.matches('select') ? unit : unit.querySelector('select');
+      given = sel ? sel.value : '';
+      ok = given === correct;
+      if(sel){
+        sel.classList.remove('correct','wrong');
+        sel.classList.add(ok ? 'correct' : 'wrong');
+        sel.disabled = true;
+        if(!ok){
+          const span = document.createElement('span');
+          span.className = 'fix';
+          span.innerHTML = '✓ ' + escapeHTML(correct);
+          sel.insertAdjacentElement('afterend', span);
+        }
+      }
+      unit.querySelector?.('.solbtn')?.classList.add('on');
+    }
+    record(n, topic, correct, given, ok);
+  });
+  // cloze має один спільний розбір
+  document.querySelector('.solbtn[data-sol="solCloze"]')?.classList.add('on');
+  // блокуємо подальше редагування
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);
+
+  details.sort((a,b)=>a.n-b.n);
+  const total = details.length;
+  const correctCount = details.filter(d=>d.ok).length;
+  const pct = Math.round(correctCount/total*100);
+  const nmt = 100 + Math.round(Math.pow(pct/100, 0.85) * 100);
+
+  // Verdict — гендерно-нейтрально
+  let level, verdictColor, verdictText;
+  if(pct >= 90){ level='C1'; verdictColor='ok'; verdictText=taHey('лексика — твоя сильна сторона! Ти впевнено добираєш фразові дієслова, правильні колокації (make/do/take) і не потрапляєш у пастки «фальшивих друзів». Чудово.'); }
+  else if(pct >= 75){ level='B2+'; verdictColor='ok'; verdictText='Сильне відчуття лексики. На НМТ і matching, і cloze робитимеш упевнено. Повтори лише блок, де були помилки.'; }
+  else if(pct >= 60){ level='B2'; verdictColor='ok'; verdictText='Непогана база. Найшвидший приріст — вивчити списком фразові дієслова з one+прийменник і «фальшивих друзів» (actually, receipt, miss). Дивись розбори нижче.'; }
+  else if(pct >= 45){ level='B1+ → B2'; verdictColor='warn'; verdictText='Середній рівень. Головні точки зростання — колокації make/do/take і значення фразових дієслів (put up with, come up with, run out of).'; }
+  else if(pct >= 30){ level='B1'; verdictColor='warn'; verdictText='Базовий рівень. Запам\'ятай опори: make a decision, take a photo; take off / put up with / come up with. По кілька дієслів на день.'; }
+  else { level='A2 → B1'; verdictColor='bad'; verdictText='Поки рано. Почни з трьох пар колокацій (make/do/take) і п\'яти найчастіших фразових дієслів. Потім повертайся до matching і cloze.'; }
+
+  // Block stats
+  const blocks = {
+    'Фразові дієслова': ['ph-verb','ph-match'],
+    'Колокації (make/do/take)': ['colloc'],
+    'Фальшиві друзі': ['false-friend'],
+    'Текст із пропусками (cloze)': ['ph-cloze']
+  };
+  const blockStats = {};
+  Object.entries(blocks).forEach(([name, topics])=>{
+    let ok=0,tot=0;
+    topics.forEach(t=>{ if(byTopic[t]){ ok+=byTopic[t].ok; tot+=byTopic[t].total; } });
+    if(tot>0) blockStats[name] = {ok,tot,pct: Math.round(ok/tot*100)};
+  });
+
+  const wrongs = details.filter(d=>!d.ok);
+  const wrongList = wrongs.length
+    ? wrongs.map(d=>`<div class="qrow bad">Q${d.n} (${d.topic}) — твоя відповідь: <i>${escapeHTML(d.given)}</i> · правильна: <b>${escapeHTML(d.correct)}</b></div>`).join('')
+    : '<div class="qrow">🎉 Помилок немає!</div>';
+
+  const dt = Math.min(Math.floor((Date.now()-t0)/1000), LIMIT_SEC);
+  const mm = String(Math.floor(dt/60)).padStart(2,'0');
+  const ss = String(dt%60).padStart(2,'0');
+
+  const today = new Date().toISOString().slice(0,10);
+  window.__lastReport =
+`═══ НМТ Англійська · Day 10 (лексика mixed) ═══
+Ім'я: ${taFullName()||'—'} · Дата: ${today}
+Рахунок: ${correctCount}/${total} (${pct}%)
+Рівень (приблизно): ${level}
+Шкала НМТ: ${nmt}/200
+Час: ${mm}:${ss}${auto?' (час вийшов — авто-здача)':''}
+Підказок використано: ${__hintsUsedCount}
+
+— Блоки —
+${Object.entries(blockStats).map(([k,s])=>`${k}: ${s.ok}/${s.tot} (${s.pct}%)`).join('\n')}
+
+— Помилки —
+${wrongs.length ? wrongs.map(d=>`Q${d.n} — відповідь: ${d.given} · правильно: ${d.correct} · тема: ${d.topic}`).join('\n') : '(помилок немає)'}
+`;
+
+  const html = `
+    <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap">
+      <div class="score-big">${correctCount}/${total}</div>
+      <div style="font-size:22px;color:var(--muted)">= ${pct}% · час: ${mm}:${ss}${auto?' ⏰':''}</div>
+    </div>
+    <div class="scale">
+      <div class="card ${verdictColor}"><h4>Рівень (приблизно)</h4><div class="v">${level}</div></div>
+      <div class="card"><h4>Шкала НМТ</h4><div class="v">${nmt}/200</div></div>
+      <div class="card"><h4>Час (з 40:00)</h4><div class="v">${mm}:${ss}</div></div>
+      <div class="card ${verdictColor}"><h4>Прогноз НМТ</h4><div class="v" style="font-size:18px">${pct>=70?'добре':pct>=50?'середньо':'слабко'}</div></div>
+    </div>
+    <div class="verdict">${verdictText}</div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Результати за блоками</h3>
+    <div class="scale">
+      ${Object.entries(blockStats).map(([k,s])=>{
+        const cl = s.pct>=80?'ok':s.pct>=50?'warn':'bad';
+        return `<div class="card ${cl}"><h4>${k}</h4><div class="v">${s.ok}/${s.tot} · ${s.pct}%</div></div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Помилки</h3>
+    <p>Натисни «📖 детальне рішення» біля кожного завдання вище (а для тексту — «📖 детальний розбір усіх пропусків»).</p>
+    ${wrongList}
+
+    <h3 style="margin-top:24px;color:var(--accent);font-family:'Trebuchet MS',sans-serif">Як працювати далі</h3>
+    <ul>
+      <li><b>Сьогодні:</b> розбери всі рішення. Випиши списком фразові дієслова (take off, put up with, come up with, look after, find out, run out of), колокації (make a decision, take a photo) і «фальшивих друзів» (actually, receipt, miss).</li>
+      <li><b>Цього тижня:</b> склади власні речення з кожним фразовим дієсловом і кожним false friend, щоб закріпити значення.</li>
+      <li><b>Через 5–7 днів:</b> пройди ще раз, уклавшись у <b>40 хвилин</b>. Ціль — 18/21 (85%+).</li>
+      <li><b>Поділися результатом</b> з учителем — натисни «📋 Скопіювати результат» нижче.</li>
+    </ul>
+
+    <div class="controls" style="margin-top:24px">
+      <button class="ghost" id="copyReportBtn">📋 Скопіювати результат</button>
+      <button class="ghost" onclick="window.print()">Зберегти PDF</button>
+      <button class="ghost" onclick="document.getElementById('resetBtn').click()">Пройти ще раз</button>
+    </div>
+    <textarea id="reportFallback" readonly style="display:none;width:100%;margin-top:14px;min-height:240px;font-family:Consolas,monospace;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:6px"></textarea>
+  `;
+  const res = document.getElementById('result');
+  res.innerHTML = html;
+  res.classList.add('on');
+  res.scrollIntoView({behavior:'smooth'});
+
+  const sb = document.getElementById('submitBtn'); sb.disabled=true; sb.textContent='Тест завершено';
+
+  // === TRACKING ===
+  taTrackResult({
+    score: correctCount, total, percent: pct, time_sec: dt,
+    hints_used: __hintsUsedCount,
+    wrongs_by_topic: byTopic,
+    wrong_qs: wrongs.map(w=>w.n).join(','),
+    level, auto_submitted: !!auto
+  });
+  taRenderSurvey(res);
+
+  const copyBtn = document.getElementById('copyReportBtn');
+  const fallback = document.getElementById('reportFallback');
+  copyBtn.addEventListener('click', async () => {
+    const text = window.__lastReport || '';
+    const original = copyBtn.textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Скопійовано';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 2500);
+    }catch(e){
+      fallback.style.display='block';
+      fallback.value=text;
+      fallback.focus(); fallback.select();
+      copyBtn.textContent='⚠ Виділено — Ctrl+C';
+      setTimeout(()=>{ copyBtn.textContent = original; }, 3500);
+    }
+  });
+}
+document.getElementById('submitBtn').onclick = () => doSubmit(false);
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* init */
+freshState();
+</script>
+
+<!-- Опційний «Режим іспиту (НМТ)» — презентаційний шар поверх цього ж тесту -->
+<script>
+window.NMT_EXAM_CONFIG = {
+  subject: "Англійська мова",
+  screenSelector: "section.task",
+  timerMinutes: 40,
+  submitSelector: "#submitBtn",
+  resultSelector: "#result"
+};
+</script>
+<script src="assets/nmt-mode.js" defer></script>
+</body>
+</html>
